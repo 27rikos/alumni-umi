@@ -1,0 +1,57 @@
+section {
+    width: 100%;
+}
+body {
+    font-family: "Work Sans", sans-serif;
+}
+.name {
+    color: #0c356a !important;
+}
+.navbar-brand {
+    font-size: 1.5rem;
+}
+.nav-link {
+    font-weight: bold;
+}
+.nav-link:hover {
+    color: #0c356a !important;
+    transition: all 0.3s ease;
+}
+#cari {
+    background-color: #0c356a !important;
+}
+.cari {
+    margin-top: 15px;
+    width: 500px;
+}
+@media screen and (max-width: 500px) {
+    .cari {
+        margin-top: 15px;
+        width: 300px;
+    }
+}
+.logo {
+    width: 50px;
+    padding: 5px;
+}
+
+.fst-italic {
+    width: 300px;
+    margin: auto;
+    margin-bottom: 15px;
+}
+footer {
+    width: 100%;
+    bottom: 0;
+    background-color: #0c356a;
+    background-size: 100% 100%;
+    text-align: justify;
+}
+.i {
+    color: black;
+    list-style-type: none;
+}
+
+.icons {
+    list-style-type: none;
+}
