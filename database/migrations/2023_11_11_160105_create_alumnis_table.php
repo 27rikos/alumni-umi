@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('alumni', function (Blueprint $table) {
+        Schema::create('alumnis', function (Blueprint $table) {
             $table->id();
             $table->string('npm')->unique()->nullable();
             $table->string('nama')->nullable();
@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('thn_lulus')->nullable();
             $table->date('sempro');
             $table->date('semhas');
+            $table->string('pekerjaan')->nullable();
             $table->date('mejahijau');
             $table->date('yudisium');
             $table->string('judul');

@@ -4,11 +4,11 @@ html {
 body {
     font-family: "Work Sans", sans-serif;
 }
+
 .navbar-brand {
     font-size: 1.5rem;
 }
-
-hero .heading-sm {
+*/ hero .heading-sm {
     font: 25px;
     font-weight: 600;
     color: #272829;

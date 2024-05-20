@@ -1,93 +1,175 @@
 @extends('Partials.Person')
-@section('title','data pribadi')
+@section('title', 'data pribadi')
 @section('content')
+
     <div class="card shadow">
-      @forelse ($data as $item)
-      <div class="row p-3">
-        <div class="col-md-2 text-center"><img src="{{ asset('storage/alumni_foto/'.$item->file) }}" class="rounded p-3" style="width:150px;height:150px" srcset=""></div>
-        <div class="col-md-5">
-            <div class="data">
-                <h4>Profil Alumni</h4>
-                <table class="table table-borderless">
-                    <tr>
-                        <th>NPM</th>
-                        <td>:</td>
-                        <td>{{ $item->npm }}</td>
-                    </tr>
-                    <tr>
-                        <th>Nama</th>
-                          <td>:</td>
-                        <td>{{ $item->nama }}</td>
-                    </tr>
-                    <tr>
-                        <th>Stambuk</th>
-                          <td>:</td>
-                        <td>{{ $item->stambuk }}</td>
-                    </tr>
-                    <tr>
-                        <th>Peminatan</th>
-                          <td>:</td>
-                        <td>{{ $item->minat->peminatan }}</td>
-                    </tr>
-                    <tr>
-                        <th>Program Studi</th>
-                          <td>:</td>
-                        <td>{{ $item->prodis->prodi }}</td>
-                    </tr>
-                    <tr>
-                        <th>Tahun Lulus</th>
-                          <td>:</td>
-                        <td>{{ $item->thn_lulus }}</td>
-                    </tr>
-                    <tr>
-                        <th>Tangal Seminar Proposal</th>
-                          <td>:</td>
-                        <td>{{ $item->sempro }}</td>
-                    </tr>
-                    <tr>
-                        <th>Tanggal Seminar Akhir</th>
-                          <td>:</td>
-                        <td>{{ $item->semhas }}</td>
-                    </tr>
-                    <tr>
-                        <th>Tanggal Meja Hijau</th>
-                          <td>:</td>
-                        <td>{{ $item->mejahijau }}</td>
-                    </tr>
-                    <tr>
-                        <th>Tanggal Yudisium</th>
-                          <td>:</td>
-                        <td>{{ $item->yudisium }}</td>
-                    </tr> 
-                    <tr>
-                      <th>Judul Skripsi</th>
-                        <td>:</td>
-                      <td class="text-justify">{{ $item->judul }}</td>
-                  </tr>                       
-                </table>       
+        @forelse ($data as $item)
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-7 col-lg-4 mb-5 mb-lg-0 wow fadeIn mt-3">
+                        <div class="card border-0 ">
+                            <img src="{{ asset('images/alumni/' . $item->file) }}" alt="..." class="card-img-top rounded">
+                            <div class="card-body p-4">
+                                <div class=" text-center">
+                                    <h5>{{ $item->nama }} </h5>
+                                    <h5>{{ $item->prodis->prodi }} </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="pl-lg-5">
+                            <div class="mb-5 wow fadeIn mt-3">
+                                <div class="text-start mb-4">
+                                    <h2 class="mb-0 text-primary">#History Perkuliahan</h2>
+                                </div>
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Nama</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ $item->nama }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">NPM</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ $item->npm }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Program Studi</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ $item->prodis->prodi }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Peminatan</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ $item->minat->peminatan }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Stambuk</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ $item->stambuk }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Seminar Proposal</h6>
+                                            </div>
+                                            @php
+                                                $dateString = $item->sempro;
+                                                $sempro = strftime('%d %B %Y', strtotime($dateString));
+                                            @endphp
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ $sempro }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                @php
+                                                    $dateString = $item->semhas;
+                                                    $semhas = strftime('%d %B %Y', strtotime($dateString));
+                                                @endphp
+                                                <h6 class="mb-0">Seminar Hasil</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ $semhas }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Sidang Meja Hijau</h6>
+                                            </div>
+                                            @php
+                                                $dateString = $item->mejahijau;
+                                                $sidang = strftime('%d %B %Y', strtotime($dateString));
+                                            @endphp
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ $sidang }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Yudisium</h6>
+                                            </div>
+                                            @php
+                                                $dateString = $item->yudisium;
+                                                $yudisium = strftime('%d %B %Y', strtotime($dateString));
+                                            @endphp
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ $yudisium }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Judul Skripsi</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ $item->judul }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Tahun Lulus</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ $item->thn_lulus }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Pekerjaan</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ $item->pekerjaan }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Status</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <span
+                                                    class="{{ $item->status == 1 ? 'bg-success' : 'bg-danger' }} text-light p-1 font-weight-bold rounded-pill px-3 ">{{ $item->status == 1 ? 'Approved' : 'Pending' }}</span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-md-5">
-            <h4>Pekerjaan</h4>
-            <table class=" table table-borderless">
-                <tr>
-                    <th>Pekerjaan</th>
-                      <td>:</td>
-                    <td>{{ $item->pekerjaan }}</td>
-                </tr>
-                <tr>
-                    <th>Profil</th>
-                      <td>:</td>
-                    <td>tgl</td>
-                </tr> 
-            </table>
-        </div>
-    </div>
-      @empty
-      <div class="alert alert-info mt-3" role="alert">
-        Data anda belum anda daftar/input/Approve oleh <strong>Admin UMI</strong>
-      </div>
-      @endforelse
-        
+        @empty
+            <div class="alert alert-info mt-3" role="alert">
+                Data anda belum anda daftar/input/Approve oleh <strong>Admin UMI</strong>
+            </div>
+        @endforelse
     </div>
 @endsection

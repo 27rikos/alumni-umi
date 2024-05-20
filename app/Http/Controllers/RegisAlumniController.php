@@ -50,18 +50,14 @@ class RegisAlumniController extends Controller
             "semhas" => "required",
             "mejahijau" => "required",
             "yudisium" => "required",
-            "judul" => '',
-            "pekerjaan" => '',
+            "pekerjaan" => "nullable",
+            "judul" => "required",
             "file" => "required|mimes:jpg,jpeg,png|max:2048",
         ], messages: [
             'npm.unique' => 'NIP sudah digunakan',
             'file.mimes' => 'Format file foto harus jpg,jpeg,png'
         ]);
-        //upload image:
-        $foto = $request->file('file');
-        $foto->storeAs('public/alumni_foto', $foto->hashName());
-
-        Alumni::create([
+        $data = Alumni::create([
             "npm" => $request->npm,
             "nama" => $request->nama,
             "stambuk" => $request->stambuk,
@@ -72,11 +68,16 @@ class RegisAlumniController extends Controller
             "semhas" => $request->semhas,
             "mejahijau" => $request->mejahijau,
             "yudisium" => $request->yudisium,
-            "judul" => $request->judul,
             "pekerjaan" => $request->pekerjaan,
-            "file" => $foto->hashName(),
+            "judul" => $request->judul,
+            "file" => $request->file,
         ]);
-        return redirect()->route('Daftar.create')->with('info', 'Berhasil Daftar, admin akan melakukan validasi data yang anda daftarkan');
+        if ($request->hasFile('file')) {
+            $request->file('file')->move('images/alumni/', $request->file('file')->getClientOriginalName());
+            $data->file = $request->file('file')->getClientOriginalName();
+            $data->save();
+        }
+        return redirect()->route('Daftar.create')->with('toast_info', 'Berhasil Daftar, admin akan melakukan validasi data yang anda daftarkan');
     }
 
     /**

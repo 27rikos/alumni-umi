@@ -1,23 +1,53 @@
 @extends('Partials.Frontpage')
-@section('title','content')
+@section('title', 'Berita')
 @section('content')
-<section class="min-vh-100">
-    <div class="container mt-4">
-        <nav aria-label="breadcrumb ">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="/"><i class="fa-solid fa-house"></i></a></li>
-              <li class="breadcrumb-item"><a href="/view/berita">Berita</a></li>
-              <li class="breadcrumb-item active" aria-current="page">{{ $data->judul }}</li>
-            </ol>
-          </nav>
-          <h1 class="mb-2">{{ $data->judul }}</h1>
-          <p class="text-secondary"> <small>{{ $data->tanggal }}</small> /
-        <small>{{ $data->penulis }}</small>
-        </p>
-           <div class="text-center">
-            <img src="{{asset('storage/berita/'.$data->file)}}" alt="Dokumentasi" style="width: 100%" id="view">
-           </div>
-          <article style="text-align: justify" class="mt-3 mb-3"> {!! $data->konten !!}</article>
-    </div>
-  </section>
+    <main>
+        <div class="container pt-3">
+            <div class="row mt-5">
+                <div class="col-md-8">
+                    <article class="mb-5">
+                        <img src="{{ asset('images/berita/' . $data->file) }}" id="main-img" alt=""
+                            class="mb-3 img-fluid" />
+                        <h3>{{ $data->judul }}</h3>
+                        <div class="d-flex gap-2">
+                            <p>
+                                <i class="fas fa-user-circle "></i> <span>{{ $data->penulis }}</span>
+                            </p>
+                            @php
+                                $dateString = $data->tanggal;
+                                $tanggal = strftime('%d %B %Y', strtotime($dateString));
+                            @endphp
+
+                            <p>
+                                <i class="fas fa-calendar-alt ml-2 mr-1"></i><span>{{ $tanggal }}</span>
+                            </p>
+                        </div>
+                        <article style="text-align: justify" class="mb-3"> {!! $data->konten !!}</article>
+
+                    </article>
+                </div>
+                <div class="col-md-4">
+                    <h3>Berita lainnya</h3>
+                    <hr />
+                    @forelse ($all as $item)
+                        <div class="row">
+                            <div class="col">
+                                <div class="">
+                                    <div class="img-hover-zoom">
+                                        <img src="{{ asset('images/berita/' . $item->file) }}" id="sc-img"
+                                            class="rounded img-fluid" alt="" />
+                                    </div>
+                                    <a href="/read/{{ $item->id }}">
+                                        <h6 class="mt-2">{{ $item->judul }}</h6>
+                                    </a>
+                                    <p>{{ $item->created_at->diffForHumans() }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                    @endforelse
+                </div>
+            </div>
+        </div>
+    </main>
 @endsection

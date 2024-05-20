@@ -10,10 +10,11 @@ class viewberitaController extends Controller
     public function tampil_berita($id)
     {
         $data = Berita::where('id', $id)->first();
-        return view('Partials.ViewBerita', compact(['data']));
+        $all = Berita::orderBy('created_at', 'asc')->paginate(5);
+        return view('Partials.ViewBerita', compact(['data', 'all']));
     }
 
-    public function old()
+    public function show()
     {
         $datas = Berita::latest()->paginate()->all();
         return view('FrontPage.BeritaLama', compact(['datas']));

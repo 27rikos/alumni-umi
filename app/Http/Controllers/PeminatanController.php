@@ -36,16 +36,14 @@ class PeminatanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            "kd_peminatan" => 'required',
-            "peminatan" => "required",
-        ]);
 
-        Peminatan::create([
-            "kd_peminatan" => $request->kd_peminatan,
-            "peminatan" => $request->peminatan,
+        $request->validate([
+            'kd_peminatan' => 'required',
+            'peminatan' => 'required'
         ]);
-        return redirect()->route('peminatan.index')->with('success', 'Peminatan Ditambahkan');
+        $data = Peminatan::create($request->all());
+        $data->save();
+        return redirect()->route('peminatan.index')->with('toast_success', 'Peminatan Ditambahkan');
     }
 
     /**
@@ -67,7 +65,7 @@ class PeminatanController extends Controller
      */
     public function edit($id)
     {
-        $find = Peminatan::where('id', $id)->first();
+        $find = Peminatan::findOrFail($id);
         return view('admin.Peminatan.Edit', compact(['find']));
     }
 
@@ -80,17 +78,10 @@ class PeminatanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Peminatan::where('id', $id)->first();
-
-        $request->validate([
-            "kd_peminatan" => 'required',
-            "peminatan" => "required",
-        ]);
-        $data->update([
-            "kd_peminatan" => $request->kd_peminatan,
-            "peminatan" => $request->peminatan,
-        ]);
-        return redirect()->route('peminatan.index')->with('success', 'Peminatan Diubah');
+        $data = Peminatan::findOrFail($id);
+        $data->update($request->all());
+        $data->save();
+        return redirect()->route('peminatan.index')->with('toast_success', 'Peminatan Diubah');
     }
 
     /**
@@ -101,8 +92,8 @@ class PeminatanController extends Controller
      */
     public function destroy($id)
     {
-        $data = Peminatan::where('id', $id)->first();
+        $data = Peminatan::findOrFail($id);
         $data->delete();
-        return redirect()->route('peminatan.index')->with('success', 'Peminatan Dihapus');
+        return redirect()->route('peminatan.index')->with('toast_success', 'Peminatan Dihapus');
     }
 }
