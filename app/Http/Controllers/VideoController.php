@@ -45,15 +45,17 @@ class VideoController extends Controller
             'file.mimes' => 'Format file foto harus jpg,jpeg,png',
             'file.max' => 'Ukuran Foto max 2mb'
         ]);
-        //upload image:
-        $foto = $request->file('file');
-        $foto->storeAs('public/video', $foto->hashName());
-        Video::create([
+        $data = Video::create([
             "judul" => $request->judul,
             "link" => $request->link,
-            "file" => $foto->hashName(),
+            "file" => $request->file
         ]);
-        return redirect()->route('Video.index')->with('success', 'Video Ditambahkan');
+        if ($request->hasFile('file')) {
+            $request->file('file')->move('images/thumbnail/', $request->file('file')->getClientOriginalName());
+            $data->file = $request->file('file')->getClientOriginalName();
+            $data->save();
+        }
+        return redirect()->route('Video.index')->with('toast_success', 'Video Ditambahkan');
     }
 
     /**
@@ -75,7 +77,7 @@ class VideoController extends Controller
      */
     public function edit($id)
     {
-        $find = Video::where('id', $id)->first();
+        $find = Video::findOrFail($id);
 
         return view('admin.Video.Edit', compact(['find']));
     }
@@ -89,35 +91,34 @@ class VideoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Video::where('id', $id)->first();
-        $this->validate($request, rules: [
-            'judul' => 'required',
-            'link' => 'required',
-            "file" => "mimes:jpg,jpeg,png|max:2048",
-        ], messages: [
-            'file.mimes' => 'Format file foto harus jpg,jpeg,png',
-            'file.max' => 'Ukuran Foto max 2mb'
+        $data = Video::findOrFail($id);
+        // Simpan data yang akan diupdate ke dalam array
+        $updateData = $request->only([
+            'judul', 'link', 'file'
         ]);
 
-        if ($request->hasFile('file')) {
+        // Cek apakah file baru diupload
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+            // Hapus file foto lama jika ada
+            if ($data->file) {
+                $oldPhotoPath = public_path('images/thumbnail/' . $data->file);
+                if (file_exists($oldPhotoPath)) {
+                    unlink($oldPhotoPath);
+                }
+            }
 
-            //upload image:
-            $foto = $request->file('file');
-            $foto->storeAs('public/video', $foto->hashName());
-            //hapus foto lama
-            Storage::disk('public')->delete('video/' . $data['file']);
-            $data->update([
-                "judul" => $request->judul,
-                "link" => $request->link,
-                "file" => $foto->hashName(),
-            ]);
-        } else {
-            $data->update([
-                "judul" => $request->judul,
-                "link" => $request->link,
-            ]);
+            // Simpan file baru
+            $file = $request->file('file');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/thumbnail'), $fileName);
+
+            // Tambahkan nama file baru ke data update
+            $updateData['file'] = $fileName;
         }
-        return redirect()->route('Video.index')->with('success', 'Video Diedit');
+
+        // Update data user
+        $data->update($updateData);
+        return redirect()->route('Video.index')->with('toast_success', 'Video Diedit');
     }
 
     /**
@@ -128,10 +129,14 @@ class VideoController extends Controller
      */
     public function destroy($id)
     {
-        $data = Video::where('id', $id)->first();
-        Storage::disk('public')->delete('video/' . $data['file']);
-
+        $data = Video::findOrFail($id);
+        if ($data->file) {
+            $oldPhotoPath = 'images/thumnail' . $data->file;
+            if (file_exists($oldPhotoPath)) {
+                unlink($oldPhotoPath); // Hapus file foto lama dari direktori
+            }
+        }
         $data->delete();
-        return redirect()->route('Video.index')->with('success', 'Video Dihapus');
+        return redirect()->route('Video.index')->with('toast_success', 'Video Dihapus');
     }
 }

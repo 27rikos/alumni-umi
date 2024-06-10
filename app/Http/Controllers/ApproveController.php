@@ -14,6 +14,6 @@ class ApproveController extends Controller
         $data->update([
             'status' => 1
         ]);
-        return redirect()->route('alumni.index')->with('success', 'Data Di approve');
+        return redirect()->route('alumni.index')->with('toast_success', 'Data Di approve');
     }
 }

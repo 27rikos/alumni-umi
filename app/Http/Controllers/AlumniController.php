@@ -53,17 +53,14 @@ class AlumniController extends Controller
             "semhas" => "required",
             "mejahijau" => "required",
             "yudisium" => "required",
+            "pekerjaan" => "required",
             "judul" => '',
             "file" => "required|mimes:jpg,jpeg,png|max:2048",
         ], messages: [
             'npm.unique' => 'NIP sudah digunakan',
             'file.mimes' => 'Format file foto harus jpg,jpeg,png'
         ]);
-        //upload image:
-        $foto = $request->file('file');
-        $foto->storeAs('public/alumni_foto', $foto->hashName());
-
-        Alumni::create([
+        $data = Alumni::create([
             "npm" => $request->npm,
             "nama" => $request->nama,
             "stambuk" => $request->stambuk,
@@ -74,11 +71,17 @@ class AlumniController extends Controller
             "semhas" => $request->semhas,
             "mejahijau" => $request->mejahijau,
             "yudisium" => $request->yudisium,
+            "pekerjaan" => $request->pekerjaan,
             "judul" => $request->judul,
-            "file" => $foto->hashName(),
+            "file" => $request->file,
         ]);
+        if ($request->hasFile('file')) {
+            $request->file('file')->move('images/alumni/', $request->file('file')->getClientOriginalName());
+            $data->file = $request->file('file')->getClientOriginalName();
+            $data->save();
+        }
 
-        return redirect()->route('alumni.index')->with('success', 'Data Berhasil Ditambahkan');
+        return redirect()->route('alumni.index')->with('toast_success', 'Data Berhasil Ditambahkan');
     }
 
     /**
@@ -102,7 +105,7 @@ class AlumniController extends Controller
     {
         $prodi = Prodi::all();
         $peminatan = Peminatan::all();
-        $find = Alumni::where('id', $id)->first();
+        $find = Alumni::where('id', $id)->with('prodis', 'minat')->first();
         return view('admin.Alumni.Edit', compact(['find', 'prodi', 'peminatan']));
     }
 
@@ -115,63 +118,39 @@ class AlumniController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Alumni::where('id', $id)->first();
-        $this->validate($request, rules: [
-            "npm" => 'required', Rule::unique('alumnis')->ignore('alumnis'),
-            "nama" => "required",
-            "stambuk" => "required",
-            "peminatan" => "required",
-            "prodi" => "required",
-            "thn_lulus" => "required",
-            "sempro" => "required",
-            "semhas" => "required",
-            "mejahijau" => "required",
-            "yudisium" => "required",
-            "judul" => '',
-            "file" => "mimes:jpg,jpeg,png|max:2048",
-        ], messages: [
-            'npm.unique' => 'NPM sudah digunakan',
-            'file.mimes' => 'Format file foto harus jpg,jpeg,png',
-            'file.max' => 'Ukuran Foto max 2mb'
+        $data = Alumni::findOrFail($id);
+        // Simpan data yang akan diupdate ke dalam array
+        $updateData = $request->only([
+            'npm', 'nama', 'stambuk', 'peminatan', 'prodi',
+            'thn_lulus', 'sempro', 'semhas', 'mejahijau',
+            'yudisium', 'judul', 'pekerjaan'
         ]);
-        if ($request->hasFile('file')) {
 
-            //upload image:
-            $foto = $request->file('file');
-            $foto->storeAs('public/alumni_foto', $foto->hashName());
-            //hapus foto lama
-            Storage::disk('public')->delete('alumni_foto/' . $data['file']);
-            $data->update([
-                "npm" => $request->npm,
-                "nama" => $request->nama,
-                "stambuk" => $request->stambuk,
-                "peminatan" => $request->peminatan,
-                "prodi" => $request->prodi,
-                "thn_lulus" => $request->thn_lulus,
-                "sempro" => $request->sempro,
-                "semhas" => $request->semhas,
-                "mejahijau" => $request->mejahijau,
-                "yudisium" => $request->yudisium,
-                "judul" => $request->judul,
-                "file" => $foto->hashName(),
-            ]);
-        } else {
-            $data->update([
-                "npm" => $request->npm,
-                "nama" => $request->nama,
-                "stambuk" => $request->stambuk,
-                "peminatan" => $request->peminatan,
-                "prodi" => $request->prodi,
-                "thn_lulus" => $request->thn_lulus,
-                "sempro" => $request->sempro,
-                "semhas" => $request->semhas,
-                "mejahijau" => $request->mejahijau,
-                "yudisium" => $request->yudisium,
-                "judul" => $request->judul,
-            ]);
+        // Cek apakah file baru diupload
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+            // Hapus file foto lama jika ada
+            if ($data->file) {
+                $oldPhotoPath = public_path('images/alumni/' . $data->file);
+                if (file_exists($oldPhotoPath)) {
+                    unlink($oldPhotoPath);
+                }
+            }
+
+            // Simpan file baru
+            $file = $request->file('file');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/alumni'), $fileName);
+
+            // Tambahkan nama file baru ke data update
+            $updateData['file'] = $fileName;
         }
-        return redirect()->route('alumni.index')->with('success', 'Data Berhasil Diubah');
+
+        // Update data user
+        $data->update($updateData);
+
+        return redirect()->route('alumni.index')->with('toast_success', 'Data Berhasil Diubah');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -181,10 +160,15 @@ class AlumniController extends Controller
      */
     public function destroy($id)
     {
-        $data = Alumni::where('id', $id)->first();
-        Storage::disk('public')->delete('alumni_foto/' . $data['file']);
+        $data = Alumni::findOrFail($id);
+        if ($data->file) {
+            $oldPhotoPath = 'images/alumni/' . $data->file;
+            if (file_exists($oldPhotoPath)) {
+                unlink($oldPhotoPath); // Hapus file foto lama dari direktori
+            }
+        }
         $data->delete();
 
-        return redirect()->route('alumni.index')->with('success', 'Data Berhasil Dihapus');
+        return redirect()->route('alumni.index')->with('toast_success', 'Data Berhasil Dihapus');
     }
 }

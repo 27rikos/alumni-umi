@@ -9,7 +9,7 @@ class Alumni extends Model
 {
     use HasFactory;
 
-    protected $table = 'alumni';
+    protected $table = 'alumnis';
 
     protected $fillable = [
         'npm',
@@ -24,6 +24,7 @@ class Alumni extends Model
         'yudisium',
         'judul',
         'file',
+        'pekerjaan',
         'status',
     ];
 

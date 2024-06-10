@@ -46,14 +46,14 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //public:
-Route::get('/', [LandingPageController::class, 'index']);
-Route::get('/pencarian', [PencarianController::class, 'index']);
-Route::get('/pencarian/data', [PencarianController::class, 'cari']);
-Route::get('/view/{id}/berita', [viewberitaController::class, 'tampil_berita']);
-Route::get('/view/berita', [viewberitaController::class, 'old']);
-Route::get('/media/foto', [MediaController::class, 'foto']);
-Route::get('/media/video', [MediaController::class, 'video']);
-Route::get('/lowongan', [ViewLowonganController::class, 'index']);
+Route::get('/', [LandingPageController::class, 'index'])->name('main');
+Route::get('/pencarian', [PencarianController::class, 'index'])->name('pencarian');
+Route::get('/pencarian/data', [PencarianController::class, 'cari'])->name('pencarian-data');
+Route::get('/read/{id}', [viewberitaController::class, 'tampil_berita'])->name('view-berita');
+Route::get('/view/berita', [viewberitaController::class, 'show'])->name('old-news');
+Route::get('/media/foto', [MediaController::class, 'foto'])->name('foto');
+Route::get('/media/video', [MediaController::class, 'video'])->name('video');
+Route::get('/lowongan', [ViewLowonganController::class, 'index'])->name('lowongan');
 
 
 Auth::routes();

@@ -36,15 +36,14 @@ class ProdiController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'kd_prodi' => 'required',
-            'prodi' => 'required',
+            'prodi' => 'required'
         ]);
-        Prodi::create([
-            'kd_prodi' => $request->kd_prodi,
-            'prodi' => $request->prodi,
-        ]);
-        return redirect()->route('prodi.index')->with('success', 'Prodi Ditambahkan');
+        $data = Prodi::create($request->all());
+        $data->save();
+        return redirect()->route('prodi.index')->with('toast_success', 'Prodi Ditambahkan');
     }
 
     /**
@@ -66,7 +65,8 @@ class ProdiController extends Controller
      */
     public function edit($id)
     {
-        $prodi = Prodi::find($id)->first();
+
+        $data = Prodi::findOrFail($id);
         return view('admin.Prodi.Edit', compact(['prodi']));
     }
 
@@ -79,18 +79,11 @@ class ProdiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $prodi = Prodi::where('id', $id)->first();
 
-        $request->validate([
-            'kd_prodi' => 'required',
-            'prodi' => 'required',
-        ]);
-
-        $prodi->update([
-            'kd_prodi' => $request->kd_prodi,
-            'prodi' => $request->prodi,
-        ]);
-        return redirect()->route('prodi.index')->with('success', 'Prodi Diubah');
+        $data = Prodi::findOrFail($id);
+        $data->update($request->all());
+        $data->save();
+        return redirect()->route('prodi.index')->with('toast_success', 'Prodi Diubah');
     }
 
     /**
@@ -101,9 +94,8 @@ class ProdiController extends Controller
      */
     public function destroy($id)
     {
-        $data = Prodi::where('id', $id)->first();
-
+        $data = Prodi::findOrFail($id);
         $data->delete();
-        return redirect()->route('prodi.index')->with('success', 'Prodi Dihapus');
+        return redirect()->route('prodi.index')->with('toast_success', 'Prodi Dihapus');
     }
 }

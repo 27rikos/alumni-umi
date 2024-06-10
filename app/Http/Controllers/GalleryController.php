@@ -44,16 +44,19 @@ class GalleryController extends Controller
             'file.mimes' => 'Format file foto harus jpg,jpeg,png',
             'file.max' => 'Ukuran Foto max 2mb'
         ]);
-        //upload foto:
-        $foto = $request->file('file');
-        $foto->storeAs('public/gallery', $foto->hashName());
 
-        Gallery::create([
+
+        $data = Gallery::create([
             'keterangan' => $request->keterangan,
-            'file' => $foto->hashName()
+            'file' => $request->file
         ]);
+        if ($request->hasFile('file')) {
+            $request->file('file')->move('images/foto/', $request->file('file')->getClientOriginalName());
+            $data->file = $request->file('file')->getClientOriginalName();
+            $data->save();
+        }
 
-        return redirect()->route('gallery.index')->with('success', 'Foto Ditambahkan');
+        return redirect()->route('gallery.index')->with('toast_success', 'Foto Ditambahkan');
     }
 
     /**
@@ -75,7 +78,7 @@ class GalleryController extends Controller
      */
     public function edit($id)
     {
-        $find = Gallery::where('id', $id)->first();
+        $find = Gallery::findOrFail($id);
         return view('admin.Gallery.Edit', compact(['find']));
     }
 
@@ -88,32 +91,34 @@ class GalleryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Gallery::where('id', $id)->first();
-        $this->validate($request, rules: [
-            'keterangan' => 'required',
-            'file' => 'mimes:png,jpg,jpeg|max:2048'
-        ], messages: [
-            'file.mimes' => 'Format file foto harus jpg,jpeg,png',
-            'file.max' => 'Ukuran Foto max 2mb'
+        $data = Gallery::findOrFail($id);
+        // Simpan data yang akan diupdate ke dalam array
+        $updateData = $request->only([
+            'keterangan', 'file'
         ]);
 
-        if ($request->hasFile('file')) {
+        // Cek apakah file baru diupload
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+            // Hapus file foto lama jika ada
+            if ($data->file) {
+                $oldPhotoPath = public_path('images/foto/' . $data->file);
+                if (file_exists($oldPhotoPath)) {
+                    unlink($oldPhotoPath);
+                }
+            }
 
-            //upload foto:
-            $foto = $request->file('file');
-            $foto->storeAs('public/gallery', $foto->hashName());
-            //hapus foto lama
-            Storage::disk('public')->delete('gallery/' . $data['file']);
-            $data->update([
-                'keterangan' => $request->keterangan,
-                'file' => $foto->hashName()
-            ]);
-        } else {
-            $data->update([
-                'keterangan' => $request->keterangan,
-            ]);
+            // Simpan file baru
+            $file = $request->file('file');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/foto'), $fileName);
+
+            // Tambahkan nama file baru ke data update
+            $updateData['file'] = $fileName;
         }
-        return redirect()->route('gallery.index')->with('success', 'Foto Ditambahkan');
+
+        // Update data user
+        $data->update($updateData);
+        return redirect()->route('gallery.index')->with('toast_success', 'Foto Diubah');
     }
 
     /**
@@ -124,9 +129,14 @@ class GalleryController extends Controller
      */
     public function destroy($id)
     {
-        $data = Gallery::where('id', $id)->first();
-        Storage::disk('public')->delete('gallery/' . $data['file']);
+        $data = Gallery::findOrFail($id);
+        if ($data->file) {
+            $oldPhotoPath = 'images/foto/' . $data->file;
+            if (file_exists($oldPhotoPath)) {
+                unlink($oldPhotoPath); // Hapus file foto lama dari direktori
+            }
+        }
         $data->delete();
-        return redirect()->route('gallery.index')->with('success', 'Foto Dihapus');
+        return redirect()->route('gallery.index')->with('toast_success', 'Foto Dihapus');
     }
 }
