@@ -1,7 +1,6 @@
 @extends('partials.AdminDashboard')
 @section('title', 'Dashboard')
 @section('content')
-
     <div class="main">
         <h1 class="h3 mb-0 text-gray-800 my-3">Dashboard</h1>
         <div class="row">
@@ -85,5 +84,4 @@
             </div>
         </div>
     </div>
-
 @endsection
