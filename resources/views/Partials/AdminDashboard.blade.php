@@ -49,48 +49,59 @@
             <div class="sidebar-heading mt-3">
                 Main
             </div>
-            <li class="nav-item">
+            <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }}">
                 <a class="nav-link" href="/dashboard">
                     <i class="fa-solid fa-gauge-simple-high"></i>
                     <span>Dashboard</span></a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item {{ request()->routeIs('kelolauser.index') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('kelolauser.index') }}">
                     <i class="fa-solid fa-user"></i>
                     <span>Kelola User</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ request()->routeIs('alumni.index') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('alumni.index') }}">
                     <i class="fa-solid fa-graduation-cap"></i>
                     <span>Alumni</span></a>
             </li>
             <hr class="sidebar-divider">
-            <li class="nav-item">
+            <li class="nav-item {{ request()->is('prodi*') || request()->is('peminatan*') ? 'active' : '' }}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Program Akademik</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo"
+                    class="collapse {{ request()->is('prodi*') || request()->is('peminatan*') ? 'show' : '' }}"
+                    aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('prodi.index') }}">Program Studi</a>
-                        <a class="collapse-item" href="{{ route('peminatan.index') }}">Peminatan</a>
+                        <a class="collapse-item {{ request()->routeIs('prodi.index') ? 'active' : '' }}"
+                            href="{{ route('prodi.index') }}">Program Studi</a>
+                        <a class="collapse-item {{ request()->routeIs('peminatan.index') ? 'active' : '' }}"
+                            href="{{ route('peminatan.index') }}">Peminatan</a>
                     </div>
                 </div>
             </li>
-            <li class="nav-item">
+            <li
+                class="nav-item {{ request()->is('berita*') || request()->is('gallery*') || request()->is('video*') || request()->is('lamaran*') ? 'active' : '' }}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                    aria-expanded="true" aria-controls="collapseThree">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Konten</span>
                 </a>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseThree"
+                    class="collapse {{ request()->is('berita*') || request()->is('gallery*') || request()->is('Video*') || request()->is('lamaran*') ? 'show' : '' }}"
+                    aria-labelledby="headingThree" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('berita.index') }}">Berita</a>
-                        <a class="collapse-item" href="{{ route('gallery.index') }}">Foto</a>
-                        <a class="collapse-item" href="{{ route('Video.index') }}">Video</a>
-                        <a class="collapse-item" href="{{ route('lamaran.index') }}">Lowongan Kerja</a>
+                        <a class="collapse-item {{ request()->routeIs('berita.index') ? 'active' : '' }}"
+                            href="{{ route('berita.index') }}">Berita</a>
+                        <a class="collapse-item {{ request()->routeIs('gallery.index') ? 'active' : '' }}"
+                            href="{{ route('gallery.index') }}">Foto</a>
+                        <a class="collapse-item {{ request()->routeIs('Video.index') ? 'active' : '' }}"
+                            href="{{ route('Video.index') }}">Video</a>
+                        <a class="collapse-item {{ request()->routeIs('lamaran.index') ? 'active' : '' }}"
+                            href="{{ route('lamaran.index') }}">Lowongan Kerja</a>
                     </div>
                 </div>
             </li>
@@ -104,6 +115,8 @@
 
             <!-- Sidebar Message -->
         </ul>
+
+
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->

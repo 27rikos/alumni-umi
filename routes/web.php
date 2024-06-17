@@ -4,12 +4,14 @@ use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\ApproveController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExcelDownload;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\KelolaUserController;
 use App\Http\Controllers\LamarkerjaController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\PeminatanController;
 use App\Http\Controllers\PencarianController;
@@ -42,6 +44,9 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::resource("gallery", GalleryController::class);
     Route::resource("Video", VideoController::class);
     Route::resource("lamaran", LamarkerjaController::class);
+    Route::get('print', [PDFController::class, 'print'])->name('print');
+    Route::get('preview', [PDFController::class, 'preview']);
+    Route::get('download-excel', [ExcelDownload::class, 'exportdata'])->name('download');
 });
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

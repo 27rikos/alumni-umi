@@ -18,57 +18,36 @@
             </div>
         </div>
     </section>
-    <!-- Welcome Message Section -->
-    <section class="welcome-message py-5">
+    <section class="pt-5">
         <div class="container">
-            <h2 class="text-center">Kata Sambutan</h2>
-            <hr>
-            <p class="teks">
-                SHALOM Sahabat Alumni Fikom UMI yang diberkati Tuhan, <br>
-                Alumni Fakultas Ilmu Komputer Universitas Methodist Indonesia yang tangguh,hebat dan kuat.
-                Alumni yang perduli almamaternya Kita patut mengucapkan syukur atas segala berkat yang Tuhan
-                sudah berikan kepada kita para tamatan Fakultas Ilmu Komputer Universitas Methodist Indonesia
-                sehingga kita semua, hingga saat ini tetap bersatu dalam roh pelayanan, saling mendukung,
-                saling menginspirasi dan saling memotivasi melalui organisasi perkumpulan yang kita cintai
-                bersama yaitu Ikatan Alumni Fakultas Ilmu Komputer Universitas Methodist
-                Indonesia(INIFIKOM-UMI).<br>
-                Melalui INIFIKOM-UMI:
-            <div class="teks">
-                <ol>
-                    <li>kita bisa memberikan kontribusi yang terbaik sesuai dengan kemampuan kita
-                        masing-masing, untuk kebaikan dan kemajuan para alumni, almamater dan bangsa kita.</li>
-                    <li>Wewujudkan bersama tercapainya <strong> VISI INIFIKOM-UMI</strong>,
-                        yaitu menjadi sponsor dalam pengabdian pelayanan masyarakat.</li>
-                    <li>Menjalankan <strong>Misi INIFIKOM-UMI</strong>, yaitu menjadi sebuah pusat organisasi
-                        yang dinamis,
-                        yang dikenal dan diakui dapat memberikan energi pada setiap ide-ide produktif,
-                        serta memaksimalkan setiap potensi nilai lebih para alumnusnya di mata Indonesia.</li>
-                    <li>Semangat <strong> BERSATU, BERPRESTASI,</strong> dan <strong> BERKONTRIBUSI</strong>
-                        untuk Universitas Methodist Indonesia dan Indonesia</li>
-                </ol>
+            <h1 class="text-center mb-1">Jumlah Alumni</h1>
+            <div class="row">
+                <div class="four col-md-3 mb-3">
+                    <div class="counter-box "> <i class="fa-solid fa-user-graduate"></i> <span class="counter">2147</span>
+                        <p>Falkutas kedokteran</p>
+                    </div>
+                </div>
+                <div class="four col-md-3 mb-3">
+                    <div class="counter-box"> <i class="fa-solid fa-user-graduate"></i> <span class="counter">3275</span>
+                        <p>Falkutas Ekonomi</p>
+                    </div>
+                </div>
+                <div class="four col-md-3 mb-3">
+                    <div class="counter-box"> <i class="fa-solid fa-user-graduate"></i> <span class="counter">289</span>
+                        <p>Falkutas Ilmu Komputer</p>
+                    </div>
+                </div>
+                <div class="four col-md-3 mb-3">
+                    <div class="counter-box"> <i class="fa-solid fa-user-graduate"></i> <span class="counter">1563</span>
+                        <p>Falkutas Sastra</p>
+                    </div>
+                </div>
+                <div class="four col-md-3 mb-3">
+                    <div class="counter-box"> <i class="fa-solid fa-user-graduate"></i> <span class="counter">5000</span>
+                        <p>Falkutas Pertanian</p>
+                    </div>
+                </div>
             </div>
-            </p>
-            <p class="teks">
-                Apa yang kita sudah mulai akan terus kita tingkatkan berupa program-program yang
-                benar menyentuh dan bermanfaat untuk kita alumni, dan juga almamater. Kita terus meningkatkan
-                manajemen
-                yang baik untuk menjadikan wadah ini bekerja secara lebih professional dalam membagikan
-                informasi,
-                melaporkan setiap kegiatan yang dijalankan, melaporkan laporan keuangan secara transparan.
-                Website yang sudah kita bangun diharapkan dapat meningkatkan awareness kita tentang apa yang
-                dilakukan oleh INIFIKOM-UMI
-                sehingga diharapkan para anggota merasakan manfaatnya dan bangga menjadi alumnus Fikom UMI. <br>
-                Dengan demikian kita akan <strong> terpacu, terdorong, terinspirasi untuk berbuat yang
-                    lebih</strong> untuk para sahabat alumni kita,
-                almamater kita, dan bangsa kita yang kita cintai Bersama.<br>
-                Tuhan memberkati kita sekalian. <br>
-            <div class="d-flex justify-content-end">
-                Salam, <br>
-                <br>
-                <br>
-                Ketua INIFIKOM-UMI
-            </div>
-            </p>
         </div>
     </section>
     <section class="news py-5 bg-light">
@@ -100,4 +79,76 @@
             <a href="{{ route('old-news') }}" class="d-flex justify-content-end">Lihat Semua Berita..</a>
         </div>
     </section>
+    <style>
+        .container {
+            margin-top: 100px
+        }
+
+        .counter-box {
+            display: block;
+            padding: 40px 20px 37px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .counter-box p {
+            margin: 5px 0 0;
+            padding: 0;
+            color: #909090;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .counter-box i {
+            font-size: 60px;
+            margin: 0 0 15px;
+            color: #d2d2d2;
+        }
+
+        .counter {
+            display: block;
+            font-size: 32px;
+            font-weight: 700;
+            color: #666;
+            line-height: 28px;
+        }
+
+        .counter-box.colored {
+            background: #3acf87;
+        }
+
+        .counter-box.colored p,
+        .counter-box.colored i,
+        .counter-box.colored .counter {
+            color: #fff;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var counters = document.querySelectorAll('.counter');
+            counters.forEach(function(counter) {
+                var updateCount = function() {
+                    var target = +counter.innerText;
+                    var count = 0;
+                    var increment = target / 200;
+
+                    var animate = function() {
+                        count += increment;
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count);
+                            requestAnimationFrame(animate);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+
+                    animate();
+                };
+
+                updateCount();
+            });
+        });
+    </script>
 @endsection

@@ -4,16 +4,31 @@
     <div class="main">
 
         <div class="card shadow mb-4 my-2 my-3">
-            <div class="card-header py-3 d-flex">
+            <div class="card-header py-3 d-flex justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">
                     Data Alumni
                 </h6>
-                <a href="{{ route('alumni.create') }}" class="btn btn-primary btn-icon-split btn-sm  ml-auto ">
-                    <span class="icon text-white-50">
-                        <i class="fa-solid fa-plus"></i>
-                    </span>
-                    <span class="text">Tambah</span>
-                </a>
+                <div class="">
+                    <a href="{{ route('download') }}" class="btn btn-success btn-icon-split btn-sm  ml-auto ">
+                        <span class="icon text-white-50">
+                            <i class="fa-regular fa-file-excel"></i>
+                        </span>
+                        <span class="text">Export</span>
+                    </a>
+                    <a href="{{ route('print') }}" class="btn btn-danger btn-icon-split btn-sm  ml-auto ">
+                        <span class="icon text-white-50">
+                            <i class="fa-solid fa-print"></i>
+                        </span>
+                        <span class="text">Print</span>
+                    </a>
+                    </h6>
+                    <a href="{{ route('alumni.create') }}" class="btn btn-primary btn-icon-split btn-sm  ml-auto ">
+                        <span class="icon text-white-50">
+                            <i class="fa-solid fa-plus"></i>
+                        </span>
+                        <span class="text">Tambah</span>
+                    </a>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

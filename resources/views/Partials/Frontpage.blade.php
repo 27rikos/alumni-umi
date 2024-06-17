@@ -32,11 +32,23 @@
         width: 100%;
         z-index: 1020;
     }
+
+    .navbar-nav .nav-item .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    @media (min-width: 992px) {
+        .navbar-nav .nav-item .btn {
+            width: auto;
+            margin-bottom: 0;
+        }
+    }
 </style>
 
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand font-weight-bold" href="#">Alumni <span class="text-primary">UMI</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,9 +75,16 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="{{ route('old-news') }}">Berita</a>
                 </li>
+                <li class="nav-item mb-1 pr-2">
+                    <a class="btn btn-outline-primary " href="{{ route('login') }}">Log In</a>
+                </li>
+                <li class="nav-item pr-2">
+                    <a class="btn btn-primary" href="{{ route('register') }}">Sign Up</a>
+                </li>
             </ul>
         </div>
     </nav>
+
 
     <main class="content">
         @yield('content')
