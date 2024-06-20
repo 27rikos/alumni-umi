@@ -49,18 +49,25 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
+        if (auth()->attempt(['email' => $input['email'], 'password' => $input['password']])) {
+            $role = auth()->user()->role;
 
-            if (auth()->user()->role == 'admin') {
-                $request->session()->regenerate();
-                return redirect()->route('admin.home');
-            } else if (auth()->user()->role == 'user') {
-                $request->session()->regenerate();
-                return redirect()->route('user.home');
+            $request->session()->regenerate();
+
+            switch ($role) {
+                case 'admin':
+                    return redirect()->route('admin.home');
+                case 'user':
+                    return redirect()->route('user.home');
+                case 'falkutas':
+                    return redirect()->route('falkutas.home');
+                default:
+                    auth()->logout();
+                    return redirect()->route('login')->with('toast_info', 'Invalid role.');
             }
         } else {
-            return redirect()->route('login')->with('info', 'Login Gagal/Silahkan daftar jika belum memliki akun');
-            //return redirect()->route('login')->with('error', 'Email/Password salah');
+            return redirect()->route('login')->with('toast_info', 'Login Gagal/Silahkan daftar jika belum memiliki akun');
         }
+
     }
 }

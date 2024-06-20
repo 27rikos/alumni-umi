@@ -26,6 +26,7 @@ class Alumni extends Model
         'file',
         'pekerjaan',
         'status',
+        'falkutas',
     ];
 
     public function minat()

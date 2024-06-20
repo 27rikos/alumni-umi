@@ -5,6 +5,7 @@ use App\Http\Controllers\ApproveController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExcelDownload;
+use App\Http\Controllers\FalkutasController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\KelolaUserController;
 use App\Http\Controllers\LamarkerjaController;
@@ -65,4 +66,8 @@ Auth::routes();
 Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'user'])->name('user.home');
     Route::resource("Daftar", RegisAlumniController::class);
+});
+Route::middleware(['auth', 'user-access:falkutas'])->group(function () {
+    Route::get('falkutas-dashboard',[App\Http\Controllers\HomeController::class,'falkutas'])->name('falkutas.home');
+    Route::get('falkutas-control',[FalkutasController::class,'index'])->name('falkutas-controller');
 });

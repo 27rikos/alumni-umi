@@ -54,6 +54,18 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="falkutas">Falkutas</label>
+                        <select name="falkutas" id="" class="form-control" value="{{ $find->falkutas }}">
+                            <option value="">Pilih</option>
+                            @foreach (['Falkutas Ilmu Komputer'] as $option)
+                                <option value="{{ $option }}"
+                                    {{ $find->falkutas == $option ? 'selected' : '' }}>
+                                    {{ $option }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="lulus">Tahun Lulus*</label>
                         <input type="text" class="form-control" id="lulus" name="thn_lulus" required
                             value="{{ $find->thn_lulus }}">

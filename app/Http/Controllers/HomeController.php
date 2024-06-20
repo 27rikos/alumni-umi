@@ -42,4 +42,7 @@ class HomeController extends Controller
         })->get();
         return view('User.Data.Data', compact(['data']));
     }
+    public function falkutas(){
+        return view('falkutas.dashboard.index');
+    }
 }
