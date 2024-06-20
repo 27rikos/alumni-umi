@@ -54,7 +54,8 @@ class AlumniController extends Controller
             "mejahijau" => "required",
             "yudisium" => "required",
             "pekerjaan" => "required",
-            "judul" => '',
+            "falkutas"=>"required",
+            "judul" => "required",
             "file" => "required|mimes:jpg,jpeg,png|max:2048",
         ], messages: [
             'npm.unique' => 'NIP sudah digunakan',
@@ -73,6 +74,7 @@ class AlumniController extends Controller
             "yudisium" => $request->yudisium,
             "pekerjaan" => $request->pekerjaan,
             "judul" => $request->judul,
+            "falkutas"=>$request->falkutas,
             "file" => $request->file,
         ]);
         if ($request->hasFile('file')) {
@@ -123,7 +125,7 @@ class AlumniController extends Controller
         $updateData = $request->only([
             'npm', 'nama', 'stambuk', 'peminatan', 'prodi',
             'thn_lulus', 'sempro', 'semhas', 'mejahijau',
-            'yudisium', 'judul', 'pekerjaan'
+            'yudisium','falkutas', 'judul', 'pekerjaan'
         ]);
 
         // Cek apakah file baru diupload

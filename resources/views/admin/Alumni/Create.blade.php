@@ -48,6 +48,13 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="falkutas">Falkutas</label>
+                        <select name="falkutas" id="" class="form-control">
+                            <option value="">--Pilih--</option>
+                            <option value="Falkutas ilmu Komputer">Falkutas Ilmu Komputer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="lulus">Tahun Lulus*</label>
                         <input type="text" class="form-control" id="lulus" name="thn_lulus" required>
                     </div>
