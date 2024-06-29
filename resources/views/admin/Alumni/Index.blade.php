@@ -9,7 +9,38 @@
                     Data Alumni
                 </h6>
                 <div class="">
-                    <a href="{{ route('download') }}" class="btn btn-success btn-icon-split btn-sm  ml-auto ">
+                    <a href="#" type="button" class="btn btn-success btn-icon-split btn-sm  ml-auto" data-toggle="modal" data-target="#exampleModal">
+                        <span class="icon text-white-50">
+                            <i class="fa-solid fa-file-import"></i>
+                        </span>
+                        <span class="text">Import</span>
+                    </a>
+
+                    {{-- modal --}}
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Import</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <form action="" method="post" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <input type="file" class="form-control-file" accept=".xls,.xlsx,.csv">
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                              <button type="button" class="btn btn-primary">Import</button>
+                            </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+
+                    {{-- end modal --}}
+                    <a href="{{ route('download') }}" class="btn btn-warning btn-icon-split btn-sm  ml-auto ">
                         <span class="icon text-white-50">
                             <i class="fa-regular fa-file-excel"></i>
                         </span>

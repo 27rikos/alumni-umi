@@ -23,27 +23,27 @@
             <h1 class="text-center mb-1">Jumlah Alumni</h1>
             <div class="row">
                 <div class="four col-md-3 mb-3">
-                    <div class="counter-box "> <i class="fa-solid fa-user-graduate"></i> <span class="counter">2147</span>
-                        <p>Falkutas kedokteran</p>
+                    <div class="counter-box "> <i class="fa-solid fa-user-graduate"></i> <span class="counter">{{ $fk }}</span>
+                        <p>Falkutas Kedokteran</p>
                     </div>
                 </div>
                 <div class="four col-md-3 mb-3">
-                    <div class="counter-box"> <i class="fa-solid fa-user-graduate"></i> <span class="counter">3275</span>
+                    <div class="counter-box"> <i class="fa-solid fa-user-graduate"></i> <span class="counter">{{ $fe }}</span>
                         <p>Falkutas Ekonomi</p>
                     </div>
                 </div>
                 <div class="four col-md-3 mb-3">
-                    <div class="counter-box"> <i class="fa-solid fa-user-graduate"></i> <span class="counter">289</span>
+                    <div class="counter-box"> <i class="fa-solid fa-user-graduate"></i> <span class="counter">{{ $fikom }}</span>
                         <p>Falkutas Ilmu Komputer</p>
                     </div>
                 </div>
                 <div class="four col-md-3 mb-3">
-                    <div class="counter-box"> <i class="fa-solid fa-user-graduate"></i> <span class="counter">1563</span>
+                    <div class="counter-box"> <i class="fa-solid fa-user-graduate"></i> <span class="counter">{{ $fs }}</span>
                         <p>Falkutas Sastra</p>
                     </div>
                 </div>
                 <div class="four col-md-3 mb-3">
-                    <div class="counter-box"> <i class="fa-solid fa-user-graduate"></i> <span class="counter">5000</span>
+                    <div class="counter-box"> <i class="fa-solid fa-user-graduate"></i> <span class="counter">{{ $fp }}</span>
                         <p>Falkutas Pertanian</p>
                     </div>
                 </div>

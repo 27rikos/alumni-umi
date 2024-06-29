@@ -3,17 +3,15 @@
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\ApproveController;
 use App\Http\Controllers\BeritaController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExcelDownload;
+use App\Http\Controllers\FalkutasActionController;
 use App\Http\Controllers\FalkutasController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\KelolaUserController;
 use App\Http\Controllers\LamarkerjaController;
 use App\Http\Controllers\LandingPageController;
-use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PDFController;
-use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\PeminatanController;
 use App\Http\Controllers\PencarianController;
 use App\Http\Controllers\ProdiController;
@@ -21,8 +19,9 @@ use App\Http\Controllers\RegisAlumniController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\viewberitaController;
 use App\Http\Controllers\ViewLowonganController;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,7 +31,7 @@ use Illuminate\Support\Facades\Auth;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get("/dashboard", [App\Http\Controllers\HomeController::class, 'admin'])->name('admin.home');
@@ -61,13 +60,18 @@ Route::get('/media/foto', [MediaController::class, 'foto'])->name('foto');
 Route::get('/media/video', [MediaController::class, 'video'])->name('video');
 Route::get('/lowongan', [ViewLowonganController::class, 'index'])->name('lowongan');
 
-
 Auth::routes();
 Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'user'])->name('user.home');
     Route::resource("Daftar", RegisAlumniController::class);
 });
+
 Route::middleware(['auth', 'user-access:falkutas'])->group(function () {
-    Route::get('falkutas-dashboard',[App\Http\Controllers\HomeController::class,'falkutas'])->name('falkutas.home');
-    Route::get('falkutas-control',[FalkutasController::class,'index'])->name('falkutas-controller');
+    Route::get('falkutas-dashboard', [App\Http\Controllers\HomeController::class, 'falkutas'])->name('falkutas.home');
+    Route::get('falkutas/{id}/apv', [FalkutasController::class, 'approve'])->name('falkutas-controller');
+    Route::resource("falkutas", FalkutasActionController::class);
+    Route::get('export-falkutas', [ExcelDownload::class, 'exportfalkutas'])->name('falkutas-excel');
+    Route::get('preview-falkutas-alumni', [PDFController::class, 'pdf']);
+    Route::get('print-preview', [PDFController::class, 'printpdf'])->name('print-data');
+
 });

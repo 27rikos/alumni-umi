@@ -6,13 +6,13 @@ use App\Models\Alumni;
 
 class FalkutasController extends Controller
 {
-    public function index()
+    public function approve($id)
     {
-        $data = Alumni::with('prodis', 'minat')->where(function ($query) {
-            $query->where('falkutas', Auth()->user()->name);
-        })->get();
-        return view("falkutas.main.index", compact("data"));
-
+        $data = Alumni::where('id', $id)->first();
+        $data->update([
+            'status' => 1,
+        ]);
+        return redirect()->route('falkutas.index')->with('toast_success', 'Data Di approve');
     }
 
 }

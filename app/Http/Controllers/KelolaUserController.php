@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class KelolaUserController extends Controller
 {
@@ -26,7 +25,7 @@ class KelolaUserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.KelolaUser.create');
     }
 
     /**

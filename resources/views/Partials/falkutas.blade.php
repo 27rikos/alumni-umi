@@ -55,8 +55,8 @@
                     <span>Dashboard</span></a>
             </li>
 
-            <li class="nav-item {{ request()->Is('falkutas-control') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('falkutas-controller') }}">
+            <li class="nav-item {{ request()->Is('falkutas') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('falkutas.index') }}">
                     <i class="fa-solid fa-user"></i>
                     <span>Konfirmasi Data Alumni</span></a>
             </li>
