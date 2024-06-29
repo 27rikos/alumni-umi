@@ -9,20 +9,20 @@
                 Data Alumni
             </h6>
             <div class="">
-                <a href="{{ route('download') }}" class="btn btn-success btn-icon-split btn-sm  ml-auto ">
+                <a href="{{ route('falkutas-excel') }}" class="btn btn-success btn-icon-split btn-sm  ml-auto ">
                     <span class="icon text-white-50">
                         <i class="fa-regular fa-file-excel"></i>
                     </span>
                     <span class="text">Export</span>
                 </a>
-                <a href="{{ route('print') }}" class="btn btn-danger btn-icon-split btn-sm  ml-auto ">
+                <a href="{{ route('print-data') }}" class="btn btn-danger btn-icon-split btn-sm  ml-auto ">
                     <span class="icon text-white-50">
                         <i class="fa-solid fa-print"></i>
                     </span>
                     <span class="text">Print</span>
                 </a>
                 </h6>
-                <a href="{{ route('alumni.create') }}" class="btn btn-primary btn-icon-split btn-sm  ml-auto ">
+                <a href="{{ route('falkutas.create') }}" class="btn btn-primary btn-icon-split btn-sm  ml-auto ">
                     <span class="icon text-white-50">
                         <i class="fa-solid fa-plus"></i>
                     </span>
@@ -61,9 +61,9 @@
                                         data-target="#detail{{ $item->id }}">
                                         <i class="fa-regular fa-eye"></i>
                                     </button>
-                                    <a href="{{ route('alumni.edit', $item->id) }}" title="Edit"
+                                    <a href="{{ route('falkutas.edit', $item->id) }}" title="Edit"
                                         class="btn btn-primary mx-1"><i class="fa-regular fa-pen-to-square"></i></a>
-                                    <a href="/alumni/{{ $item->id }}/apv" title="Approve"
+                                    <a href="falkutas/{{ $item->id }}/apv" title="Approve"
                                         class="btn btn-success mr-1"><i class="fa-solid fa-circle-check"></i></a>
                                 </td>
                             </tr>

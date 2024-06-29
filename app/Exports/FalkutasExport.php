@@ -6,23 +6,21 @@ use App\Models\Alumni;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromView;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class AlumniExport implements FromView, ShouldAutoSize
+class FalkutasExport implements FromView
 {
-    private $alumni;
-    use Exportable;
     /**
      * @return \Illuminate\Support\Collection
      */
+    private $data;
+    use Exportable;
+
     public function __construct()
     {
-        $this->alumni = Alumni::where('status', 1)->get();
+        $this->data = Alumni::where('status', 1)->where('falkutas', auth()->user()->name)->get();
     }
     public function view(): View
     {
-        return view('admin.print.excel_all', [
-            'alumni' => $this->alumni,
-        ]);
+        return view('falkutas.print.excel-download', ['data' => $this->data]);
     }
 }

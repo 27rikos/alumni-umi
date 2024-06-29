@@ -91,7 +91,6 @@
                     <th>No</th>
                     <th>NPM</th>
                     <th>Nama</th>
-                    <th>Falkutas</th>
                     <th>Prodi</th>
                     <th>Peminatan</th>
                     <th>Stambuk</th>
@@ -99,12 +98,11 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($alumni as $item)
+                @foreach ($data_falkutas as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->npm }}</td>
                         <td>{{ $item->nama }}</td>
-                        <td>{{ $item->falkutas }}</td>
                         <td>{{ $item->prodis->prodi }}</td>
                         <td>{{ $item->minat->peminatan }}</td>
                         <td>{{ $item->stambuk }}</td>
