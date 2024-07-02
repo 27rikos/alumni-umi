@@ -47,6 +47,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('print', [PDFController::class, 'print'])->name('print');
     Route::get('preview', [PDFController::class, 'preview']);
     Route::get('download-excel', [ExcelDownload::class, 'exportdata'])->name('download');
+    Route::post('import-alumni', [AlumniController::class, 'imports'])->name('import-alumni');
 });
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

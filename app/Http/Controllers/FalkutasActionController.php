@@ -55,6 +55,13 @@ class FalkutasActionController extends Controller
             "yudisium" => "required",
             "pekerjaan" => "required",
             "judul" => "required",
+            "no_alumni" => "required",
+            "alamat" => "required",
+            "tempat_lhr" => "required",
+            "tanggal_lhr" => "required",
+            "ayah" => "required",
+            "ibu" => "required",
+            "ipk" => "required",
             "file" => "required|mimes:jpg,jpeg,png|max:2048",
         ], messages: [
             'npm.unique' => 'NIP sudah digunakan',
@@ -76,6 +83,13 @@ class FalkutasActionController extends Controller
             "judul" => $request->judul,
             "falkutas" => $falkutas,
             "file" => $request->file,
+            "no_alumni" => $request->no_alumni,
+            "alamat" => $request->alamat,
+            "tempat_lhr" => $request->tempat_lhr,
+            "tanggal_lhr" => $request->tanggal_lhr,
+            "ayah" => $request->ayah,
+            "ibu" => $request->ibu,
+            "ipk" => $request->ipk,
         ]);
         if ($request->hasFile('file')) {
             $request->file('file')->move('images/alumni/', $request->file('file')->getClientOriginalName());
@@ -125,7 +139,8 @@ class FalkutasActionController extends Controller
         $updateData = $request->only([
             'npm', 'nama', 'stambuk', 'peminatan', 'prodi',
             'thn_lulus', 'sempro', 'semhas', 'mejahijau',
-            'yudisium', 'judul', 'pekerjaan',
+            'yudisium', 'judul', 'pekerjaan', 'no_alumni', 'ipk', 'tanggal_lhr', 'tempat_lhr',
+            'ayah', 'ibu', 'alamat',
         ]);
 
         // Cek apakah file baru diupload

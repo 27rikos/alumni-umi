@@ -75,11 +75,11 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="{{ route('old-news') }}">Berita</a>
                 </li>
-                <li class="nav-item mb-1 pr-2">
-                    <a class="btn btn-outline-primary " href="{{ route('login') }}">Log In</a>
+                <li class="nav-item mb-1 pr-2 mt-1">
+                    <a class="btn btn-outline-primary  btn-sm" href="{{ route('login') }}">Log In</a>
                 </li>
                 <li class="nav-item pr-2">
-                    <a class="btn btn-primary" href="{{ route('register') }}">Sign Up</a>
+                    <a class="btn btn-primary btn-sm mt-1" href="{{ route('register') }}">Sign Up</a>
                 </li>
             </ul>
         </div>

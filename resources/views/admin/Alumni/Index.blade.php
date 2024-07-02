@@ -26,13 +26,14 @@
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
-                            <form action="" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('import-alumni') }}" method="post" enctype="multipart/form-data">
+                                @csrf
                             <div class="modal-body">
-                                <input type="file" class="form-control-file" accept=".xls,.xlsx,.csv">
+                                <input type="file" name="file" class="form-control-file" accept=".xls,.xlsx,.csv">
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                              <button type="button" class="btn btn-primary">Import</button>
+                              <button type="submit" class="btn btn-primary">Import</button>
                             </div>
                             </form>
                           </div>
@@ -48,9 +49,9 @@
                     </a>
                     <a href="{{ route('print') }}" class="btn btn-danger btn-icon-split btn-sm  ml-auto ">
                         <span class="icon text-white-50">
-                            <i class="fa-solid fa-print"></i>
+                            <i class="fa-solid fa-file-pdf"></i>
                         </span>
-                        <span class="text">Print</span>
+                        <span class="text">PDF</span>
                     </a>
                     </h6>
                     <a href="{{ route('alumni.create') }}" class="btn btn-primary btn-icon-split btn-sm  ml-auto ">
@@ -113,7 +114,7 @@
                         <!-- Modal detail-->
                         <div class="modal fade" id="detail{{ $item->id }}" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-xl" role="document">
+                            <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Detail Alumni</h5>
@@ -142,8 +143,17 @@
                                                             <div class="text-start mb-4">
                                                                 <h2 class="mb-0 text-primary">#History Perkuliahan</h2>
                                                             </div>
-                                                            <div class="card mb-3">
+                                                            <div class=" mb-3">
                                                                 <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <h6 class="mb-0">No ALumni</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            {{ $item->no_alumni }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
                                                                     <div class="row">
                                                                         <div class="col-sm-3">
                                                                             <h6 class="mb-0">Nama</h6>
@@ -273,6 +283,15 @@
                                                                     <hr>
                                                                     <div class="row">
                                                                         <div class="col-sm-3">
+                                                                            <h6 class="mb-0">IPK</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            {{ $item->ipk }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
                                                                             <h6 class="mb-0">Tahun Lulus</h6>
                                                                         </div>
                                                                         <div class="col-sm-9 text-secondary">
@@ -296,6 +315,61 @@
                                                                         <div class="col-sm-9 text-secondary">
                                                                             <span
                                                                                 class="{{ $item->status == 1 ? 'bg-success' : 'bg-danger' }} text-light p-1 font-weight-bold rounded-pill px-3 ">{{ $item->status == 1 ? 'Approved' : 'Pending' }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="text-start mb-4">
+                                                                        <h2 class="mb-0 text-primary">#Informasi Pribadi</h2>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <h6 class="mb-0">Tanggal Lahir</h6>
+                                                                        </div>
+                                                                        @php
+                                                                            $dateString = $item->tanggal_lhr;
+                                                                            $tanggal_lhr = strftime(
+                                                                                '%d %B %Y',
+                                                                                strtotime($dateString),
+                                                                            );
+                                                                        @endphp
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            {{ $tanggal_lhr }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <h6 class="mb-0">Tempat Lahir</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            {{ $item->tempat_lhr }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <h6 class="mb-0">Nama Ayah</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            {{ $item->ayah }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <h6 class="mb-0">Nama Ibu</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            {{ $item->ibu }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <h6 class="mb-0">Alamat</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            {{ $item->alamat }}
                                                                         </div>
                                                                     </div>
                                                                     <hr>
