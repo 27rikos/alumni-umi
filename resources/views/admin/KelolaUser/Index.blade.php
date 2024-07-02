@@ -20,7 +20,6 @@
                         <thead>
                             <tr>
                                 <th>Nama</th>
-                                <th>NPM</th>
                                 <th>Email</th>
                                 <th>Aksi</th>
 
@@ -31,9 +30,9 @@
                             @foreach ($users as $item)
                                 <tr>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->npm }}</td>
                                     <td>{{ $item->email }}</td>
-                                    <td>
+                                    <td class=" d-flex ">
+                                        <a href="{{ route('kelolauser.edit',$item->id) }}" class="btn btn-primary mr-1"><i class="fa-regular fa-pen-to-square"></i></a>
                                         <form action="{{ route('kelolauser.destroy', $item->id) }}" method="post">
                                             @method('delete')
                                             @csrf

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Validation\Rule;
+use App\Imports\AlumniImport;
 use App\Models\Alumni;
-use App\Models\Prodi;
 use App\Models\Peminatan;
+use App\Models\Prodi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AlumniController extends Controller
 {
@@ -54,12 +55,19 @@ class AlumniController extends Controller
             "mejahijau" => "required",
             "yudisium" => "required",
             "pekerjaan" => "required",
-            "falkutas"=>"required",
+            "falkutas" => "required",
             "judul" => "required",
+            "no_alumni" => "required",
+            "alamat" => "required",
+            "tempat_lhr" => "required",
+            "tanggal_lhr" => "required",
+            "ayah" => "required",
+            "ibu" => "required",
+            "ipk" => "required",
             "file" => "required|mimes:jpg,jpeg,png|max:2048",
         ], messages: [
             'npm.unique' => 'NIP sudah digunakan',
-            'file.mimes' => 'Format file foto harus jpg,jpeg,png'
+            'file.mimes' => 'Format file foto harus jpg,jpeg,png',
         ]);
         $data = Alumni::create([
             "npm" => $request->npm,
@@ -74,8 +82,15 @@ class AlumniController extends Controller
             "yudisium" => $request->yudisium,
             "pekerjaan" => $request->pekerjaan,
             "judul" => $request->judul,
-            "falkutas"=>$request->falkutas,
+            "falkutas" => $request->falkutas,
             "file" => $request->file,
+            "no_alumni" => $request->no_alumni,
+            "alamat" => $request->alamat,
+            "tempat_lhr" => $request->tempat_lhr,
+            "tanggal_lhr" => $request->tanggal_lhr,
+            "ayah" => $request->ayah,
+            "ibu" => $request->ibu,
+            "ipk" => $request->ipk,
         ]);
         if ($request->hasFile('file')) {
             $request->file('file')->move('images/alumni/', $request->file('file')->getClientOriginalName());
@@ -125,7 +140,8 @@ class AlumniController extends Controller
         $updateData = $request->only([
             'npm', 'nama', 'stambuk', 'peminatan', 'prodi',
             'thn_lulus', 'sempro', 'semhas', 'mejahijau',
-            'yudisium','falkutas', 'judul', 'pekerjaan'
+            'yudisium', 'falkutas', 'judul', 'pekerjaan', 'no_alumni', 'ipk', 'tanggal_lhr', 'tempat_lhr',
+            'ayah', 'ibu', 'alamat',
         ]);
 
         // Cek apakah file baru diupload
@@ -153,7 +169,6 @@ class AlumniController extends Controller
         return redirect()->route('alumni.index')->with('toast_success', 'Data Berhasil Diubah');
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
@@ -172,5 +187,12 @@ class AlumniController extends Controller
         $data->delete();
 
         return redirect()->route('alumni.index')->with('toast_success', 'Data Berhasil Dihapus');
+    }
+    public function imports(Request $request)
+    {
+
+        Excel::import(new AlumniImport, $request->file('file'));
+        return redirect()->route('alumni.index');
+
     }
 }

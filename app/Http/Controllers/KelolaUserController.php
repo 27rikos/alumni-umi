@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class KelolaUserController extends Controller
 {
@@ -14,7 +16,7 @@ class KelolaUserController extends Controller
      */
     public function index()
     {
-        $users = user::where('role', 0)->get();
+        $users = User::select('name', 'email', 'role', 'id')->where('role', 'falkutas')->orwhere('role', 'user')->get();
         return view("admin.KelolaUser.Index", compact('users'));
     }
 
@@ -36,7 +38,23 @@ class KelolaUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+            'npm' => 'nullable',
+            'role' => 'required',
+            'password' => 'required',
+        ]);
+        $hashedpassword = Hash::make($request->password);
+        $data = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $hashedpassword,
+            'role' => $request->role,
+            'npm' => $request->npm,
+        ]);
+        $data->save();
+        return redirect()->route('kelolauser.index')->with('toast_success', 'User Berhasil Dibuat');
     }
 
     /**
@@ -58,7 +76,8 @@ class KelolaUserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = User::findOrFail($id);
+        return view('admin.KelolaUser.edit', compact('data'));
     }
 
     /**
@@ -70,7 +89,10 @@ class KelolaUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = User::findOrFail($id);
+        $data->update($request->all());
+        $data->save();
+        return redirect()->route('kelolauser.index')->with('toast_success', 'User Berhasil Diubah');
     }
 
     /**
