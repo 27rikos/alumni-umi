@@ -12,36 +12,41 @@ class Alumni extends Model
     protected $table = 'alumnis';
 
     protected $fillable = [
-        'npm',
-        'nama',
-        'stambuk',
-        'peminatan',
-        'prodi',
-        'thn_lulus',
+        // 'npm',
+        // 'nama',
+        // 'stambuk',
+        // 'peminatan_id',
+        // 'prodi_id',
+        // 'thn_lulus',
         'sempro',
         'semhas',
         'mejahijau',
         'yudisium',
-        'judul',
-        'file',
-        'pekerjaan',
-        'status',
-        'falkutas',
-        'no_alumni',
-        'ayah',
-        'ibu',
-        'ipk',
-        'alamat',
-        'tempat_lhr',
-        'tanggal_lhr',
+        // 'judul',
+        // 'file',
+        // 'pekerjaan',
+        // 'status',
+        // 'falkutas',
+        // 'no_alumni',
+        // 'ayah',
+        // 'ibu',
+        // 'ipk',
+        // 'alamat',
+        // 'tempat_lhr',
+        // 'tanggal_lhr',
+
+        'npm',
+        'nama',
+        'peminatan_id',
+        'prodi_id',
     ];
 
     public function minat()
     {
-        return $this->belongsTo(Peminatan::class, 'peminatan');
+        return $this->belongsTo(Peminatan::class, 'peminatan_id');
     }
     public function prodis()
     {
-        return $this->belongsTo(Prodi::class, 'prodi');
+        return $this->belongsTo(Prodi::class, 'prodi_id');
     }
 }

@@ -190,12 +190,21 @@ class AlumniController extends Controller
     }
     public function imports(Request $request)
     {
-        if ($request->hasFile('file')) {
-            Excel::import(new AlumniImport, $request->file('file'));
-            return redirect()->route('alumni.index')->with('toast_success', 'Import Data Berhasil');
-        } else {
-            return redirect()->back()->with('toast_error', 'File Kosong');
-        }
-    }
+        // Validate the uploaded file
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv|max:2048',
+        ]);
 
+        // Handle the uploaded file
+        $file = $request->file('file');
+
+        // Move the file to a temporary location (optional)
+        $filePath = $file->storeAs('temp', $file->getClientOriginalName());
+
+        // Import the data from the Excel file
+        Excel::import(new AlumniImport, $filePath);
+
+        return redirect()->back()->with('success', 'Alumni data imported successfully.');
+    }
 }
+

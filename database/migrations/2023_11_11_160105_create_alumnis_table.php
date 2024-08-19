@@ -17,18 +17,18 @@ return new class extends Migration
             $table->id();
             $table->string('npm')->unique()->nullable();
             $table->string('nama')->nullable();
-            $table->string('stambuk')->nullable();
-            $table->foreignId('peminatan')->constrained('peminatans')->cascadeOnDelete();
-            $table->foreignId('prodi')->constrained('prodis')->cascadeOnDelete();
-            $table->string('thn_lulus')->nullable();
+            // $table->string('stambuk')->nullable();
+            $table->bigInteger('peminatan_id')->nullable();
+            $table->bigInteger('prodi_id')->nullable();
+            // $table->string('thn_lulus')->nullable();
             $table->date('sempro')->nullable();
             $table->date('semhas')->nullable();
-            $table->string('pekerjaan')->nullable();
+            // $table->string('pekerjaan')->nullable();
             $table->date('mejahijau')->nullable();
             $table->date('yudisium')->nullable();
-            $table->string('judul')->nullable();
-            $table->text('file')->nullable();
-            $table->boolean('status')->default(0);
+            // $table->string('judul')->nullable();
+            // $table->text('file')->nullable();
+            // $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
