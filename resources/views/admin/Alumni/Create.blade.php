@@ -68,6 +68,10 @@
                             <select name="falkutas" id="falkutas" class="form-control">
                                 <option value="">--Pilih--</option>
                                 <option value="Falkutas Ilmu Komputer">Falkutas Ilmu Komputer</option>
+                                <option value="Falkutas Kedokteran">Falkutas Kedokteran</option>
+                                <option value="Falkutas Sastra">Falkutas Sastra</option>
+                                <option value="Falkutas pertanian">Falkutas Pertanian</option>
+                                <option value="Falkutas Ekonomi">Falkutas Ekonomi</option>
                             </select>
                         </div>
                         <div class="form-group">

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Prodi;
-use App\Models\Peminatan;
 use App\Models\Alumni;
+use App\Models\Peminatan;
+use App\Models\Prodi;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RegisAlumniController extends Controller
@@ -26,9 +27,10 @@ class RegisAlumniController extends Controller
      */
     public function create()
     {
+        $data = User::where('name', auth()->user()->name)->first();
         $peminatan = Peminatan::all();
         $prodi = Prodi::all();
-        return view('User.Register.Create', compact(['prodi', 'peminatan']));
+        return view('User.Register.Create', compact(['prodi', 'peminatan', 'data']));
     }
 
     /**
@@ -55,7 +57,7 @@ class RegisAlumniController extends Controller
             "file" => "required|mimes:jpg,jpeg,png|max:2048",
         ], messages: [
             'npm.unique' => 'NIP sudah digunakan',
-            'file.mimes' => 'Format file foto harus jpg,jpeg,png'
+            'file.mimes' => 'Format file foto harus jpg,jpeg,png',
         ]);
         $data = Alumni::create([
             "npm" => $request->npm,

@@ -7,7 +7,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-7 col-lg-4 mb-5 mb-lg-0 wow fadeIn mt-3">
-                        <div class="card border-0 ">
+                        <div class=" border-0 ">
                             <img src="{{ asset('images/alumni/' . $item->file) }}" alt="..." class="card-img-top rounded">
                             <div class="card-body p-4">
                                 <div class=" text-center">
@@ -20,10 +20,11 @@
                     <div class="col-lg-8">
                         <div class="pl-lg-5">
                             <div class="mb-5 wow fadeIn mt-3">
-                                <div class="text-start mb-4">
+                                <div class="d-flex justify-content-between mb-4">
                                     <h2 class="mb-0 text-primary">#History Perkuliahan</h2>
+                                    <a href="{{ url('validation/'.$item->id) }}" class=" btn btn-info"><i class="fa-regular fa-file-pdf mr-1"></i>Cetak</a>
                                 </div>
-                                <div class="card mb-3">
+                                <div class=" mb-3">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-3">
