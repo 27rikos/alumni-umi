@@ -70,7 +70,7 @@
                             <label for="falkutas">Falkutas</label>
                             <select name="falkutas" id="falkutas" class="form-control">
                                 <option value="">Pilih</option>
-                                @foreach (['Falkutas Ilmu Komputer'] as $option)
+                                @foreach (['Falkutas Ilmu Komputer','Falkutas Kedokteran','Falkutas Sastra','Falkutas Ekonomi','Falkutas Pertanian'] as $option)
                                     <option value="{{ $option }}" {{ $find->falkutas == $option ? 'selected' : '' }}>
                                         {{ $option }}
                                     </option>

@@ -65,6 +65,7 @@ Auth::routes();
 Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'user'])->name('user.home');
     Route::resource("Daftar", RegisAlumniController::class);
+    Route::get('validation/{id}', [PDFController::class, 'cetak_surat']);
 });
 
 Route::middleware(['auth', 'user-access:falkutas'])->group(function () {

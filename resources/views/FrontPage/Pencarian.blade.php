@@ -1,4 +1,4 @@
-@extends('Partials.frontpage')
+@extends('Partials.Frontpage')
 @section('title', 'Pencarian')
 @section('content')
     <section class="pt-3">

@@ -190,9 +190,12 @@ class AlumniController extends Controller
     }
     public function imports(Request $request)
     {
-
-        Excel::import(new AlumniImport, $request->file('file'));
-        return redirect()->route('alumni.index');
-
+        if ($request->hasFile('file')) {
+            Excel::import(new AlumniImport, $request->file('file'));
+            return redirect()->route('alumni.index')->with('toast_success', 'Import Data Berhasil');
+        } else {
+            return redirect()->back()->with('toast_error', 'File Kosong');
+        }
     }
+
 }

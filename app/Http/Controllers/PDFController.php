@@ -33,4 +33,11 @@ class PDFController extends Controller
         $pdf = Pdf::loadview('falkutas.print.print-pdf', ['data_falkutas' => $data_falkutas])->setPaper($customPaper, 'landscape');
         return $pdf->download('laporan-alumni.pdf');
     }
+    public function cetak_surat($id)
+    {
+        $data = Alumni::with('prodis')->where('id', $id)->first();
+        $pdf = Pdf::loadView('User.pdf.index', ['data' => $data]);
+        return $pdf->download('surat keterangan.pdf');
+
+    }
 }

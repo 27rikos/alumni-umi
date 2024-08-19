@@ -30,7 +30,7 @@ class HomeController extends Controller
         $alumni = Alumni::select(['id'])->count();
         $approved = Alumni::where('status', 1)->count();
         $pending = Alumni::where('status', 0)->count();
-        $user = User::where('role', 0)->count();
+        $user = User::count();
         return view('admin.Dashboard.Dashboard', compact(['alumni', 'approved', 'pending', 'user']));
     }
 

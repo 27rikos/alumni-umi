@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Alumni;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -12,6 +12,7 @@ class DashboardController extends Controller
         $alumni = Alumni::select(['id'])->count();
         $approved = Alumni::where('status', 1)->count();
         $pending = Alumni::where('status', 0)->count();
-        return view("admin.Dashboard.Dashboard", compact(['alumni', 'approved', 'pending']));
+        $user = User::count();
+        return view("admin.Dashboard.Dashboard", compact(['user', 'alumni', 'approved', 'pending']));
     }
 }
