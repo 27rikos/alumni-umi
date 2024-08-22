@@ -58,7 +58,7 @@
             <li class="nav-item {{ request()->Is('falkutas') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('falkutas.index') }}">
                     <i class="fa-solid fa-user"></i>
-                    <span>Konfirmasi Data Alumni</span></a>
+                    <span>Alumni</span></a>
             </li>
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">

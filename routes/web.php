@@ -75,5 +75,6 @@ Route::middleware(['auth', 'user-access:falkutas'])->group(function () {
     Route::get('export-falkutas', [ExcelDownload::class, 'exportfalkutas'])->name('falkutas-excel');
     Route::get('preview-falkutas-alumni', [PDFController::class, 'pdf']);
     Route::get('print-preview', [PDFController::class, 'printpdf'])->name('print-data');
+    Route::post('filter-export', [ExcelDownload::class, 'filter'])->name('filter');
 
 });

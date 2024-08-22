@@ -79,14 +79,6 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="lulus">Tahun Lulus*</label>
-                                <input type="text" class="form-control" id="lulus" name="thn_lulus" >
-                            </div>
-                            <div class="form-group">
-                                <label for="ipk">IPK</label>
-                                <input type="text" class="form-control" id="ipk" name="ipk" >
-                            </div>
-                            <div class="form-group">
                                 <label for="pekerjaan">Pekerjaan</label>
                                 <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" >
                             </div>

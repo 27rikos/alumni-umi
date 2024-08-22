@@ -191,9 +191,16 @@ class AlumniController extends Controller
     public function imports(Request $request)
     {
         // Validate the uploaded file
-        $request->validate([
+        $this->validate($request, rules: [
             'file' => 'required|mimes:xlsx,xls,csv|max:2048',
-        ]);
+        ],
+            messages: [
+                'file.required' => 'file belum di upload',
+                'file.mimes' => 'format file harus Excel',
+                'file.max' => 'Ukuran Maksimal file 2MB',
+
+            ]
+        );
 
         // Handle the uploaded file
         $file = $request->file('file');
@@ -204,7 +211,6 @@ class AlumniController extends Controller
         // Import the data from the Excel file
         Excel::import(new AlumniImport, $filePath);
 
-        return redirect()->back()->with('success', 'Alumni data imported successfully.');
+        return redirect()->back()->with('toast_success', 'Alumni data imported successfully.');
     }
 }
-
