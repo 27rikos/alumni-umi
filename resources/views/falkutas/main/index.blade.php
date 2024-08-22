@@ -9,6 +9,12 @@
                 Data Alumni
             </h6>
             <div class="">
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#filter">
+                    <span class="icon text-white-50">
+                        <i class="fa-solid fa-filter mr-1"></i>
+                    </span>
+                    <span class="text">Filter</span>
+                  </button>
                 <a href="{{ route('falkutas-excel') }}" class="btn btn-success btn-icon-split btn-sm  ml-auto ">
                     <span class="icon text-white-50">
                         <i class="fa-regular fa-file-excel"></i>
@@ -71,6 +77,41 @@
 
                     </tbody>
                 </table>
+                <!-- Button trigger modal -->
+                 <!-- Modal -->
+                <div class="modal fade" id="filter" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Filter Export Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <form action="{{ route('filter') }}" method="post">
+                        @csrf
+                        <div class="modal-body">
+                            <select name="filteredby" id="" class="form-control mb-2">
+                                <option value="mejahijau">Meja Hijau</option>
+                                <option value="yudisium">Yudisium</option>
+                            </select>
+                            <div class="row">
+                                <div class="col">
+                                  <input type="date" class="form-control" name="start" placeholder="First name">
+                                </div>
+                                <div class="col">
+                                  <input type="date" class="form-control" name="end" placeholder="Last name">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Export</button>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
                  @foreach ($data as $item)
                         <!-- Modal detail-->
                         <div class="modal fade" id="detail{{ $item->id }}" tabindex="-1" role="dialog"
