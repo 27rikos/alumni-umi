@@ -28,6 +28,11 @@ return new class extends Migration
             $table->date('yudisium')->nullable();
             $table->string('judul')->nullable();
             $table->text('file')->nullable();
+            $table->string('nik')->nullable();
+            $table->text('ktp')->nullable();
+            $table->text('ijazah')->nullable();
+            $table->string('penguji1')->nullable();
+            $table->string('penguji2')->nullable();
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

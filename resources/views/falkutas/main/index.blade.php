@@ -1,118 +1,121 @@
 @extends('Partials.falkutas')
-@section('title','Alumni')
+@section('title', 'Alumni')
 @section('content')
-<div class="main">
+    <div class="main">
 
-    <div class="card shadow mb-4 my-2 my-3">
-        <div class="card-header py-3 d-flex justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">
-                Data Alumni
-            </h6>
-            <div class="">
-                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#filter">
-                    <span class="icon text-white-50">
-                        <i class="fa-solid fa-filter mr-1"></i>
-                    </span>
-                    <span class="text">Filter</span>
-                  </button>
-                <a href="{{ route('falkutas-excel') }}" class="btn btn-success btn-icon-split btn-sm  ml-auto ">
-                    <span class="icon text-white-50">
-                        <i class="fa-regular fa-file-excel"></i>
-                    </span>
-                    <span class="text">Export</span>
-                </a>
-                <a href="{{ route('print-data') }}" class="btn btn-danger btn-icon-split btn-sm  ml-auto ">
-                    <span class="icon text-white-50">
-                        <i class="fa-solid fa-print"></i>
-                    </span>
-                    <span class="text">Print</span>
-                </a>
+        <div class="card shadow mb-4 my-2 my-3">
+            <div class="card-header py-3 d-flex justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    Data Alumni
                 </h6>
-                <a href="{{ route('falkutas.create') }}" class="btn btn-primary btn-icon-split btn-sm  ml-auto ">
-                    <span class="icon text-white-50">
-                        <i class="fa-solid fa-plus"></i>
-                    </span>
-                    <span class="text">Tambah</span>
-                </a>
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>NPM</th>
-                            <th>Stambuk</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach ($data as $item)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ $item->npm }}</td>
-                                <td>{{ $item->stambuk }}</td>
-                                <td><span
-                                        class="{{ $item->status == 1 ? 'bg-success' : 'bg-danger' }} text-light p-1 font-weight-bold rounded ">{{ $item->status == 1 ? 'Approved' : 'Pending' }}</span>
-                                </td>
-                                <td class="d-flex">
-                                    <!-- Button trigger modal detail -->
-                                    <button type="button" class="btn btn-primary" title="Detail" data-toggle="modal"
-                                        data-target="#detail{{ $item->id }}">
-                                        <i class="fa-regular fa-eye"></i>
-                                    </button>
-                                    <a href="{{ route('falkutas.edit', $item->id) }}" title="Edit"
-                                        class="btn btn-primary mx-1"><i class="fa-regular fa-pen-to-square"></i></a>
-                                    <a href="falkutas/{{ $item->id }}/apv" title="Approve"
-                                        class="btn btn-success mr-1"><i class="fa-solid fa-circle-check"></i></a>
-                                </td>
-                            </tr>
-                        @endforeach
-
-                    </tbody>
-                </table>
-                <!-- Button trigger modal -->
-                 <!-- Modal -->
-                <div class="modal fade" id="filter" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Filter Export Data</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <form action="{{ route('filter') }}" method="post">
-                        @csrf
-                        <div class="modal-body">
-                            <select name="filteredby" id="" class="form-control mb-2">
-                                <option value="mejahijau">Meja Hijau</option>
-                                <option value="yudisium">Yudisium</option>
-                            </select>
-                            <div class="row">
-                                <div class="col">
-                                  <input type="date" class="form-control" name="start" placeholder="First name">
-                                </div>
-                                <div class="col">
-                                  <input type="date" class="form-control" name="end" placeholder="Last name">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Export</button>
-                            </div>
-                        </form>
-                    </div>
-                    </div>
+                <div class="">
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#filter">
+                        <span class="icon text-white-50">
+                            <i class="fa-solid fa-filter mr-1"></i>
+                        </span>
+                        <span class="text">Filter</span>
+                    </button>
+                    <a href="{{ route('falkutas-excel') }}" class="btn btn-success btn-icon-split btn-sm  ml-auto ">
+                        <span class="icon text-white-50">
+                            <i class="fa-regular fa-file-excel"></i>
+                        </span>
+                        <span class="text">Export</span>
+                    </a>
+                    <a href="{{ route('print-data') }}" class="btn btn-danger btn-icon-split btn-sm  ml-auto ">
+                        <span class="icon text-white-50">
+                            <i class="fa-solid fa-print"></i>
+                        </span>
+                        <span class="text">Print</span>
+                    </a>
+                    </h6>
+                    <a href="{{ route('falkutas.create') }}" class="btn btn-primary btn-icon-split btn-sm  ml-auto ">
+                        <span class="icon text-white-50">
+                            <i class="fa-solid fa-plus"></i>
+                        </span>
+                        <span class="text">Tambah</span>
+                    </a>
                 </div>
-                 @foreach ($data as $item)
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>NPM</th>
+                                <th>Stambuk</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach ($data as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->nama }}</td>
+                                    <td>{{ $item->npm }}</td>
+                                    <td>{{ $item->stambuk }}</td>
+                                    <td><span
+                                            class="{{ $item->status == 1 ? 'bg-success' : 'bg-danger' }} text-light p-1 font-weight-bold rounded ">{{ $item->status == 1 ? 'Approved' : 'Pending' }}</span>
+                                    </td>
+                                    <td class="d-flex">
+                                        <!-- Button trigger modal detail -->
+                                        <button type="button" class="btn btn-primary" title="Detail" data-toggle="modal"
+                                            data-target="#detail{{ $item->id }}">
+                                            <i class="fa-regular fa-eye"></i>
+                                        </button>
+                                        <a href="{{ route('falkutas.edit', $item->id) }}" title="Edit"
+                                            class="btn btn-primary mx-1"><i class="fa-regular fa-pen-to-square"></i></a>
+                                        <a href="falkutas/{{ $item->id }}/apv" title="Approve"
+                                            class="btn btn-success mr-1"><i class="fa-solid fa-circle-check"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                    <!-- Button trigger modal -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="filter" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Filter Export Data</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{{ route('filter') }}" method="post">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <select name="filteredby" id="" class="form-control mb-2">
+                                            <option value="mejahijau">Meja Hijau</option>
+                                            <option value="yudisium">Yudisium</option>
+                                        </select>
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="date" class="form-control" name="start"
+                                                    placeholder="First name">
+                                            </div>
+                                            <div class="col">
+                                                <input type="date" class="form-control" name="end"
+                                                    placeholder="Last name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Export</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    @foreach ($data as $item)
                         <!-- Modal detail-->
                         <div class="modal fade" id="detail{{ $item->id }}" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -285,6 +288,24 @@
                                                                     <hr>
                                                                     <div class="row">
                                                                         <div class="col-sm-3">
+                                                                            <h6 class="mb-0">Dosen Penguji 1</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            {{ $item->penguji1 }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <h6 class="mb-0">Dosen Penguji 2</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            {{ $item->penguji2 }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
                                                                             <h6 class="mb-0">IPK</h6>
                                                                         </div>
                                                                         <div class="col-sm-9 text-secondary">
@@ -321,8 +342,18 @@
                                                                     </div>
                                                                     <hr>
                                                                     <div class="text-start mb-4">
-                                                                        <h2 class="mb-0 text-primary">#Informasi Pribadi</h2>
+                                                                        <h2 class="mb-0 text-primary">#Informasi Pribadi
+                                                                        </h2>
                                                                     </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <h6 class="mb-0">NIK</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            {{ $item->nik }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
                                                                     <div class="row">
                                                                         <div class="col-sm-3">
                                                                             <h6 class="mb-0">Tanggal Lahir</h6>
@@ -375,6 +406,30 @@
                                                                         </div>
                                                                     </div>
                                                                     <hr>
+                                                                    <div class="text-start mb-4">
+                                                                        <h2 class="mb-0 text-primary">#Berkas
+                                                                        </h2>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <h6 class="mb-0">Ijazah SMA</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            <img src="{{ asset('images/ijazah/' . $item->ijazah) }}"
+                                                                                alt="..." class="card-img-top">
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <h6 class="mb-0">Foto KTP</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            <img src="{{ asset('images/ktp/' . $item->ktp) }}"
+                                                                                alt="..." class="card-img-top">
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -390,8 +445,8 @@
                             </div>
                         </div>
                     @endforeach
+                </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

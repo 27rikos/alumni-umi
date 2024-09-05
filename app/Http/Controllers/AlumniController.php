@@ -7,6 +7,7 @@ use App\Models\Alumni;
 use App\Models\Peminatan;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -43,7 +44,8 @@ class AlumniController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, rules: [
+        // Validate the incoming request data
+        $this->validate($request, [
             "npm" => "required|unique:alumnis",
             "nama" => "required",
             "stambuk" => "required",
@@ -64,11 +66,22 @@ class AlumniController extends Controller
             "ayah" => "required",
             "ibu" => "required",
             "ipk" => "required",
+            "nik" => "required",
             "file" => "required|mimes:jpg,jpeg,png|max:2048",
-        ], messages: [
+            "ktp" => "required|mimes:jpg,jpeg,png|max:2048",
+            "ijazah" => "required|mimes:jpg,jpeg,png|max:2048",
+            "penguji1" => "required", // Added validation for penguji1
+            "penguji2" => "required", // Added validation for penguji2
+        ], [
             'npm.unique' => 'NIP sudah digunakan',
             'file.mimes' => 'Format file foto harus jpg,jpeg,png',
+            'ktp.mimes' => 'Format file KTP harus jpg,jpeg,png',
+            'ijazah.mimes' => 'Format file Ijazah harus jpg,jpeg,png',
+            'penguji1.required' => 'Nama penguji 1 harus diisi', // Custom error message for penguji1
+            'penguji2.required' => 'Nama penguji 2 harus diisi', // Custom error message for penguji2
         ]);
+
+        // Create new Alumni record
         $data = Alumni::create([
             "npm" => $request->npm,
             "nama" => $request->nama,
@@ -83,20 +96,40 @@ class AlumniController extends Controller
             "pekerjaan" => $request->pekerjaan,
             "judul" => $request->judul,
             "falkutas" => $request->falkutas,
-            "file" => $request->file,
             "no_alumni" => $request->no_alumni,
             "alamat" => $request->alamat,
             "tempat_lhr" => $request->tempat_lhr,
             "tanggal_lhr" => $request->tanggal_lhr,
+            "nik" => $request->nik,
             "ayah" => $request->ayah,
             "ibu" => $request->ibu,
             "ipk" => $request->ipk,
+            "penguji1" => $request->penguji1, // Added penguji1 to data creation
+            "penguji2" => $request->penguji2, // Added penguji2 to data creation
         ]);
+
+        // Handle file upload for 'file'
         if ($request->hasFile('file')) {
-            $request->file('file')->move('images/alumni/', $request->file('file')->getClientOriginalName());
-            $data->file = $request->file('file')->getClientOriginalName();
-            $data->save();
+            $fileName = $request->file('file')->getClientOriginalName();
+            $request->file('file')->move('images/alumni/', $fileName);
+            $data->file = $fileName;
         }
+
+        // Handle file upload for 'ktp'
+        if ($request->hasFile('ktp')) {
+            $ktpFileName = 'ktp_' . time() . '_' . $request->file('ktp')->getClientOriginalName();
+            $request->file('ktp')->move('images/ktp/', $ktpFileName);
+            $data->ktp = $ktpFileName;
+        }
+
+        // Handle file upload for 'ijazah'
+        if ($request->hasFile('ijazah')) {
+            $ijazahFileName = 'ijazah_' . time() . '_' . $request->file('ijazah')->getClientOriginalName();
+            $request->file('ijazah')->move('images/ijazah/', $ijazahFileName);
+            $data->ijazah = $ijazahFileName;
+        }
+
+        $data->save();
 
         return redirect()->route('alumni.index')->with('toast_success', 'Data Berhasil Ditambahkan');
     }
@@ -136,12 +169,13 @@ class AlumniController extends Controller
     public function update(Request $request, $id)
     {
         $data = Alumni::findOrFail($id);
+
         // Simpan data yang akan diupdate ke dalam array
         $updateData = $request->only([
             'npm', 'nama', 'stambuk', 'peminatan', 'prodi',
             'thn_lulus', 'sempro', 'semhas', 'mejahijau',
             'yudisium', 'falkutas', 'judul', 'pekerjaan', 'no_alumni', 'ipk', 'tanggal_lhr', 'tempat_lhr',
-            'ayah', 'ibu', 'alamat',
+            'ayah', 'ibu', 'alamat', 'penguji1', 'penguji2', 'nik',
         ]);
 
         // Cek apakah file baru diupload
@@ -163,6 +197,44 @@ class AlumniController extends Controller
             $updateData['file'] = $fileName;
         }
 
+        // Handle file upload for 'ktp'
+        if ($request->hasFile('ktp') && $request->file('ktp')->isValid()) {
+            // Hapus file KTP lama jika ada
+            if ($data->ktp) {
+                $oldKtpPath = public_path('images/ktp/' . $data->ktp);
+                if (file_exists($oldKtpPath)) {
+                    unlink($oldKtpPath);
+                }
+            }
+
+            // Simpan file KTP baru
+            $ktpFile = $request->file('ktp');
+            $ktpFileName = 'ktp_' . time() . '_' . $ktpFile->getClientOriginalName();
+            $ktpFile->move(public_path('images/ktp'), $ktpFileName);
+
+            // Tambahkan nama file KTP baru ke data update
+            $updateData['ktp'] = $ktpFileName;
+        }
+
+        // Handle file upload for 'ijazah'
+        if ($request->hasFile('ijazah') && $request->file('ijazah')->isValid()) {
+            // Hapus file Ijazah lama jika ada
+            if ($data->ijazah) {
+                $oldIjazahPath = public_path('images/ijazah/' . $data->ijazah);
+                if (file_exists($oldIjazahPath)) {
+                    unlink($oldIjazahPath);
+                }
+            }
+
+            // Simpan file Ijazah baru
+            $ijazahFile = $request->file('ijazah');
+            $ijazahFileName = 'ijazah_' . time() . '_' . $ijazahFile->getClientOriginalName();
+            $ijazahFile->move(public_path('images/ijazah'), $ijazahFileName);
+
+            // Tambahkan nama file Ijazah baru ke data update
+            $updateData['ijazah'] = $ijazahFileName;
+        }
+
         // Update data user
         $data->update($updateData);
 
@@ -177,17 +249,37 @@ class AlumniController extends Controller
      */
     public function destroy($id)
     {
+        // Find the alumni record by its ID
         $data = Alumni::findOrFail($id);
-        if ($data->file) {
-            $oldPhotoPath = 'images/alumni/' . $data->file;
-            if (file_exists($oldPhotoPath)) {
-                unlink($oldPhotoPath); // Hapus file foto lama dari direktori
+
+        // Define the paths for the files
+        $filePaths = [
+            'file' => public_path('images/alumni/' . $data->file),
+            'ijazah' => public_path('images/ijazah/' . $data->ijazah),
+            'ktp' => public_path('images/ktp/' . $data->ktp),
+        ];
+
+        // Loop through each file path and delete the file if it exists
+        foreach ($filePaths as $key => $path) {
+            if ($data->$key && file_exists($path)) {
+                // Attempt to delete the file from the directory
+                if (!unlink($path)) {
+                    // If file deletion fails, return with an error message
+                    return redirect()->route('alumni.index')->with('toast_error', "Error deleting the {$key} file at {$path}!");
+                }
+            } else {
+                // If file does not exist, log the message
+                Log::warning("File {$path} does not exist.");
             }
         }
+
+        // Delete the alumni record
         $data->delete();
 
-        return redirect()->route('alumni.index')->with('toast_success', 'Data Berhasil Dihapus');
+        // Redirect with a success message
+        return redirect()->route('alumni.index')->with('toast_success', 'Data berhasil dihapus');
     }
+
     public function imports(Request $request)
     {
         // Validate the uploaded file
