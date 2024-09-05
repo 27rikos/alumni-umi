@@ -9,7 +9,8 @@
                     Data Alumni
                 </h6>
                 <div class="">
-                    <a href="#" type="button" class="btn btn-success btn-icon-split btn-sm  ml-auto" data-toggle="modal" data-target="#exampleModal">
+                    <a href="#" type="button" class="btn btn-success btn-icon-split btn-sm  ml-auto" data-toggle="modal"
+                        data-target="#exampleModal">
                         <span class="icon text-white-50">
                             <i class="fa-solid fa-file-import"></i>
                         </span>
@@ -17,28 +18,30 @@
                     </a>
 
                     {{-- modal --}}
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Import</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Import</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{{ route('import-alumni') }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <input type="file" name="file" class="form-control-file"
+                                            accept=".xls,.xlsx,.csv">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary">Import</button>
+                                    </div>
+                                </form>
                             </div>
-                            <form action="{{ route('import-alumni') }}" method="post" enctype="multipart/form-data">
-                                @csrf
-                            <div class="modal-body">
-                                <input type="file" name="file" class="form-control-file" accept=".xls,.xlsx,.csv">
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                              <button type="submit" class="btn btn-primary">Import</button>
-                            </div>
-                            </form>
-                          </div>
                         </div>
-                      </div>
+                    </div>
 
                     {{-- end modal --}}
                     <a href="{{ route('download') }}" class="btn btn-warning btn-icon-split btn-sm  ml-auto ">
@@ -283,6 +286,24 @@
                                                                     <hr>
                                                                     <div class="row">
                                                                         <div class="col-sm-3">
+                                                                            <h6 class="mb-0">Dosen Penguji 1</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            {{ $item->penguji1 }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <h6 class="mb-0">Dosen Penguji 2</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            {{ $item->penguji2 }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
                                                                             <h6 class="mb-0">IPK</h6>
                                                                         </div>
                                                                         <div class="col-sm-9 text-secondary">
@@ -319,8 +340,18 @@
                                                                     </div>
                                                                     <hr>
                                                                     <div class="text-start mb-4">
-                                                                        <h2 class="mb-0 text-primary">#Informasi Pribadi</h2>
+                                                                        <h2 class="mb-0 text-primary">#Informasi Pribadi
+                                                                        </h2>
                                                                     </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <h6 class="mb-0">NIK</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            {{ $item->nik }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
                                                                     <div class="row">
                                                                         <div class="col-sm-3">
                                                                             <h6 class="mb-0">Tanggal Lahir</h6>
@@ -370,6 +401,30 @@
                                                                         </div>
                                                                         <div class="col-sm-9 text-secondary">
                                                                             {{ $item->alamat }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="text-start mb-4">
+                                                                        <h2 class="mb-0 text-primary">#Berkas
+                                                                        </h2>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <h6 class="mb-0">Ijazah SMA</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            <img src="{{ asset('images/ijazah/' . $item->ijazah) }}"
+                                                                                alt="..." class="card-img-top">
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <h6 class="mb-0">Foto KTP</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-9 text-secondary">
+                                                                            <img src="{{ asset('images/ktp/' . $item->ktp) }}"
+                                                                                alt="..." class="card-img-top">
                                                                         </div>
                                                                     </div>
                                                                     <hr>

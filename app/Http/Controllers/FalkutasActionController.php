@@ -90,12 +90,31 @@ class FalkutasActionController extends Controller
             "ayah" => $request->ayah,
             "ibu" => $request->ibu,
             "ipk" => $request->ipk,
+            "nik" => $request->nik,
+            "penguji1" => $request->penguji1, // Added penguji1 to data creation
+            "penguji2" => $request->penguji2,
         ]);
+        // Handle file upload for 'file'
         if ($request->hasFile('file')) {
-            $request->file('file')->move('images/alumni/', $request->file('file')->getClientOriginalName());
-            $data->file = $request->file('file')->getClientOriginalName();
-            $data->save();
+            $fileName = $request->file('file')->getClientOriginalName();
+            $request->file('file')->move('images/alumni/', $fileName);
+            $data->file = $fileName;
         }
+
+        // Handle file upload for 'ktp'
+        if ($request->hasFile('ktp')) {
+            $ktpFileName = 'ktp_' . time() . '_' . $request->file('ktp')->getClientOriginalName();
+            $request->file('ktp')->move('images/ktp/', $ktpFileName);
+            $data->ktp = $ktpFileName;
+        }
+
+        // Handle file upload for 'ijazah'
+        if ($request->hasFile('ijazah')) {
+            $ijazahFileName = 'ijazah_' . time() . '_' . $request->file('ijazah')->getClientOriginalName();
+            $request->file('ijazah')->move('images/ijazah/', $ijazahFileName);
+            $data->ijazah = $ijazahFileName;
+        }
+        $data->save();
 
         return redirect()->route('falkutas.index')->with('toast_success', 'Data Berhasil Ditambahkan');
     }
@@ -140,7 +159,7 @@ class FalkutasActionController extends Controller
             'npm', 'nama', 'stambuk', 'peminatan', 'prodi',
             'thn_lulus', 'sempro', 'semhas', 'mejahijau',
             'yudisium', 'judul', 'pekerjaan', 'no_alumni', 'ipk', 'tanggal_lhr', 'tempat_lhr',
-            'ayah', 'ibu', 'alamat',
+            'ayah', 'ibu', 'alamat', 'penguji1', 'penguji2', 'nik',
         ]);
 
         // Cek apakah file baru diupload
@@ -160,6 +179,44 @@ class FalkutasActionController extends Controller
 
             // Tambahkan nama file baru ke data update
             $updateData['file'] = $fileName;
+        }
+
+        // Handle file upload for 'ktp'
+        if ($request->hasFile('ktp') && $request->file('ktp')->isValid()) {
+            // Hapus file KTP lama jika ada
+            if ($data->ktp) {
+                $oldKtpPath = public_path('images/ktp/' . $data->ktp);
+                if (file_exists($oldKtpPath)) {
+                    unlink($oldKtpPath);
+                }
+            }
+
+            // Simpan file KTP baru
+            $ktpFile = $request->file('ktp');
+            $ktpFileName = 'ktp_' . time() . '_' . $ktpFile->getClientOriginalName();
+            $ktpFile->move(public_path('images/ktp'), $ktpFileName);
+
+            // Tambahkan nama file KTP baru ke data update
+            $updateData['ktp'] = $ktpFileName;
+        }
+
+        // Handle file upload for 'ijazah'
+        if ($request->hasFile('ijazah') && $request->file('ijazah')->isValid()) {
+            // Hapus file Ijazah lama jika ada
+            if ($data->ijazah) {
+                $oldIjazahPath = public_path('images/ijazah/' . $data->ijazah);
+                if (file_exists($oldIjazahPath)) {
+                    unlink($oldIjazahPath);
+                }
+            }
+
+            // Simpan file Ijazah baru
+            $ijazahFile = $request->file('ijazah');
+            $ijazahFileName = 'ijazah_' . time() . '_' . $ijazahFile->getClientOriginalName();
+            $ijazahFile->move(public_path('images/ijazah'), $ijazahFileName);
+
+            // Tambahkan nama file Ijazah baru ke data update
+            $updateData['ijazah'] = $ijazahFileName;
         }
 
         // Update data user
