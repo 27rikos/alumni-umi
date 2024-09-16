@@ -18,26 +18,23 @@ class DatabaseSeeder extends Seeder
     {
         User::create([
             'name' => 'Admin',
-            'npm' => '00000000',
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin1234'),
             'role' => 'admin',
             'email_verified_at' => date('Y-m-d H:i:s', time()),
         ]);
         User::create([
-            'name' => 'Falkutas Ilmu Komputer',
-            'npm' => '00000000',
+            'name' => 'Fakultas Ilmu Komputer',
             'email' => 'fikom@gmail.com',
             'password' => bcrypt('fikom1234'),
-            'role' => 'falkutas',
+            'role' => 'fakultas',
             'email_verified_at' => date('Y-m-d H:i:s', time()),
         ]);
         User::create([
-            'name' => 'Falkutas Ekonomi',
-            'npm' => '00000000',
+            'name' => 'Fakultas Ekonomi',
             'email' => 'fe@gmail.com',
             'password' => bcrypt('fikom1234'),
-            'role' => 'falkutas',
+            'role' => 'fakultas',
             'email_verified_at' => date('Y-m-d H:i:s', time()),
         ]);
 

@@ -1,166 +1,185 @@
 @extends('Partials.AdminDashboard')
 @section('title', 'tambah alumni')
 @section('content')
-    <div class="main">
-        <div class="card shadow mb-4 my-2 my-3">
-            <div class="card-header py-3 d-flex">
-                <h6 class="m-0 font-weight-bold text-primary">Tambah Data Alumni</h6>
-                <a href="{{ route('alumni.index') }}" class="btn btn-primary btn-icon-split btn-sm  ml-auto">
-                    <span class="icon text-white-50">
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </span>
-                    <span class="text">Kembali</span>
-                </a>
+    <div class="container-xl min-vh-100">
+        <div class="page-header d-print-none mb-5">
+            <div class="container-xl">
+                <div class="row g-2 align-items-center">
+                    <div class="col">
+                        <!-- Page Title and Breadcrumb Container -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- Page Title -->
+                            <h2 class="page-title mt-3">
+                                Data Alumni
+                            </h2>
+
+                            <!-- Breadcrumb positioned to the right -->
+                            <nav aria-label="breadcrumb" class="ms-auto">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{{ route('alumni.index') }}">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Kelola Alumni</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Tambah Alumni</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <form action="{{ route('alumni.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-6">
-                            <!-- Existing form fields -->
-                            <div class="form-group">
-                                <label for="npm">No Alumni</label>
-                                <input type="text" class="form-control" id="no_alumni" name="no_alumni">
+        </div>
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <a href="{{ route('alumni.index') }}" class="btn btn-primary ms-auto"><i
+                            class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('alumni.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="no_alumni" class="form-label">No Alumni</label>
+                                    <input type="text" class="form-control" id="no_alumni" name="no_alumni">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="npm" class="form-label">NPM</label>
+                                    <input type="text" class="form-control" id="npm" name="npm">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nama" class="form-label">Nama</label>
+                                    <input type="text" class="form-control" id="nama" name="nama">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tempat_lhr" class="form-label">Tempat Lahir</label>
+                                    <input type="text" class="form-control" id="tempat_lhr" name="tempat_lhr">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tanggal_lhr" class="form-label">Tanggal Lahir</label>
+                                    <input type="date" class="form-control" id="tanggal_lhr" name="tanggal_lhr">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="alamat" class="form-label">Alamat</label>
+                                    <textarea class="form-control" id="alamat" name="alamat" rows="3"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="stambuk" class="form-label">Stambuk</label>
+                                    <input type="text" class="form-control" id="stambuk" name="stambuk">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="peminatan" class="form-label">Peminatan</label>
+                                    <select name="peminatan" id="peminatan" class="form-select">
+                                        <option value="">--Pilih--</option>
+                                        @foreach ($peminatan as $item)
+                                            <option value="{{ $item->id }}">{{ $item->peminatan }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="studi" class="form-label">Program Studi</label>
+                                    <select name="prodi" id="studi" class="form-select">
+                                        <option value="">--Pilih--</option>
+                                        @foreach ($prodi as $item)
+                                            <option value="{{ $item->id }}">{{ $item->prodi }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fakultas" class="form-label">Fakultas</label>
+                                    <select name="fakultas" id="fakultas" class="form-select">
+                                        <option value="">--Pilih--</option>
+                                        <option value="Fakultas Ilmu Komputer">Fakultas Ilmu Komputer</option>
+                                        <option value="Fakultas Kedokteran">Fakultas Kedokteran</option>
+                                        <option value="Fakultas Sastra">Fakultas Sastra</option>
+                                        <option value="Fakultas Pertanian">Fakultas Pertanian</option>
+                                        <option value="Fakultas Ekonomi">Fakultas Ekonomi</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="lulus" class="form-label">Tahun Lulus*</label>
+                                    <input type="text" class="form-control" id="lulus" name="thn_lulus">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nik" class="form-label">NIK</label>
+                                    <input type="text" class="form-control" id="nik" name="nik">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ktp" class="form-label">KTP</label>
+                                    <input type="file" class="form-control" id="ktp" accept="image/*"
+                                        name="ktp">
+                                    <img id="ktp-preview" src="" class="rounded mt-2 img-fluid"
+                                        alt="KTP Preview" style="display:none; width: 200px; height: auto;" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ijazah" class="form-label">Ijazah</label>
+                                    <input type="file" class="form-control" id="ijazah" accept="image/*"
+                                        name="ijazah">
+                                    <img id="ijazah-preview" src="" class="rounded mt-2 img-fluid"
+                                        alt="Ijazah Preview" style="display:none; width: 200px; height: auto;" />
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="npm">NPM</label>
-                                <input type="text" class="form-control" id="npm" name="npm">
-                            </div>
-                            <div class="form-group">
-                                <label for="nama">Nama</label>
-                                <input type="text" class="form-control" id="nama" name="nama">
-                            </div>
-                            <div class="form-group">
-                                <label for="tempat_lhr">Tempat Lahir</label>
-                                <input type="text" class="form-control" id="tempat_lhr" name="tempat_lhr">
-                            </div>
-                            <div class="form-group">
-                                <label for="tanggal_lhr">Tanggal Lahir</label>
-                                <input type="date" class="form-control" id="tanggal_lhr" name="tanggal_lhr">
-                            </div>
-                            <div class="form-group">
-                                <label for="alamat">Alamat</label>
-                                <textarea class="form-control" id="alamat" name="alamat" rows="3"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="stambuk">Stambuk</label>
-                                <input type="text" class="form-control" id="stambuk" name="stambuk">
-                            </div>
-                            <div class="form-group">
-                                <label for="peminatan">Peminatan</label>
-                                <select name="peminatan" id="peminatan" class="form-control">
-                                    <option value="">--Pilih--</option>
-                                    @foreach ($peminatan as $item)
-                                        <option value="{{ $item->id }}">{{ $item->peminatan }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="studi">Program Studi</label>
-                                <select name="prodi" id="studi" class="form-control">
-                                    <option value="">--Pilih--</option>
-                                    @foreach ($prodi as $item)
-                                        <option value="{{ $item->id }}">{{ $item->prodi }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="falkutas">Falkutas</label>
-                                <select name="falkutas" id="falkutas" class="form-control">
-                                    <option value="">--Pilih--</option>
-                                    <option value="Falkutas Ilmu Komputer">Falkutas Ilmu Komputer</option>
-                                    <option value="Falkutas Kedokteran">Falkutas Kedokteran</option>
-                                    <option value="Falkutas Sastra">Falkutas Sastra</option>
-                                    <option value="Falkutas Pertanian">Falkutas Pertanian</option>
-                                    <option value="Falkutas Ekonomi">Falkutas Ekonomi</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="lulus">Tahun Lulus*</label>
-                                <input type="text" class="form-control" id="lulus" name="thn_lulus">
-                            </div>
-                            <div class="form-group">
-                                <label for="nik">NIK</label>
-                                <input type="text" class="form-control" id="nik" name="nik">
-                            </div>
-                            <div class="form-group">
-                                <label for="ktp">KTP</label>
-                                <input type="file" class="form-control-file" id="ktp" accept="image/*"
-                                    name="ktp">
-                                <img id="ktp-preview" src="" class="rounded mt-2" alt="KTP Preview"
-                                    style="display:none; width: 200px; height: auto;" />
-                            </div>
-                            <div class="form-group">
-                                <label for="ijazah">Ijazah</label>
-                                <input type="file" class="form-control-file" id="ijazah" accept="image/*"
-                                    name="ijazah">
-                                <img id="ijazah-preview" src="" class="rounded mt-2" alt="Ijazah Preview"
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="penguji1" class="form-label">Dosen Penguji 1</label>
+                                    <input type="text" class="form-control" id="penguji1" name="penguji1">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="penguji2" class="form-label">Dosen Penguji 2</label>
+                                    <input type="text" class="form-control" id="penguji2" name="penguji2">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ipk" class="form-label">IPK</label>
+                                    <input type="text" class="form-control" id="ipk" name="ipk">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pekerjaan" class="form-label">Pekerjaan</label>
+                                    <input type="text" class="form-control" id="pekerjaan" name="pekerjaan">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ayah" class="form-label">Nama Ayah</label>
+                                    <input type="text" class="form-control" id="ayah" name="ayah">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ibu" class="form-label">Nama Ibu</label>
+                                    <input type="text" class="form-control" id="ibu" name="ibu">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sempro" class="form-label">Tanggal Seminar Proposal</label>
+                                    <input type="date" class="form-control" id="sempro" name="sempro">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="semhas" class="form-label">Tanggal Seminar Hasil</label>
+                                    <input type="date" class="form-control" id="semhas" name="semhas">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="mejahijau" class="form-label">Tanggal Meja Hijau</label>
+                                    <input type="date" class="form-control" id="mejahijau" name="mejahijau">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="yudisium" class="form-label">Yudisium</label>
+                                    <input type="date" class="form-control" id="yudisium" name="yudisium">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="judul" class="form-label">Judul Skripsi</label>
+                                    <input type="text" class="form-control" id="judul" name="judul">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="file" class="form-label">Foto Alumni</label>
+                                    <input type="file" class="form-control" id="image-input" accept="image/*"
+                                        name="file">
+                                </div>
+                                <img id="image-preview" src="" class="rounded img-fluid" alt="Image Preview"
                                     style="display:none; width: 200px; height: auto;" />
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="penguji1">Dosen Penguji 1</label>
-                                <input type="text" class="form-control" id="penguji1" name="penguji1">
-                            </div>
-                            <div class="form-group">
-                                <label for="penguji2">Dosen Penguji 2</label>
-                                <input type="text" class="form-control" id="penguji2" name="penguji2">
-                            </div>
-                            <!-- Existing form fields continued -->
-                            <div class="form-group">
-                                <label for="ipk">IPK</label>
-                                <input type="text" class="form-control" id="ipk" name="ipk">
-                            </div>
-                            <div class="form-group">
-                                <label for="pekerjaan">Pekerjaan</label>
-                                <input type="text" class="form-control" id="pekerjaan" name="pekerjaan">
-                            </div>
-                            <div class="form-group">
-                                <label for="ayah">Nama Ayah</label>
-                                <input type="text" class="form-control" id="ayah" name="ayah">
-                            </div>
-                            <div class="form-group">
-                                <label for="ibu">Nama Ibu</label>
-                                <input type="text" class="form-control" id="ibu" name="ibu">
-                            </div>
-                            <div class="form-group">
-                                <label for="sempro">Tanggal Seminar Proposal</label>
-                                <input type="date" class="form-control" id="sempro" name="sempro">
-                            </div>
-                            <div class="form-group">
-                                <label for="semhas">Tanggal Seminar Hasil</label>
-                                <input type="date" class="form-control" id="semhas" name="semhas">
-                            </div>
-                            <div class="form-group">
-                                <label for="mejahijau">Tanggal Meja Hijau</label>
-                                <input type="date" class="form-control" id="mejahijau" name="mejahijau">
-                            </div>
-                            <div class="form-group">
-                                <label for="yudisium">Yudisium</label>
-                                <input type="date" class="form-control" id="yudisium" name="yudisium">
-                            </div>
-                            <div class="form-group">
-                                <label for="judul">Judul Skripsi</label>
-                                <input type="text" class="form-control" id="judul" name="judul">
-                            </div>
-                            <div class="form-group">
-                                <label for="file" class="mb-3">Foto Alumni</label>
-                                <input type="file" class="form-control-file" id="image-input" accept="image/*"
-                                    name="file">
-                            </div>
-                            <img id="image-preview" src="" class="rounded" alt="Image Preview"
-                                style="display:none; width: 200px; height: auto;" />
+                        <div class="mt-3">
+                            <button class="btn btn-primary" type="submit">Simpan</button>
                         </div>
-                    </div>
-                    <div class="form-group mt-3">
-                        <button class="btn btn-primary" type="submit">Simpan</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-
     {{-- preview foto --}}
     <script>
         // Function to preview images

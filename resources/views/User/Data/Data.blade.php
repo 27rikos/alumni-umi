@@ -2,7 +2,7 @@
 @section('title', 'data pribadi')
 @section('content')
 
-    <div class="card shadow">
+    <div class="container-xl d-flex flex-column justify-content-center">
         @forelse ($data as $item)
             <div class="container">
                 <div class="row justify-content-center">
@@ -22,7 +22,8 @@
                             <div class="mb-5 wow fadeIn mt-3">
                                 <div class="d-flex justify-content-between mb-4">
                                     <h2 class="mb-0 text-primary">#History Perkuliahan</h2>
-                                    <a href="{{ url('validation/'.$item->id) }}" class=" btn btn-info"><i class="fa-regular fa-file-pdf mr-1"></i>Cetak</a>
+                                    <a href="{{ url('validation/' . $item->id) }}" class=" btn btn-info"><i
+                                            class="fa-regular fa-file-pdf mr-1"></i>Cetak</a>
                                 </div>
                                 <div class=" mb-3">
                                     <div class="card-body">

@@ -6,6 +6,7 @@ use App\Models\Alumni;
 use App\Models\Peminatan;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class FalkutasActionController extends Controller
 {
@@ -17,7 +18,7 @@ class FalkutasActionController extends Controller
     public function index()
     {
         $data = Alumni::with('prodis', 'minat')->where(function ($query) {
-            $query->where('falkutas', Auth()->user()->name);
+            $query->where('fakultas', Auth()->user()->fakultas);
         })->get();
         return view("falkutas.main.index", compact("data"));
     }
@@ -67,7 +68,7 @@ class FalkutasActionController extends Controller
             'npm.unique' => 'NIP sudah digunakan',
             'file.mimes' => 'Format file foto harus jpg,jpeg,png',
         ]);
-        $falkutas = auth()->user()->name;
+        $falkutas = auth()->user()->fakultas;
         $data = Alumni::create([
             "npm" => $request->npm,
             "nama" => $request->nama,
@@ -81,7 +82,7 @@ class FalkutasActionController extends Controller
             "yudisium" => $request->yudisium,
             "pekerjaan" => $request->pekerjaan,
             "judul" => $request->judul,
-            "falkutas" => $falkutas,
+            "fakultas" => $falkutas,
             "file" => $request->file,
             "no_alumni" => $request->no_alumni,
             "alamat" => $request->alamat,
@@ -232,6 +233,33 @@ class FalkutasActionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Find the alumni record by its ID
+        $data = Alumni::findOrFail($id);
+
+        // Define the paths for the files
+        $filePaths = [
+            'file' => public_path('images/alumni/' . $data->file),
+            'ijazah' => public_path('images/ijazah/' . $data->ijazah),
+            'ktp' => public_path('images/ktp/' . $data->ktp),
+        ];
+
+        // Loop through each file path and delete the file if it exists
+        foreach ($filePaths as $key => $path) {
+            if ($data->$key && file_exists($path)) {
+                // Attempt to delete the file from the directory
+                if (!unlink($path)) {
+                    // If file deletion fails, return with an error message
+                    return redirect()->route('falkutas.index')->with('toast_error', "Error deleting the {$key} file at {$path}!");
+                }
+            } else {
+                // If file does not exist, log the message
+                Log::warning("File {$path} does not exist.");
+            }
+        }
+
+        // Delete the alumni record
+        $data->delete();
+
+        return redirect()->route('falkutas.index')->with('toast_success', 'Data Berhasil Dihapus');
     }
 }

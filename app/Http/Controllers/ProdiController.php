@@ -39,7 +39,7 @@ class ProdiController extends Controller
 
         $request->validate([
             'kd_prodi' => 'required',
-            'prodi' => 'required'
+            'prodi' => 'required',
         ]);
         $data = Prodi::create($request->all());
         $data->save();
@@ -66,7 +66,7 @@ class ProdiController extends Controller
     public function edit($id)
     {
 
-        $data = Prodi::findOrFail($id);
+        $prodi = Prodi::findOrFail($id);
         return view('admin.Prodi.Edit', compact(['prodi']));
     }
 

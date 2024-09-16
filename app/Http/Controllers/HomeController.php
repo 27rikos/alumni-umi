@@ -43,9 +43,9 @@ class HomeController extends Controller
     }
     public function falkutas()
     {
-        $alumni = Alumni::select(['id'])->where('falkutas', auth()->user()->name)->count();
-        $pending = Alumni::where('status', 0)->where('falkutas', auth()->user()->name)->count();
-        $approved = Alumni::where('status', 1)->where('falkutas', auth()->user()->name)->count();
+        $alumni = Alumni::select(['id'])->where('fakultas', auth()->user()->name)->count();
+        $pending = Alumni::where('status', 0)->where('fakultas', auth()->user()->name)->count();
+        $approved = Alumni::where('status', 1)->where('fakultas', auth()->user()->name)->count();
         return view('falkutas.dashboard.index', compact('alumni', 'pending', 'approved'));
     }
 }
