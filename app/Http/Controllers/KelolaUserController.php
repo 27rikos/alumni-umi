@@ -16,7 +16,7 @@ class KelolaUserController extends Controller
      */
     public function index()
     {
-        $users = User::select('name', 'email', 'role', 'id')->where('role', 'falkutas')->orwhere('role', 'user')->get();
+        $users = User::select('name', 'email', 'role', 'id', 'fakultas')->whereIn('role', ['admin', 'fakultas'])->get();
         return view("admin.KelolaUser.Index", compact('users'));
     }
 
@@ -41,7 +41,7 @@ class KelolaUserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required',
-            'npm' => 'nullable',
+            'fakultas' => 'nullable',
             'role' => 'required',
             'password' => 'required',
         ]);
@@ -51,7 +51,7 @@ class KelolaUserController extends Controller
             'email' => $request->email,
             'password' => $hashedpassword,
             'role' => $request->role,
-            'npm' => $request->npm,
+            'fakultas' => $request->fakultas,
         ]);
         $data->save();
         return redirect()->route('kelolauser.index')->with('toast_success', 'User Berhasil Dibuat');
@@ -105,6 +105,6 @@ class KelolaUserController extends Controller
     {
         $data = User::find($id);
         $data->delete();
-        return redirect()->route('kelolauser.index')->with('success', 'Data Berhasil Dihapus');
+        return redirect()->route('kelolauser.index')->with('toast_success', 'Data Berhasil Dihapus');
     }
 }

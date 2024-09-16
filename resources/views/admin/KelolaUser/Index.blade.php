@@ -1,38 +1,72 @@
 @extends('Partials.AdminDashboard')
 @section('title', 'Kelola User')
 @section('content')
-    <div class="main">
-        <div class="card shadow mb-4 my-2">
-            <div class="card-header d-flex justify-content-between py-3">
-                <h6 class="m-0 font-weight-bold text-primary">
-                    Data User
-                </h6>
-                <a href="{{ route('kelolauser.create') }}" class="btn btn-primary btn-icon-split btn-sm  ml-auto ">
-                    <span class="icon text-white-50">
-                        <i class="fa-solid fa-plus"></i>
-                    </span>
-                    <span class="text">Tambah</span>
-                </a>
+    <div class="container-xl min-vh-100">
+        <div class="page-header d-print-none mb-5">
+            <div class="container-xl">
+                <div class="row g-2 align-items-center">
+                    <div class="col">
+                        <!-- Page Title and Breadcrumb Container -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- Page Title -->
+                            <h2 class="page-title mt-3">
+                                Data User
+                            </h2>
+
+                            <!-- Breadcrumb positioned to the right -->
+                            <nav aria-label="breadcrumb" class="ms-auto">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{{ route('kelolauser.index') }}">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Kelola User</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        </div>
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <a href="{{ route('kelolauser.create') }}" class="btn btn-primary me-2"><i
+                            class="fa-solid fa-plus me-2"></i>Tambah</a>
+                    <a href="{{ route('kelolauser.index') }}" class="btn btn-azure"> <i class="fa fa-refresh me-2"></i>
+                        Refresh</a>
+                </div>
+                <div class="table-responsive m-3">
+                    <table class="table table-bordered" id="example" width="100%">
                         <thead>
                             <tr>
                                 <th>Nama</th>
                                 <th>Email</th>
+                                <th>Role</th>
+                                <th>Hak Akses</th>
                                 <th>Aksi</th>
-
                             </tr>
                         </thead>
-
                         <tbody>
                             @foreach ($users as $item)
                                 <tr>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
+                                    <td>
+                                        @if ($item->role == 'admin')
+                                            Super Admin
+                                        @else
+                                            Admin
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->fakultas == null)
+                                            Access for all
+                                        @else
+                                            {{ $item->fakultas }}
+                                        @endif
+                                    </td>
                                     <td class=" d-flex ">
-                                        <a href="{{ route('kelolauser.edit',$item->id) }}" class="btn btn-primary mr-1"><i class="fa-regular fa-pen-to-square"></i></a>
+                                        <a href="{{ route('kelolauser.edit', $item->id) }}" class="btn btn-primary me-2 "><i
+                                                class="fa-regular fa-pen-to-square"></i></a>
                                         <form action="{{ route('kelolauser.destroy', $item->id) }}" method="post">
                                             @method('delete')
                                             @csrf
@@ -42,12 +76,10 @@
                                     </td>
                                 </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection

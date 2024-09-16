@@ -57,7 +57,7 @@ class AlumniController extends Controller
             "mejahijau" => "required",
             "yudisium" => "required",
             "pekerjaan" => "required",
-            "falkutas" => "required",
+            "fakultas" => "required",
             "judul" => "required",
             "no_alumni" => "required",
             "alamat" => "required",
@@ -95,7 +95,7 @@ class AlumniController extends Controller
             "yudisium" => $request->yudisium,
             "pekerjaan" => $request->pekerjaan,
             "judul" => $request->judul,
-            "falkutas" => $request->falkutas,
+            "fakultas" => $request->fakultas,
             "no_alumni" => $request->no_alumni,
             "alamat" => $request->alamat,
             "tempat_lhr" => $request->tempat_lhr,
@@ -174,7 +174,7 @@ class AlumniController extends Controller
         $updateData = $request->only([
             'npm', 'nama', 'stambuk', 'peminatan', 'prodi',
             'thn_lulus', 'sempro', 'semhas', 'mejahijau',
-            'yudisium', 'falkutas', 'judul', 'pekerjaan', 'no_alumni', 'ipk', 'tanggal_lhr', 'tempat_lhr',
+            'yudisium', 'fakultas', 'judul', 'pekerjaan', 'no_alumni', 'ipk', 'tanggal_lhr', 'tempat_lhr',
             'ayah', 'ibu', 'alamat', 'penguji1', 'penguji2', 'nik',
         ]);
 

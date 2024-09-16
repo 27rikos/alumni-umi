@@ -68,7 +68,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('validation/{id}', [PDFController::class, 'cetak_surat']);
 });
 
-Route::middleware(['auth', 'user-access:falkutas'])->group(function () {
+Route::middleware(['auth', 'user-access:fakultas'])->group(function () {
     Route::get('falkutas-dashboard', [App\Http\Controllers\HomeController::class, 'falkutas'])->name('falkutas.home');
     Route::get('falkutas/{id}/apv', [FalkutasController::class, 'approve'])->name('falkutas-controller');
     Route::resource("falkutas", FalkutasActionController::class);
