@@ -49,6 +49,10 @@
     <script src="https://cdn.datatables.net/responsive/3.0.3/js/responsive.bootstrap5.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.5/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.3/css/responsive.bootstrap5.css">
+    {{-- end datatable --}}
+    <script src="{{ asset('selectbox/dselect.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('selectbox/dselect.scss') }}">
+
 </head>
 
 <body>
@@ -119,7 +123,8 @@
                                                          document.getElementById('logout-form').submit();"
                                     class="dropdown-item">Logout</a>
                             </div>
-                            <form hidden id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            <form hidden id="logout-form" action="{{ route('logout') }}" method="POST"
+                                class="d-none">
                                 @csrf
                             </form>
                         </div>
@@ -162,17 +167,21 @@
                                     </a>
                                 </li>
                                 <li
-                                    class="nav-item dropdown {{ request()->routeIs('prodi.index') || request()->routeIs('peminatan.index') ? 'active' : '' }}">
+                                    class="nav-item dropdown {{ request()->routeIs('prodi.index') || request()->routeIs('peminatan.index') || request()->routeIs('dosen.index') ? 'active' : '' }}">
                                     <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown"
                                         data-bs-auto-close="outside" role="button" aria-expanded="false">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                            <i class="fas fa-fw fa-cog"></i>
+                                            <i class="fa-solid fa-school-flag"></i>
                                         </span>
                                         <span class="nav-link-title">
-                                            Program Akademik
+                                            Akademik
                                         </span>
                                     </a>
                                     <div class="dropdown-menu">
+                                        <a class="dropdown-item {{ request()->routeIs('dosen.index') ? 'active' : '' }}"
+                                            href="{{ route('dosen.index') }}">
+                                            Dosen
+                                        </a>
                                         <a class="dropdown-item {{ request()->routeIs('prodi.index') ? 'active' : '' }}"
                                             href="{{ route('prodi.index') }}">
                                             Program Studi
@@ -183,6 +192,7 @@
                                         </a>
                                     </div>
                                 </li>
+
                                 <li
                                     class="nav-item dropdown {{ request()->routeIs('berita.index') || request()->routeIs('gallery.index') || request()->routeIs('Video.index') ? 'active' : '' }}">
                                     <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown"
@@ -219,8 +229,8 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="#">
+                                <li class="nav-item {{ request()->routeIs('settings.index') ? 'active' : '' }} ">
+                                    <a class="nav-link" href="{{ route('settings.index') }}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                                             <i class="fa-solid fa-gear"></i>
                                         </span>
@@ -276,6 +286,7 @@
     <script src="{{ asset('./dist/libs/tinymce/tinymce.min.js?1692870487') }}" defer></script>
     @stack('graph')
     @stack('MCE')
+    @stack('search-select-prview_photo')
     @include('sweetalert::alert')
     <script>
         new DataTable('#example', {

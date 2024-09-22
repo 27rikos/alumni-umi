@@ -86,8 +86,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="fakultas" class="form-label">Fakultas</label>
-                                    <select name="fakultas" id="fakultas" class="form-select">
-                                        <option value="">--Pilih--</option>
+                                    <select name="fakultas" id="select_box" class="form-select">
+                                        <option value="">Pilih Fakultas</option>
                                         <option value="Fakultas Ilmu Komputer">Fakultas Ilmu Komputer</option>
                                         <option value="Fakultas Kedokteran">Fakultas Kedokteran</option>
                                         <option value="Fakultas Sastra">Fakultas Sastra</option>
@@ -180,6 +180,16 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // In your Javascript (external .js resource or <script> tag)
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+    </script>
+
+@endsection
+@push('search-select-prview_photo')
     {{-- preview foto --}}
     <script>
         // Function to preview images
@@ -210,4 +220,11 @@
         });
     </script>
     {{-- End preview script --}}
-@endsection
+    <script>
+        var select_box_element = document.querySelector('#select_box');
+
+        dselect(select_box_element, {
+            search: true
+        });
+    </script>
+@endpush

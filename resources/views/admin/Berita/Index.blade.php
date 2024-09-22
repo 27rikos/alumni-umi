@@ -35,7 +35,7 @@
                         Refresh</a>
                 </div>
                 <div class="table-responsive m-3">
-                    <table class="table table-bordered" id="dataTable">
+                    <table class="table table-bordered" id="example">
                         <thead>
                             <tr>
                                 <th>No</th>
