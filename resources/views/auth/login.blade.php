@@ -52,6 +52,9 @@
                     <div class="mb-2">
                         <label class="form-label">
                             Password
+                            <span class="form-label-description">
+                                <a href="{{ route('password.request') }}">Lupa password?</a>
+                            </span>
                         </label>
                         <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password"
                             name="password" required>
