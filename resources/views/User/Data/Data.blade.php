@@ -64,8 +64,20 @@
                                                 <td>{{ $item->ibu }}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Alamat</th>
-                                                <td>{{ $item->alamat }}</td>
+                                                <th>Provinsi</th>
+                                                <td>{{ $item->provinsi }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Kota/Kabupaten</th>
+                                                <td>{{ $item->kota }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Kecamatan</th>
+                                                <td>{{ $item->kecamatan }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Kelurahan</th>
+                                                <td>{{ $item->kelurahan }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -137,11 +149,11 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">Dosen Penguji 1</th>
-                                        <td>{{ $item->penguji1 }}</td>
+                                        <td>{{ $item->dosenpenguji1->nama }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Dosen Penguji 2</th>
-                                        <td>{{ $item->penguji2 }}</td>
+                                        <td>{{ $item->dosenpenguji2->nama }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">IPK</th>

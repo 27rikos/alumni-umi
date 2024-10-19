@@ -40,6 +40,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::resource("kelolauser", KelolaUserController::class);
     Route::resource("alumni", AlumniController::class);
     Route::get("/alumni/{id}/apv", [ApproveController::class, "approve"]);
+    Route::get("/alumni/{id}/pending", [ApproveController::class, "pending"]);
     Route::resource("prodi", ProdiController::class);
     Route::resource("berita", BeritaController::class);
     Route::resource("peminatan", PeminatanController::class);

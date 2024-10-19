@@ -286,7 +286,7 @@
     <script src="{{ asset('./dist/libs/tinymce/tinymce.min.js?1692870487') }}" defer></script>
     @stack('graph')
     @stack('MCE')
-    @stack('search-select-prview_photo')
+    @stack('script')
     @include('sweetalert::alert')
     <script>
         new DataTable('#example', {

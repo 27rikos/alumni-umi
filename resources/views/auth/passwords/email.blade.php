@@ -44,6 +44,11 @@
                     Alumni <span>UMI</span><i class="fa-solid fa-graduation-cap fa-2x"></i>
                 </a>
             </div>
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
             <form class="card card-md" action="{{ route('password.email') }}" method="POST">
                 @csrf
                 <div class="card-body">
@@ -67,7 +72,6 @@
             </div>
         </div>
     </div>
-    @include('sweetalert::alert')
     <!-- Libs JS -->
     <!-- Tabler Core -->
     <script src="{{ asset('./dist/js/tabler.min.js?1692870487') }}" defer></script>

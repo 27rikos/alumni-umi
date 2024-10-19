@@ -36,7 +36,7 @@ class HomeController extends Controller
 
     public function user()
     {
-        $data = Alumni::with('minat', 'prodis')->where('status', 1)->where(function ($query) {
+        $data = Alumni::with('minat', 'prodis', 'dosenpenguji1', 'dosenpenguji2')->where('status', 1)->where(function ($query) {
             $query->where('npm', Auth()->user()->npm);
         })->get();
         return view('User.Data.Data', compact(['data']));

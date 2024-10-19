@@ -14,7 +14,7 @@ class DosenController extends Controller
      */
     public function index()
     {
-        $data = Dosen::where('status', 'aktif')->get();
+        $data = Dosen::all();
         return view('admin.dosen.index', compact('data'));
     }
 
@@ -39,11 +39,6 @@ class DosenController extends Controller
         $this->validate($request, [
             'nidn' => 'required',
             'nama' => 'required',
-            'tanggal_masuk' => 'required',
-            'gelar' => 'required',
-            'alamat' => 'required',
-            'hp' => 'required',
-            'email' => 'required',
         ]);
         $data = Dosen::create($request->all());
         $data->save();

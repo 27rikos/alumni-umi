@@ -59,8 +59,39 @@
                                     <input type="date" class="form-control" id="tanggal_lhr" name="tanggal_lhr">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="alamat" class="form-label">Alamat</label>
-                                    <textarea class="form-control" id="alamat" name="alamat" rows="3"></textarea>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="provinsi" class="form-label">Provinsi</label>
+                                                <select class="form-control select_box" id="provinsi" name="provinsi">
+                                                    <option value="">Pilih Provinsi</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="kota" class="form-label">Kota/Kabupaten</label>
+                                                <select class="form-control select_box" id="kota" name="kota"
+                                                    disabled>
+                                                    <option value="">Pilih Kota/Kabupaten</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="kecamatan" class="form-label">Kecamatan</label>
+                                                <select class="form-control select_box" id="kecamatan" name="kecamatan"
+                                                    disabled>
+                                                    <option value="">Pilih Kecamatan</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="kelurahan" class="form-label">Kelurahan</label>
+                                                <select class="form-control select_box" id="kelurahan" name="kelurahan"
+                                                    disabled>
+                                                    <option value="">Pilih Kelurahan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="stambuk" class="form-label">Stambuk</label>
@@ -86,7 +117,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="fakultas" class="form-label">Fakultas</label>
-                                    <select name="fakultas" id="select_box" class="form-select">
+                                    <select name="fakultas" id="fakultas" class="form-select">
                                         <option value="">Pilih Fakultas</option>
                                         <option value="Fakultas Ilmu Komputer">Fakultas Ilmu Komputer</option>
                                         <option value="Fakultas Kedokteran">Fakultas Kedokteran</option>
@@ -96,7 +127,7 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="lulus" class="form-label">Tahun Lulus*</label>
+                                    <label for="lulus" class="form-label">Tahun Lulus</label>
                                     <input type="text" class="form-control" id="lulus" name="thn_lulus">
                                 </div>
                                 <div class="mb-3">
@@ -121,19 +152,25 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="penguji1" class="form-label">Dosen Penguji 1</label>
-                                    <input type="text" class="form-control" id="penguji1" name="penguji1">
+                                    <select name="penguji1" id="select_box1" class="form-select">
+                                        <option value="">Pilih Dosen Penguji 1</option>
+                                        @foreach ($dosens as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="penguji2" class="form-label">Dosen Penguji 2</label>
-                                    <input type="text" class="form-control" id="penguji2" name="penguji2">
+                                    <select name="penguji2" id="select_box2" class="form-select">
+                                        <option value="">Pilih Dosen Penguji 2</option>
+                                        @foreach ($dosens as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="ipk" class="form-label">IPK</label>
                                     <input type="text" class="form-control" id="ipk" name="ipk">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="pekerjaan" class="form-label">Pekerjaan</label>
-                                    <input type="text" class="form-control" id="pekerjaan" name="pekerjaan">
                                 </div>
                                 <div class="mb-3">
                                     <label for="ayah" class="form-label">Nama Ayah</label>
@@ -180,16 +217,9 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // In your Javascript (external .js resource or <script> tag)
-        $(document).ready(function() {
-            $('.js-example-basic-single').select2();
-        });
-    </script>
-
 @endsection
-@push('search-select-prview_photo')
+@push('script')
+    <script src="{{ asset('js/location.js') }}"></script>
     {{-- preview foto --}}
     <script>
         // Function to preview images
@@ -221,10 +251,17 @@
     </script>
     {{-- End preview script --}}
     <script>
-        var select_box_element = document.querySelector('#select_box');
+        function initSelectBox(select_box_element) {
+            dselect(select_box_element, {
+                search: true
+            });
+        }
 
-        dselect(select_box_element, {
-            search: true
-        });
+        // Inisialisasi untuk dua selectbox
+        var select_box_element1 = document.querySelector('#select_box1');
+        var select_box_element2 = document.querySelector('#select_box2');
+
+        initSelectBox(select_box_element1);
+        initSelectBox(select_box_element2);
     </script>
 @endpush

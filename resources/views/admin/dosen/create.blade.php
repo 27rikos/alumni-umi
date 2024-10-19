@@ -43,26 +43,6 @@
                             <label for="nama" class="form-label">Nama Dosen</label>
                             <input type="text" class="form-control" id="nama" name="nama">
                         </div>
-                        <div class="mb-3">
-                            <label for="tanggal_masuk" class="form-label">Tanggal Masuk</label>
-                            <input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk">
-                        </div>
-                        <div class="mb-3">
-                            <label for="gelar" class="form-label">Gelar Akademik</label>
-                            <textarea name="gelar" id="gelar" cols="30" rows="5" class="form-control"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="alamat" class="form-label">Alamat</label>
-                            <textarea name="alamat" id="alamat" cols="30" rows="5" class="form-control"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="hp" class="form-label">No.Handphone</label>
-                            <input type="text" class="form-control" id="hp" name="hp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email">
-                        </div>
                         <button class="btn btn-primary" type="submit">Simpan</button>
                     </form>
                 </div>

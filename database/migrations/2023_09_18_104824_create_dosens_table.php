@@ -17,13 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('nidn')->nullable();
             $table->string('nama')->nullable();
-            $table->string('jenkel')->nullable();
-            $table->date('tanggal_masuk')->nullable();
-            $table->text('alamat')->nullable();
-            $table->string('hp')->nullable();
-            $table->string('email')->nullable();
-            $table->text('gelar')->nullable();
-            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
             $table->timestamps();
         });
     }

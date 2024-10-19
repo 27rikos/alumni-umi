@@ -8,9 +8,8 @@
                 <h3 class="display-6">Petunjuk Registrasi Alumni:</h3>
                 <ol>
                     <li>Isi setiap field input pada form pengisian data</li>
-                    <li>Isi semua inputan yang bertanda <span class="text-danger">*</span></li>
                     <li>Format foto yang dapat diupload: JPG, JPEG, PNG.</li>
-                    <li>Ukuran maksimal foto: 2MB.</li>
+                    <li>Ukuran maksimal foto: 1MB.</li>
                 </ol>
             </div>
         </div>
@@ -43,8 +42,39 @@
                                     <input type="date" class="form-control" id="tanggal_lhr" name="tanggal_lhr">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="alamat" class="form-label">Alamat</label>
-                                    <textarea class="form-control" id="alamat" name="alamat" rows="3"></textarea>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="provinsi" class="form-label">Provinsi</label>
+                                                <select class="form-control select_box" id="provinsi" name="provinsi">
+                                                    <option value="">Pilih Provinsi</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="kota" class="form-label">Kota/Kabupaten</label>
+                                                <select class="form-control select_box" id="kota" name="kota"
+                                                    disabled>
+                                                    <option value="">Pilih Kota/Kabupaten</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="kecamatan" class="form-label">Kecamatan</label>
+                                                <select class="form-control select_box" id="kecamatan" name="kecamatan"
+                                                    disabled>
+                                                    <option value="">Pilih Kecamatan</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="kelurahan" class="form-label">Kelurahan</label>
+                                                <select class="form-control select_box" id="kelurahan" name="kelurahan"
+                                                    disabled>
+                                                    <option value="">Pilih Kelurahan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="stambuk" class="form-label">Stambuk</label>
@@ -69,7 +99,7 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="fakultas" class="form-label">Falkutas</label>
+                                    <label for="fakultas" class="form-label">Fakultas</label>
                                     <select name="fakultas" id="fakultas" class="form-select">
                                         <option value="">Pilih Fakultas</option>
                                         <option value="Fakultas Ilmu Komputer">Fakultas Ilmu Komputer</option>
@@ -80,11 +110,43 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="pekerjaan" class="form-label">Pekerjaan</label>
-                                    <input type="text" class="form-control" id="pekerjaan" name="pekerjaan">
+                                    <label for="nik" class="form-label">NIK</label>
+                                    <input type="text" class="form-control" id="nik" name="nik">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ktp" class="form-label">KTP</label>
+                                    <input type="file" class="form-control" id="ktp" accept="image/*"
+                                        name="ktp">
+                                    <img id="ktp-preview" src="" class="rounded mt-2 img-fluid"
+                                        alt="KTP Preview" style="display:none; width: 200px; height: auto;" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ijazah" class="form-label">Ijazah</label>
+                                    <input type="file" class="form-control" id="ijazah" accept="image/*"
+                                        name="ijazah">
+                                    <img id="ijazah-preview" src="" class="rounded mt-2 img-fluid"
+                                        alt="Ijazah Preview" style="display:none; width: 200px; height: auto;" />
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="penguji1" class="form-label">Dosen Penguji 1</label>
+                                    <select name="penguji1" id="select_box1" class="form-select">
+                                        <option value="">Pilih Dosen Penguji 1</option>
+                                        @foreach ($dosens as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="penguji2" class="form-label">Dosen Penguji 2</label>
+                                    <select name="penguji2" id="select_box2" class="form-select">
+                                        <option value="">Pilih Dosen Penguji 2</option>
+                                        @foreach ($dosens as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="mb-3">
                                     <label for="ayah" class="form-label">Nama Ayah</label>
                                     <input type="text" class="form-control" id="ayah" name="ayah">
@@ -131,36 +193,51 @@
             </div>
         </div>
     </div>
+@endsection
+@push('script')
     {{-- preview foto --}}
     <script>
-        document.getElementById('image-input').addEventListener('change', function() {
-            const file = this.files[0];
+        // Function to preview images
+        function previewImage(input, previewId) {
+            const file = input.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(event) {
-                    const imgElement = document.createElement("img");
+                    const imgElement = document.getElementById(previewId);
                     imgElement.src = event.target.result;
-                    imgElement.onload = function(e) {
-                        const canvas = document.createElement("canvas");
-                        const MAX_WIDTH = 800;
-
-                        const scaleSize = MAX_WIDTH / e.target.width;
-                        canvas.width = MAX_WIDTH;
-                        canvas.height = e.target.height * scaleSize;
-
-                        const ctx = canvas.getContext("2d");
-                        ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height);
-
-                        const srcEncoded = ctx.canvas.toDataURL(e.target, "image/jpeg");
-
-                        // Tampilkan gambar
-                        document.getElementById('image-preview').src = srcEncoded;
-                        document.getElementById('image-preview').style.display = 'block';
-                    }
+                    imgElement.style.display = 'block';
                 }
                 reader.readAsDataURL(file);
             }
+        }
+
+        // Event listeners for file inputs
+        document.getElementById('image-input').addEventListener('change', function() {
+            previewImage(this, 'image-preview');
+        });
+
+        document.getElementById('ktp').addEventListener('change', function() {
+            previewImage(this, 'ktp-preview');
+        });
+
+        document.getElementById('ijazah').addEventListener('change', function() {
+            previewImage(this, 'ijazah-preview');
         });
     </script>
-    {{--  --}}
-@endsection
+    {{-- end preview --}}
+    <script>
+        function initSelectBox(select_box_element) {
+            dselect(select_box_element, {
+                search: true
+            });
+        }
+
+        // Inisialisasi untuk dua selectbox
+        var select_box_element1 = document.querySelector('#select_box1');
+        var select_box_element2 = document.querySelector('#select_box2');
+
+        initSelectBox(select_box_element1);
+        initSelectBox(select_box_element2);
+    </script>
+    <script src="{{ asset('js/location.js') }}"></script>
+@endpush

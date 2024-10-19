@@ -63,9 +63,9 @@
                         <a href="{{ route('download') }}" class="btn btn-warning ">
                             <i class="fa-solid fa-file-excel me-2"></i> Export
                         </a>
-                        <a href="{{ route('print') }}" class="btn btn-danger ">
+                        {{-- <a href="{{ route('print') }}" class="btn btn-danger ">
                             <i class="fa-solid fa-file-pdf me-2"></i> PDF
-                        </a>
+                        </a> --}}
 
                         <a href="{{ route('alumni.create') }}" class="btn btn-primary">
                             <i class="fa-solid fa-plus me-2"></i> Tambah
@@ -99,7 +99,7 @@
                                     </td>
                                     <td class="d-flex">
                                         <!-- Button trigger modal detail -->
-                                        <button type="button" class="btn btn-primary" title="Detail" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-dark" title="Detail" data-bs-toggle="modal"
                                             data-bs-target="#detail{{ $item->id }}">
                                             <i class="fa-regular fa-eye"></i>
                                         </button>
@@ -112,6 +112,10 @@
                                         <a href="/alumni/{{ $item->id }}/apv" title="Approve"
                                             class="btn btn-success me-1">
                                             <i class="fa-solid fa-circle-check"></i>
+                                        </a>
+                                        <a href="/alumni/{{ $item->id }}/pending" title="Pending"
+                                            class="btn btn-info me-1">
+                                            <i class="fa-solid fa-hourglass-start"></i>
                                         </a>
 
                                         <form action="{{ route('alumni.destroy', $item->id) }}" method="post"
@@ -164,45 +168,58 @@
                                                                 alt="Alumni Photo" class="img-fluid rounded"
                                                                 style="max-width: 100%; height: auto;">
                                                         </div>
-
                                                         <!-- Table Column -->
                                                         <div class="col-md-8 col-sm-12">
                                                             <table class="table table-bordered">
                                                                 <tbody>
                                                                     <tr>
-                                                                        <th scope="row">NIK</th>
+                                                                        <th>NIK</th>
                                                                         <td>{{ $item->nik }}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th scope="row">Nama</th>
+                                                                        <th>Nama</th>
                                                                         <td>{{ $item->nama }}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th scope="row">Tempat Lahir</th>
+                                                                        <th>Tempat Lahir</th>
                                                                         <td>{{ $item->tempat_lhr }}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        @php
-                                                                            $dateString = $item->tanggal_lhr;
-                                                                            $tanggal_lhr = strftime(
-                                                                                '%d %B %Y',
-                                                                                strtotime($dateString),
-                                                                            );
-                                                                        @endphp
-                                                                        <th scope="row">Tanggal Lahir</th>
-                                                                        <td>{{ $tanggal_lhr }}</td>
+                                                                        <th>Tanggal Lahir</th>
+                                                                        <td>
+                                                                            @php
+                                                                                $dateString = $item->tanggal_lhr;
+                                                                                $tanggal_lhr = date(
+                                                                                    'd F Y',
+                                                                                    strtotime($dateString),
+                                                                                );
+                                                                            @endphp
+                                                                            {{ $tanggal_lhr }}
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th scope="row">Nama Ayah</th>
+                                                                        <th>Nama Ayah</th>
                                                                         <td>{{ $item->ayah }}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th scope="row">Nama Ibu</th>
+                                                                        <th>Nama Ibu</th>
                                                                         <td>{{ $item->ibu }}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th scope="row">Alamat</th>
-                                                                        <td>{{ $item->alamat }}</td>
+                                                                        <th>Provinsi</th>
+                                                                        <td>{{ $item->provinsi }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Kota/Kabupaten</th>
+                                                                        <td>{{ $item->kota }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Kecamatan</th>
+                                                                        <td>{{ $item->kecamatan }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Kelurahan</th>
+                                                                        <td>{{ $item->kelurahan }}</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -286,11 +303,11 @@
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row">Dosen Penguji 1</th>
-                                                                <td>{{ $item->penguji1 }}</td>
+                                                                <td>{{ $item->dosenpenguji1->nama }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row">Dosen Penguji 2</th>
-                                                                <td>{{ $item->penguji2 }}</td>
+                                                                <td>{{ $item->dosenpenguji2->nama }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row">IPK</th>

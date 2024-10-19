@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\AlumniImport;
 use App\Models\Alumni;
+use App\Models\Dosen;
 use App\Models\Peminatan;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class AlumniController extends Controller
      */
     public function index()
     {
-        $alumni = Alumni::with('minat', 'prodis')->get();
+        $alumni = Alumni::with('minat', 'prodis', 'dosenpenguji1', 'dosenpenguji2')->get();
         return view('admin.Alumni.Index', compact('alumni'));
     }
 
@@ -31,9 +32,10 @@ class AlumniController extends Controller
      */
     public function create()
     {
+        $dosens = Dosen::select('id', 'nama')->get();
         $peminatan = Peminatan::all();
         $prodi = Prodi::all();
-        return view("admin.Alumni.Create", compact(['prodi', 'peminatan']));
+        return view("admin.Alumni.Create", compact(['prodi', 'peminatan', 'dosens']));
     }
 
     /**
@@ -56,11 +58,9 @@ class AlumniController extends Controller
             "semhas" => "required",
             "mejahijau" => "required",
             "yudisium" => "required",
-            "pekerjaan" => "required",
             "fakultas" => "required",
             "judul" => "required",
             "no_alumni" => "required",
-            "alamat" => "required",
             "tempat_lhr" => "required",
             "tanggal_lhr" => "required",
             "ayah" => "required",
@@ -70,8 +70,12 @@ class AlumniController extends Controller
             "file" => "required|mimes:jpg,jpeg,png|max:2048",
             "ktp" => "required|mimes:jpg,jpeg,png|max:2048",
             "ijazah" => "required|mimes:jpg,jpeg,png|max:2048",
-            "penguji1" => "required", // Added validation for penguji1
-            "penguji2" => "required", // Added validation for penguji2
+            "penguji1" => "required",
+            "penguji2" => "required",
+            "provinsi" => "required",
+            "kota" => "required",
+            "kecamatan" => "required",
+            "kelurahan" => "required",
         ], [
             'npm.unique' => 'NIP sudah digunakan',
             'file.mimes' => 'Format file foto harus jpg,jpeg,png',
@@ -93,19 +97,21 @@ class AlumniController extends Controller
             "semhas" => $request->semhas,
             "mejahijau" => $request->mejahijau,
             "yudisium" => $request->yudisium,
-            "pekerjaan" => $request->pekerjaan,
             "judul" => $request->judul,
             "fakultas" => $request->fakultas,
             "no_alumni" => $request->no_alumni,
-            "alamat" => $request->alamat,
             "tempat_lhr" => $request->tempat_lhr,
             "tanggal_lhr" => $request->tanggal_lhr,
             "nik" => $request->nik,
             "ayah" => $request->ayah,
             "ibu" => $request->ibu,
             "ipk" => $request->ipk,
-            "penguji1" => $request->penguji1, // Added penguji1 to data creation
-            "penguji2" => $request->penguji2, // Added penguji2 to data creation
+            "penguji1" => $request->penguji1,
+            "penguji2" => $request->penguji2,
+            "provinsi" => $request->provinsi,
+            "kota" => $request->kota,
+            "kecamatan" => $request->kecamatan,
+            "kelurahan" => $request->kelurahan,
         ]);
 
         // Handle file upload for 'file'
@@ -153,10 +159,11 @@ class AlumniController extends Controller
      */
     public function edit($id)
     {
+        $dosens = Dosen::select('id', 'nama')->get();
         $prodi = Prodi::all();
         $peminatan = Peminatan::all();
-        $find = Alumni::where('id', $id)->with('prodis', 'minat')->first();
-        return view('admin.Alumni.Edit', compact(['find', 'prodi', 'peminatan']));
+        $find = Alumni::where('id', $id)->with('prodis', 'minat', 'dosenpenguji1', 'dosenpenguji2')->first();
+        return view('admin.Alumni.Edit', compact(['find', 'prodi', 'peminatan', 'dosens']));
     }
 
     /**
@@ -174,8 +181,8 @@ class AlumniController extends Controller
         $updateData = $request->only([
             'npm', 'nama', 'stambuk', 'peminatan', 'prodi',
             'thn_lulus', 'sempro', 'semhas', 'mejahijau',
-            'yudisium', 'fakultas', 'judul', 'pekerjaan', 'no_alumni', 'ipk', 'tanggal_lhr', 'tempat_lhr',
-            'ayah', 'ibu', 'alamat', 'penguji1', 'penguji2', 'nik',
+            'yudisium', 'fakultas', 'judul', 'no_alumni', 'ipk', 'tanggal_lhr', 'tempat_lhr',
+            'ayah', 'ibu', 'penguji1', 'penguji2', 'nik', 'provinsi', 'kota', 'kecamatan', 'kelurahan',
         ]);
 
         // Cek apakah file baru diupload

@@ -14,12 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('alumnis', function (Blueprint $table) {
-            $table->string('ipk')->nullable();
-            $table->string('ayah')->nullable();
-            $table->string('ibu')->nullable();
-            $table->string('no_alumni')->nullable();
-            $table->string('tempat_lhr')->nullable();
-            $table->date('tanggal_lhr')->nullable();
+            $table->string('provinsi')->nullable();
+            $table->string('kota')->nullable();
+            $table->string('kecamatan')->nullable();
+            $table->string('kelurahan')->nullable();
         });
     }
 

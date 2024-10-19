@@ -38,7 +38,6 @@ class AlumniImport implements ToCollection, WithHeadingRow
                     'mejahijau' => $mejahijau,
                     'yudisium' => $yudisium,
                 ]);
-
                 Alumni::create([
                     'no_alumni' => $row['no_alumni'],
                     'npm' => $row['npm'],

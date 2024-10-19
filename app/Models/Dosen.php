@@ -9,4 +9,9 @@ class Dosen extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function alumni()
+    {
+        return $this->hasMany(Alumni::class);
+    }
 }
