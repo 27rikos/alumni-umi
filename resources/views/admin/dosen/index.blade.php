@@ -43,7 +43,6 @@
                                 <th>N0.</th>
                                 <th>NIDN</th>
                                 <th>Nama</th>
-                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -53,8 +52,6 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->nidn }}</td>
                                     <td>{{ $item->nama }}</td>
-                                    <td>{{ $item->status }}</td>
-
                                     <td class=" d-flex ">
                                         <a href="{{ route('dosen.edit', $item->id) }}" class="btn btn-primary me-2 "><i
                                                 class="fa-regular fa-pen-to-square"></i></a>

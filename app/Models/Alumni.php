@@ -50,4 +50,12 @@ class Alumni extends Model
     {
         return $this->belongsTo(Prodi::class, 'prodi');
     }
+    public function dosenpenguji1()
+    {
+        return $this->belongsTo(Dosen::class, 'penguji1'); // 'penguji1' is the foreign key in 'alumnis'
+    }
+    public function dosenpenguji2()
+    {
+        return $this->belongsTo(Dosen::class, 'penguji2'); // 'penguji2' is the foreign key in 'alumnis'
+    }
 }

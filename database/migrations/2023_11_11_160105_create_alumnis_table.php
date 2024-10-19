@@ -18,12 +18,11 @@ return new class extends Migration
             $table->string('npm')->unique()->nullable();
             $table->string('nama')->nullable();
             $table->string('stambuk')->nullable();
-            $table->bigInteger('peminatan')->nullable();
-            $table->bigInteger('prodi')->nullable();
+            $table->foreignId('peminatan')->references('id')->on('peminatans')->cascadeOnDelete();
+            $table->foreignId('prodi')->references('id')->on('prodis')->cascadeOnDelete();
             $table->string('thn_lulus')->nullable();
             $table->date('sempro')->nullable();
             $table->date('semhas')->nullable();
-            $table->string('pekerjaan')->nullable();
             $table->date('mejahijau')->nullable();
             $table->date('yudisium')->nullable();
             $table->string('judul')->nullable();
@@ -31,8 +30,10 @@ return new class extends Migration
             $table->string('nik')->nullable();
             $table->text('ktp')->nullable();
             $table->text('ijazah')->nullable();
-            $table->string('penguji1')->nullable();
-            $table->string('penguji2')->nullable();
+            $table->unsignedBigInteger('penguji1');
+            $table->unsignedBigInteger('penguji2');
+            $table->foreign('penguji1')->references('id')->on('dosens')->cascadeOnDelete();
+            $table->foreign('penguji2')->references('id')->on('dosens')->cascadeOnDelete();
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

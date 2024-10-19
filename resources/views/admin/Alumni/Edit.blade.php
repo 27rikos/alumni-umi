@@ -65,8 +65,36 @@
                                         value="{{ $find->tanggal_lhr }}">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="alamat" class="form-label">Alamat</label>
-                                    <textarea class="form-control" id="alamat" name="alamat" rows="3">{{ $find->alamat }}</textarea>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="provinsi" class="form-label">Provinsi</label>
+                                                <select class="form-control" id="provinsi" name="provinsi">
+                                                    <option value="{{ $find->provinsi }}">{{ $find->provinsi }}</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="kota" class="form-label">Kota/Kabupaten</label>
+                                                <select class="form-control" id="kota" name="kota">
+                                                    <option value="{{ $find->kota }}">{{ $find->kota }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="kecamatan" class="form-label">Kecamatan</label>
+                                                <select class="form-control" id="kecamatan" name="kecamatan">
+                                                    <option value="{{ $find->kecamatan }}">{{ $find->kecamatan }}</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="kelurahan" class="form-label">Kelurahan</label>
+                                                <select class="form-control" id="kelurahan" name="kelurahan">
+                                                    <option value="{{ $find->kelurahan }}">{{ $find->kelurahan }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="stambuk" class="form-label">Stambuk</label>
@@ -135,23 +163,30 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="penguji1" class="form-label">Dosen Penguji 1</label>
-                                    <input type="text" class="form-control" id="penguji1" name="penguji1"
-                                        value="{{ $find->penguji1 }}">
+                                    <select name="penguji1" id="select_box1" class="form-select">
+                                        <option value="">Pilih Dosen Penguji 1</option>
+                                        @foreach ($dosens as $item)
+                                            <option value="{{ $item->id }}"
+                                                {{ $find->dosenpenguji1->nama == $item->nama ? 'selected' : '' }}>
+                                                {{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="penguji2" class="form-label">Dosen Penguji 2</label>
-                                    <input type="text" class="form-control" id="penguji2" name="penguji2"
-                                        value="{{ $find->penguji2 }}">
+                                    <select name="penguji2" id="select_box2" class="form-select">
+                                        <option value="">Pilih Dosen Penguji 2</option>
+                                        @foreach ($dosens as $item)
+                                            <option value="{{ $item->id }}"
+                                                {{ $find->dosenpenguji2->nama == $item->nama ? 'selected' : '' }}>
+                                                {{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="ipk" class="form-label">IPK</label>
                                     <input type="text" class="form-control" id="ipk" name="ipk"
                                         value="{{ $find->ipk }}">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="pekerjaan" class="form-label">Pekerjaan</label>
-                                    <input type="text" class="form-control" id="pekerjaan" name="pekerjaan"
-                                        value="{{ $find->pekerjaan }}" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="ayah" class="form-label">Nama Ayah</label>
@@ -205,6 +240,10 @@
             </div>
         </div>
     </div>
+
+@endsection
+
+@push('script')
     {{-- preview foto --}}
     <script>
         // Function to preview images
@@ -235,4 +274,311 @@
         });
     </script>
     {{-- End preview script --}}
-@endsection
+    <script>
+        function initSelectBox(select_box_element) {
+            dselect(select_box_element, {
+                search: true
+            });
+        }
+
+        // Inisialisasi untuk dua selectbox
+        var select_box_element1 = document.querySelector('#select_box1');
+        var select_box_element2 = document.querySelector('#select_box2');
+
+        initSelectBox(select_box_element1);
+        initSelectBox(select_box_element2);
+    </script>
+    {{-- <script>
+        $(document).ready(function() {
+            const $provinsi = $('#provinsi');
+            const $kota = $('#kota');
+            const $kecamatan = $('#kecamatan');
+            const $kelurahan = $('#kelurahan');
+
+            // Function to fetch data and populate select
+            function fetchAndPopulate(url, $selectElement, placeholder, selectedValue = '') {
+                $.getJSON(url, function(data) {
+                    let options = `<option value="">${placeholder}</option>`;
+                    $.each(data, function(index, item) {
+                        options +=
+                            `<option value="${item.name}" ${item.name === selectedValue ? 'selected' : ''}>${item.name}</option>`;
+                    });
+                    $selectElement.html(options).prop('disabled', false); // Ensure select is enabled
+                }).fail(function(jqxhr, textStatus, error) {
+                    console.error("Error fetching data:", textStatus, error);
+                });
+            }
+
+            // Load sub-regions based on parent (provinsi, kota, kecamatan)
+            function loadSubRegions(parentId, endpoint, $childSelect, placeholder, selectedValue = '') {
+                const url = `https://www.emsifa.com/api-wilayah-indonesia/api/${endpoint}/${parentId}.json`;
+                fetchAndPopulate(url, $childSelect, placeholder, selectedValue);
+            }
+
+            // Load provinces first
+            function loadProvinces(provinsiValue = '') {
+                fetchAndPopulate('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json', $provinsi,
+                    'Pilih Provinsi', provinsiValue);
+            }
+
+            // Initialize with pre-filled values
+            function initializeSelects() {
+                const provinsiValue = '{{ $find->provinsi }}';
+                const kotaValue = '{{ $find->kota }}';
+                const kecamatanValue = '{{ $find->kecamatan }}';
+                const kelurahanValue = '{{ $find->kelurahan }}';
+
+                // Load provinces with the default value
+                loadProvinces(provinsiValue);
+
+                if (provinsiValue) {
+                    $.getJSON('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json', function(
+                        provinces) {
+                        const selectedProvince = provinces.find(prov => prov.name === provinsiValue);
+                        if (selectedProvince) {
+                            loadSubRegions(selectedProvince.id, 'regencies', $kota, 'Pilih Kota/Kabupaten',
+                                kotaValue);
+                        }
+
+                        if (kotaValue) {
+                            $.getJSON(
+                                `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${selectedProvince.id}.json`,
+                                function(kotas) {
+                                    const selectedKota = kotas.find(kota => kota.name === kotaValue);
+                                    if (selectedKota) {
+                                        loadSubRegions(selectedKota.id, 'districts', $kecamatan,
+                                            'Pilih Kecamatan', kecamatanValue);
+                                    }
+
+                                    if (kecamatanValue) {
+                                        $.getJSON(
+                                            `https://www.emsifa.com/api-wilayah-indonesia/api/districts/${selectedKota.id}.json`,
+                                            function(kecamatans) {
+                                                const selectedKecamatan = kecamatans.find(kec => kec
+                                                    .name === kecamatanValue);
+                                                if (selectedKecamatan) {
+                                                    loadSubRegions(selectedKecamatan.id, 'villages',
+                                                        $kelurahan, 'Pilih Kelurahan',
+                                                        kelurahanValue);
+                                                }
+                                            });
+                                    }
+                                });
+                        }
+                    });
+                }
+            }
+
+            // Event listener for Provinsi
+            $provinsi.on('change', function() {
+                const provinsiName = $(this).val();
+                if (provinsiName) {
+                    $.getJSON('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json', function(
+                        data) {
+                        const selectedProvince = data.find(prov => prov.name === provinsiName);
+                        if (selectedProvince) {
+                            loadSubRegions(selectedProvince.id, 'regencies', $kota,
+                                'Pilih Kota/Kabupaten');
+                        }
+                    });
+                    $kecamatan.html('<option value="">Pilih Kecamatan</option>').prop('disabled', true);
+                    $kelurahan.html('<option value="">Pilih Kelurahan</option>').prop('disabled', true);
+                } else {
+                    $kota.html('<option value="">Pilih Kota/Kabupaten</option>').prop('disabled', true);
+                    $kecamatan.html('<option value="">Pilih Kecamatan</option>').prop('disabled', true);
+                    $kelurahan.html('<option value="">Pilih Kelurahan</option>').prop('disabled', true);
+                }
+            });
+
+            // Event listener for Kota
+            $kota.on('change', function() {
+                const kotaName = $(this).val();
+                if (kotaName) {
+                    $.getJSON(
+                        `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${$provinsi.val()}.json`,
+                        function(kotas) {
+                            const selectedKota = kotas.find(kota => kota.name === kotaName);
+                            if (selectedKota) {
+                                loadSubRegions(selectedKota.id, 'districts', $kecamatan,
+                                    'Pilih Kecamatan');
+                            }
+                        });
+                    $kelurahan.html('<option value="">Pilih Kelurahan</option>').prop('disabled', true);
+                } else {
+                    $kecamatan.html('<option value="">Pilih Kecamatan</option>').prop('disabled', true);
+                    $kelurahan.html('<option value="">Pilih Kelurahan</option>').prop('disabled', true);
+                }
+            });
+
+            // Event listener for Kecamatan
+            $kecamatan.on('change', function() {
+                const kecamatanName = $(this).val();
+                if (kecamatanName) {
+                    $.getJSON(
+                        `https://www.emsifa.com/api-wilayah-indonesia/api/districts/${$kota.val()}.json`,
+                        function(kecamatans) {
+                            const selectedKecamatan = kecamatans.find(kec => kec.name ===
+                                kecamatanName);
+                            if (selectedKecamatan) {
+                                loadSubRegions(selectedKecamatan.id, 'villages', $kelurahan,
+                                    'Pilih Kelurahan');
+                            }
+                        });
+                } else {
+                    $kelurahan.html('<option value="">Pilih Kelurahan</option>').prop('disabled', true);
+                }
+            });
+
+            // Initialize the selects with pre-filled data from the backend
+            initializeSelects();
+        });
+    </script> --}}
+
+    <script>
+        $(document).ready(function() {
+            const $provinsi = $('#provinsi');
+            const $kota = $('#kota');
+            const $kecamatan = $('#kecamatan');
+            const $kelurahan = $('#kelurahan');
+
+            // Function to fetch data and populate select
+            function fetchAndPopulate(url, $selectElement, placeholder, selectedValue = '') {
+                $.getJSON(url, function(data) {
+                    let options = `<option value="">${placeholder}</option>`;
+                    $.each(data, function(index, item) {
+                        options +=
+                            `<option value="${item.name}" data-id="${item.id}" ${item.name === selectedValue ? 'selected' : ''}>${item.name}</option>`;
+                    });
+                    $selectElement.html(options).prop('disabled', false); // Ensure select is enabled
+                }).fail(function(jqxhr, textStatus, error) {
+                    console.error("Error fetching data:", textStatus, error);
+                });
+            }
+
+            // Load sub-regions based on parent (provinsi, kota, kecamatan)
+            function loadSubRegions(parentId, endpoint, $childSelect, placeholder, selectedValue = '') {
+                const url = `https://www.emsifa.com/api-wilayah-indonesia/api/${endpoint}/${parentId}.json`;
+                fetchAndPopulate(url, $childSelect, placeholder, selectedValue);
+            }
+
+            // Load provinces first
+            function loadProvinces(provinsiValue = '') {
+                fetchAndPopulate('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json', $provinsi,
+                    'Pilih Provinsi', provinsiValue);
+            }
+
+            // Initialize with pre-filled values
+            function initializeSelects() {
+                const provinsiValue = '{{ $find->provinsi }}';
+                const kotaValue = '{{ $find->kota }}';
+                const kecamatanValue = '{{ $find->kecamatan }}';
+                const kelurahanValue = '{{ $find->kelurahan }}';
+
+                // Load provinces with the default value
+                loadProvinces(provinsiValue);
+
+                if (provinsiValue) {
+                    $.getJSON('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json', function(
+                        provinces) {
+                        const selectedProvince = provinces.find(prov => prov.name === provinsiValue);
+                        if (selectedProvince) {
+                            loadSubRegions(selectedProvince.id, 'regencies', $kota, 'Pilih Kota/Kabupaten',
+                                kotaValue);
+                        }
+
+                        if (kotaValue) {
+                            $.getJSON(
+                                `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${selectedProvince.id}.json`,
+                                function(kotas) {
+                                    const selectedKota = kotas.find(kota => kota.name === kotaValue);
+                                    if (selectedKota) {
+                                        loadSubRegions(selectedKota.id, 'districts', $kecamatan,
+                                            'Pilih Kecamatan', kecamatanValue);
+                                    }
+
+                                    if (kecamatanValue) {
+                                        $.getJSON(
+                                            `https://www.emsifa.com/api-wilayah-indonesia/api/districts/${selectedKota.id}.json`,
+                                            function(kecamatans) {
+                                                const selectedKecamatan = kecamatans.find(kec => kec
+                                                    .name === kecamatanValue);
+                                                if (selectedKecamatan) {
+                                                    loadSubRegions(selectedKecamatan.id, 'villages',
+                                                        $kelurahan, 'Pilih Kelurahan',
+                                                        kelurahanValue);
+                                                }
+                                            });
+                                    }
+                                });
+                        }
+                    });
+                }
+            }
+
+            // Event listener for Provinsi
+            $provinsi.on('change', function() {
+                const provinsiName = $(this).val();
+                if (provinsiName) {
+                    $.getJSON('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json', function(
+                        data) {
+                        const selectedProvince = data.find(prov => prov.name === provinsiName);
+                        if (selectedProvince) {
+                            loadSubRegions(selectedProvince.id, 'regencies', $kota,
+                                'Pilih Kota/Kabupaten');
+                        }
+                    });
+                    $kecamatan.html('<option value="">Pilih Kecamatan</option>').prop('disabled', true);
+                    $kelurahan.html('<option value="">Pilih Kelurahan</option>').prop('disabled', true);
+                } else {
+                    $kota.html('<option value="">Pilih Kota/Kabupaten</option>').prop('disabled', true);
+                    $kecamatan.html('<option value="">Pilih Kecamatan</option>').prop('disabled', true);
+                    $kelurahan.html('<option value="">Pilih Kelurahan</option>').prop('disabled', true);
+                }
+            });
+
+            // Event listener for Kota
+            $kota.on('change', function() {
+                const kotaName = $(this).val();
+                if (kotaName) {
+                    const selectedProvinceId = $provinsi.find(':selected').data('id');
+                    $.getJSON(
+                        `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${selectedProvinceId}.json`,
+                        function(kotas) {
+                            const selectedKota = kotas.find(kota => kota.name === kotaName);
+                            if (selectedKota) {
+                                loadSubRegions(selectedKota.id, 'districts', $kecamatan,
+                                    'Pilih Kecamatan');
+                            }
+                        });
+                    $kelurahan.html('<option value="">Pilih Kelurahan</option>').prop('disabled', true);
+                } else {
+                    $kecamatan.html('<option value="">Pilih Kecamatan</option>').prop('disabled', true);
+                    $kelurahan.html('<option value="">Pilih Kelurahan</option>').prop('disabled', true);
+                }
+            });
+
+            // Event listener for Kecamatan
+            $kecamatan.on('change', function() {
+                const kecamatanName = $(this).val();
+                if (kecamatanName) {
+                    const selectedKotaId = $kota.find(':selected').data('id'); // Get the selected Kota ID
+                    $.getJSON(
+                        `https://www.emsifa.com/api-wilayah-indonesia/api/districts/${selectedKotaId}.json`,
+                        function(kecamatans) {
+                            const selectedKecamatan = kecamatans.find(kec => kec.name ===
+                                kecamatanName);
+                            if (selectedKecamatan) {
+                                loadSubRegions(selectedKecamatan.id, 'villages', $kelurahan,
+                                    'Pilih Kelurahan');
+                            }
+                        });
+                } else {
+                    $kelurahan.html('<option value="">Pilih Kelurahan</option>').prop('disabled', true);
+                }
+            });
+
+            // Initialize the selects with pre-filled data from the backend
+            initializeSelects();
+        });
+    </script>
+@endpush
