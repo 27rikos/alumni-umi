@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Alumni;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class PersonController extends Controller
@@ -17,8 +15,6 @@ class PersonController extends Controller
     {
         return view('User.Data.Data');
     }
-
-
 
     /**
      * Show the form for creating a new resource.

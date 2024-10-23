@@ -61,8 +61,7 @@
                                         @if ($item->fakultas == null)
                                             Access for all
                                         @else
-                                            @if ($item->falk)
-                                            @endif
+                                            {{ $item->fakultas }}
                                         @endif
                                     </td>
                                     <td class=" d-flex ">

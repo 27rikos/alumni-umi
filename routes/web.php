@@ -53,6 +53,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('preview', [PDFController::class, 'preview']);
     Route::get('download-excel', [ExcelDownload::class, 'exportdata'])->name('download');
     Route::post('import-alumni', [AlumniController::class, 'imports'])->name('import-alumni');
+    Route::post('import-dosen', [DosenController::class, 'import'])->name('import-dosen');
 });
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -75,7 +76,8 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 
 Route::middleware(['auth', 'user-access:fakultas'])->group(function () {
     Route::get('falkutas-dashboard', [App\Http\Controllers\HomeController::class, 'falkutas'])->name('falkutas.home');
-    Route::get('falkutas/{id}/apv', [FalkutasController::class, 'approve'])->name('falkutas-controller');
+    Route::get('falkutas/{id}/apv', [FalkutasController::class, 'approve']);
+    Route::get('falkutas/{id}/pending', [FalkutasController::class, 'pending']);
     Route::resource("falkutas", FalkutasActionController::class);
     Route::get('export-falkutas', [ExcelDownload::class, 'exportfalkutas'])->name('falkutas-excel');
     Route::get('preview-falkutas-alumni', [PDFController::class, 'pdf']);

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\DosenImport;
 use App\Models\Dosen;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DosenController extends Controller
 {
@@ -95,5 +97,11 @@ class DosenController extends Controller
         $data->delete();
         return redirect()->route('dosen.index')->with('toast_success', 'Data Diubah');
 
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new DosenImport, $request->file);
+        return redirect()->route('dosen.index')->with('toast_success', 'Data Di import');
     }
 }
