@@ -136,7 +136,7 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="lulus" class="form-label">Tahun Lulus*</label>
+                                    <label for="lulus" class="form-label">Tahun Lulus</label>
                                     <input type="text" class="form-control" id="lulus" name="thn_lulus"
                                         value="{{ $find->thn_lulus }}" required>
                                 </div>

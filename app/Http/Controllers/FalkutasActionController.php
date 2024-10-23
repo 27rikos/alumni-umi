@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumni;
+use App\Models\Dosen;
 use App\Models\Peminatan;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
@@ -32,7 +33,8 @@ class FalkutasActionController extends Controller
     {
         $peminatan = Peminatan::all();
         $prodi = Prodi::all();
-        return view('falkutas.main.create', compact('prodi', 'peminatan'));
+        $dosens = Dosen::all();
+        return view('falkutas.main.create', compact('prodi', 'peminatan', 'dosens'));
     }
 
     /**
@@ -54,21 +56,23 @@ class FalkutasActionController extends Controller
             "semhas" => "required",
             "mejahijau" => "required",
             "yudisium" => "required",
-            "pekerjaan" => "required",
             "judul" => "required",
             "no_alumni" => "required",
-            "alamat" => "required",
             "tempat_lhr" => "required",
             "tanggal_lhr" => "required",
             "ayah" => "required",
             "ibu" => "required",
             "ipk" => "required",
             "file" => "required|mimes:jpg,jpeg,png|max:2048",
+            "provinsi" => "required",
+            "kota" => "required",
+            "kecamatan" => "required",
+            "kelurahan" => "required",
         ], messages: [
             'npm.unique' => 'NIP sudah digunakan',
             'file.mimes' => 'Format file foto harus jpg,jpeg,png',
         ]);
-        $falkutas = auth()->user()->fakultas;
+        $fakultas = auth()->user()->fakultas;
         $data = Alumni::create([
             "npm" => $request->npm,
             "nama" => $request->nama,
@@ -80,20 +84,23 @@ class FalkutasActionController extends Controller
             "semhas" => $request->semhas,
             "mejahijau" => $request->mejahijau,
             "yudisium" => $request->yudisium,
-            "pekerjaan" => $request->pekerjaan,
             "judul" => $request->judul,
-            "fakultas" => $falkutas,
+            "fakultas" => $fakultas,
             "file" => $request->file,
             "no_alumni" => $request->no_alumni,
-            "alamat" => $request->alamat,
+            "provinsi" => $request->provinsi,
+            "kota" => $request->kota,
+            "kecamatan" => $request->kecamatan,
+            "kelurahan" => $request->kelurahan,
             "tempat_lhr" => $request->tempat_lhr,
             "tanggal_lhr" => $request->tanggal_lhr,
             "ayah" => $request->ayah,
             "ibu" => $request->ibu,
             "ipk" => $request->ipk,
             "nik" => $request->nik,
-            "penguji1" => $request->penguji1, // Added penguji1 to data creation
+            "penguji1" => $request->penguji1,
             "penguji2" => $request->penguji2,
+
         ]);
         // Handle file upload for 'file'
         if ($request->hasFile('file')) {
@@ -139,10 +146,11 @@ class FalkutasActionController extends Controller
      */
     public function edit($id)
     {
+        $dosens = Dosen::all();
         $peminatan = Peminatan::all();
         $prodi = Prodi::all();
         $find = Alumni::find($id);
-        return view('falkutas.main.edit', compact('find', 'peminatan', 'prodi'));
+        return view('falkutas.main.edit', compact('find', 'peminatan', 'prodi', 'dosens'));
     }
 
     /**
@@ -160,7 +168,7 @@ class FalkutasActionController extends Controller
             'npm', 'nama', 'stambuk', 'peminatan', 'prodi',
             'thn_lulus', 'sempro', 'semhas', 'mejahijau',
             'yudisium', 'judul', 'pekerjaan', 'no_alumni', 'ipk', 'tanggal_lhr', 'tempat_lhr',
-            'ayah', 'ibu', 'alamat', 'penguji1', 'penguji2', 'nik',
+            'ayah', 'ibu', 'alamat', 'penguji1', 'penguji2', 'nik', 'provinsi', 'kota', 'kecamatan', 'kelurahan',
         ]);
 
         // Cek apakah file baru diupload

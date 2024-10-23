@@ -229,7 +229,7 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li class="nav-item {{ request()->routeIs('settings.index') ? 'active' : '' }} ">
+                                {{-- <li class="nav-item {{ request()->routeIs('settings.index') ? 'active' : '' }} ">
                                     <a class="nav-link" href="{{ route('settings.index') }}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                                             <i class="fa-solid fa-gear"></i>
@@ -238,7 +238,7 @@
                                             Settings
                                         </span>
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                     </div>

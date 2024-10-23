@@ -76,14 +76,15 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <form action="" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('import-dosen') }}" method="post" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="modal-body">
-                                        <input type="file" class="form-control" accept=".xlsx,.csv" name="file">
+                                        <input type="file" class="form-control" accept=".xlsx,.csv,.xls" name="file">
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Upload</button>
+                                        <button type="submit" class="btn btn-primary">Import</button>
                                     </div>
                                 </form>
                             </div>

@@ -115,7 +115,7 @@
                                         </a>
                                         <a href="/alumni/{{ $item->id }}/pending" title="Pending"
                                             class="btn btn-info me-1">
-                                            <i class="fa-solid fa-hourglass-start"></i>
+                                            <i class="fa-solid fa-xmark"></i>
                                         </a>
 
                                         <form action="{{ route('alumni.destroy', $item->id) }}" method="post"
@@ -142,17 +142,20 @@
                                         <div class="card-header">
                                             <ul class="nav nav-tabs card-header-tabs nav-fill" data-bs-toggle="tabs">
                                                 <li class="nav-item">
-                                                    <a href="#tabs-home-7" class="nav-link active" data-bs-toggle="tab">
+                                                    <a href="#tabs-home-7{{ $item->id }}" class="nav-link active"
+                                                        data-bs-toggle="tab">
                                                         <i class="fa-regular fa-user me-2"></i>
                                                         Profile</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#tabs-profile-7" class="nav-link" data-bs-toggle="tab">
+                                                    <a href="#tabs-profile-7{{ $item->id }}" class="nav-link"
+                                                        data-bs-toggle="tab">
                                                         <i class="fa-solid fa-user-graduate me-2"></i>
                                                         History Perkuliahan</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#tabs-activity-7" class="nav-link" data-bs-toggle="tab">
+                                                    <a href="#tabs-activity-7{{ $item->id }}" class="nav-link"
+                                                        data-bs-toggle="tab">
                                                         <i class="fa-solid fa-paperclip me-2"></i>
                                                         Berkas</a>
                                                 </li>
@@ -160,7 +163,7 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="tab-content">
-                                                <div class="tab-pane active show" id="tabs-home-7">
+                                                <div class="tab-pane active show" id="tabs-home-7{{ $item->id }}">
                                                     <div class="row">
                                                         <!-- Image Column -->
                                                         <div class="col-md-4 col-sm-12 text-center mb-3">
@@ -226,7 +229,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane" id="tabs-profile-7">
+                                                <div class="tab-pane" id="tabs-profile-7{{ $item->id }}">
                                                     <table class="table table-bordered">
                                                         <tbody>
                                                             <tr>
@@ -320,8 +323,9 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="tab-pane" id="tabs-activity-7">
-                                                    <div class="tab-pane active show" id="tabs-home-7">
+                                                <div class="tab-pane" id="tabs-activity-7{{ $item->id }}">
+                                                    <div class="tab-pane active show"
+                                                        id="tabs-home-7{{ $item->id }}">
                                                         <table class="table table-bordered">
                                                             <thead>
                                                                 <tr>

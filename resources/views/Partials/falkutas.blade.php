@@ -49,6 +49,8 @@
     <script src="https://cdn.datatables.net/responsive/3.0.3/js/responsive.bootstrap5.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.5/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.3/css/responsive.bootstrap5.css">
+    <script src="{{ asset('selectbox/dselect.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('selectbox/dselect.scss') }}">
 </head>
 
 <body>
@@ -119,7 +121,8 @@
                                                          document.getElementById('logout-form').submit();"
                                     class="dropdown-item">Logout</a>
                             </div>
-                            <form hidden id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            <form hidden id="logout-form" action="{{ route('logout') }}" method="POST"
+                                class="d-none">
                                 @csrf
                             </form>
                         </div>
