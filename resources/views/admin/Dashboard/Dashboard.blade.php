@@ -141,13 +141,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 mt-2">
+        {{-- <div class="col-12 mt-2">
             <div class="card">
                 <div class="card-body">
                     <div id="chart-pekerjaan"></div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 @endsection
 @push('graph')
@@ -220,7 +220,7 @@
         const chartTren = new ApexCharts(document.querySelector("#chart-tren"), optionsTren);
         chartTren.render();
     </script>
-    <script>
+    {{-- <script>
         const optionsPekerjaan = {
             chart: {
                 type: 'bar',
@@ -241,5 +241,5 @@
 
         const chartPekerjaan = new ApexCharts(document.querySelector("#chart-pekerjaan"), optionsPekerjaan);
         chartPekerjaan.render();
-    </script>
+    </script> --}}
 @endpush

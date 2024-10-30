@@ -1,5 +1,5 @@
 @extends('Partials.AdminDashboard')
-@section('title', 'Kelola Admin')
+@section('title', 'Kelola User Alumni')
 @section('content')
     <div class="container-xl min-vh-100">
         <div class="page-header d-print-none mb-5">
@@ -10,15 +10,15 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <!-- Page Title -->
                             <h2 class="page-title mt-3">
-                                Data Admin
+                                Data User Alumni
                             </h2>
 
                             <!-- Breadcrumb positioned to the right -->
                             <nav aria-label="breadcrumb" class="ms-auto">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('kelolauser.index') }}">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Kelola Admin</li>
-                                    <li class="breadcrumb-item active" aria-current="page">Edit Admin</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Kelola User Alumni</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Edit User Alumni</li>
                                 </ol>
                             </nav>
                         </div>
@@ -30,11 +30,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('kelolauser.index') }}" class="btn btn-primary ms-auto"><i
+                    <a href="{{ route('enduser.index') }}" class="btn btn-primary ms-auto"><i
                             class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('kelolauser.update', $data->id) }}" method="POST">
+                    <form action="{{ route('enduser.update', $data->id) }}" method="POST">
                         @method('put')
                         @csrf
                         <div class="form-group mb-2">
@@ -43,35 +43,16 @@
                                 value="{{ $data->name }}">
                         </div>
                         <div class="form-group mb-2">
+                            <label for="npm">NPM</label>
+                            <input type="text" class="form-control" id="npm" name="npm"required
+                                {{ $data->npm }}>
+                        </div>
+                        <div class="form-group mb-2">
                             <label for="email">Email</label>
                             <input type="email" class="form-control" id="email" name="email" required
                                 value="{{ $data->email }}">
                         </div>
-                        <div class="form-group mb-2">
-                            <label for="fakultas">Admin Fakultas (Untuk Role Admin Fakultas)</label>
-                            <select name="fakultas" id="fakultas" class="form-control">
-                                <option value="">Pilih Fakultas</option>
-                                @foreach (['Fakultas Ilmu Komputer', 'Fakultas Kedokteran', 'Fakultas Sastra', 'Fakultas Ekonomi', 'Fakultas Pertanian'] as $option)
-                                    <option value="{{ $option }}" {{ $data->fakultas == $option ? 'selected' : '' }}>
-                                        {{ $option }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group mb-2">
-                            <label for="falkutas">Role</label>
-                            <select name="role" id="" class="form-control" value="{{ $data->role }}">
-                                <option value="">--Pilih--</option>
-                                @foreach (['fakultas', 'admin'] as $option)
-                                    <option value="{{ $option }}" {{ $data->role == $option ? 'selected' : '' }}>
-                                        {{ $option }}
-                                    </option>
-                                @endforeach
-                            </select>
-
-                        </div>
-                        <div class="form-group mt-3">
+                        <div class="form-group mb-2 mt-3">
                             <button class="btn btn-primary" type="submit">Simpan</button>
                         </div>
                     </form>

@@ -114,17 +114,11 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                <a href="#" class="dropdown-item">Status</a>
-                                <a href="#" class="dropdown-item">Profile</a>
-                                <a href="#" class="dropdown-item">Feedback</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">Settings</a>
                                 <a href="{{ route('logout') }}"onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();"
                                     class="dropdown-item">Logout</a>
                             </div>
-                            <form hidden id="logout-form" action="{{ route('logout') }}" method="POST"
-                                class="d-none">
+                            <form hidden id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
                         </div>
@@ -146,15 +140,27 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li class="nav-item {{ request()->routeIs('kelolauser.index') ? 'active' : '' }}">
-                                    <a class="nav-link" href="{{ route('kelolauser.index') }}">
+                                <li
+                                    class="nav-item dropdown {{ request()->routeIs('kelolauser.index') || request()->routeIs('enduser.index') ? 'active' : '' }}">
+                                    <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown"
+                                        data-bs-auto-close="outside" role="button" aria-expanded="false">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                                             <i class="fa-solid fa-users-gear"></i>
                                         </span>
                                         <span class="nav-link-title">
-                                            Kelola User
+                                            kelola User
                                         </span>
                                     </a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item {{ request()->routeIs('kelolauser.index') ? 'active' : '' }}"
+                                            href="{{ route('kelolauser.index') }}">
+                                            Admin
+                                        </a>
+                                        <a class="dropdown-item {{ request()->routeIs('enduser.index') ? 'active' : '' }}"
+                                            href="{{ route('enduser.index') }}">
+                                            User
+                                        </a>
+                                    </div>
                                 </li>
                                 <li class="nav-item {{ request()->routeIs('alumni.index') ? 'active' : '' }}">
                                     <a class="nav-link" href="{{ route('alumni.index') }}">
@@ -192,7 +198,6 @@
                                         </a>
                                     </div>
                                 </li>
-
                                 <li
                                     class="nav-item dropdown {{ request()->routeIs('berita.index') || request()->routeIs('gallery.index') || request()->routeIs('Video.index') ? 'active' : '' }}">
                                     <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown"

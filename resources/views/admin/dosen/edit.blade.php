@@ -42,6 +42,11 @@
                                 value="{{ $data->nidn }}">
                         </div>
                         <div class="mb-3">
+                            <label for="nuptk" class="form-label">NIDN</label>
+                            <input type="text" class="form-control" id="nuptk" name="nuptk"
+                                value="{{ $data->nuptk }}">
+                        </div>
+                        <div class="mb-3">
                             <label for="nama" class="form-label">Nama Dosen</label>
                             <input type="text" class="form-control" id="nama" name="nama"
                                 value="{{ $data->nama }}">

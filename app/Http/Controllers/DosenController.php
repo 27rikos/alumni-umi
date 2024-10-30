@@ -40,6 +40,7 @@ class DosenController extends Controller
     {
         $this->validate($request, [
             'nidn' => 'required',
+            'nuptk' => 'required',
             'nama' => 'required',
         ]);
         $data = Dosen::create($request->all());

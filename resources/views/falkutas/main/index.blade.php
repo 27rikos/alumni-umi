@@ -140,10 +140,10 @@
                     </div>
 
                     @foreach ($data as $item)
-                        <!-- Modal detail-->
+                        <!-- Modal Detail -->
                         <div class="modal fade" id="detail{{ $item->id }}" tabindex="-1"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-xl modal-dialog-centered  ">
+                            <div class="modal-dialog modal-xl modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="card">
                                         <div class="card-header">
@@ -151,198 +151,176 @@
                                                 <li class="nav-item">
                                                     <a href="#profile-{{ $item->id }}" class="nav-link active"
                                                         data-bs-toggle="tab">
-                                                        <i class="fa-regular fa-user me-2"></i>
-                                                        Profile</a>
+                                                        <i class="fa-regular fa-user me-2"></i> Profil
+                                                    </a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#history-{{ $item->id }}" class="nav-link"
                                                         data-bs-toggle="tab">
-                                                        <i class="fa-solid fa-user-graduate me-2"></i>
-                                                        History Perkuliahan</a>
+                                                        <i class="fa-solid fa-user-graduate me-2"></i> Riwayat Perkuliahan
+                                                    </a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#file-{{ $item->id }}" class="nav-link"
                                                         data-bs-toggle="tab">
-                                                        <i class="fa-solid fa-paperclip me-2"></i>
-                                                        Berkas</a>
+                                                        <i class="fa-solid fa-paperclip me-2"></i> Berkas
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="card-body">
                                             <div class="tab-content">
+                                                <!-- Tab Profil -->
                                                 <div class="tab-pane active show" id="profile-{{ $item->id }}">
                                                     <div class="row">
-                                                        <!-- Image Column -->
-                                                        <div class="col-md-4 col-sm-12 text-center mb-3">
+                                                        <div class="col-md-4 text-center mb-3">
                                                             <img src="{{ asset('images/alumni/' . $item->file) }}"
-                                                                alt="Alumni Photo" class="img-fluid rounded"
-                                                                style="max-width: 100%; height: auto;">
+                                                                alt="Foto Alumni" class="img-fluid rounded w-100 h-auto">
                                                         </div>
-
-                                                        <!-- Table Column -->
-                                                        <div class="col-md-8 col-sm-12">
+                                                        <div class="col-md-8">
                                                             <table class="table table-bordered">
                                                                 <tbody>
                                                                     <tr>
-                                                                        <th scope="row">NIK</th>
+                                                                        <th>NIK</th>
                                                                         <td>{{ $item->nik }}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th scope="row">Nama</th>
+                                                                        <th>Nama</th>
                                                                         <td>{{ $item->nama }}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th scope="row">Tempat Lahir</th>
+                                                                        <th>Tempat Lahir</th>
                                                                         <td>{{ $item->tempat_lhr }}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        @php
-                                                                            $dateString = $item->tanggal_lhr;
-                                                                            $tanggal_lhr = strftime(
-                                                                                '%d %B %Y',
-                                                                                strtotime($dateString),
-                                                                            );
-                                                                        @endphp
-                                                                        <th scope="row">Tanggal Lahir</th>
-                                                                        <td>{{ $tanggal_lhr }}</td>
+                                                                        <th>Tanggal Lahir</th>
+                                                                        <td>{{ \Carbon\Carbon::parse($item->tanggal_lhr)->translatedFormat('d F Y') }}
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th scope="row">Nama Ayah</th>
+                                                                        <th>Nama Ayah</th>
                                                                         <td>{{ $item->ayah }}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th scope="row">Nama Ibu</th>
+                                                                        <th>Nama Ibu</th>
                                                                         <td>{{ $item->ibu }}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th scope="row">Alamat</th>
-                                                                        <td>{{ $item->alamat }}</td>
+                                                                        <th>Provinsi</th>
+                                                                        <td>{{ $item->provinsi }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Kota/Kabupaten</th>
+                                                                        <td>{{ $item->kota }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Kecamatan</th>
+                                                                        <td>{{ $item->kecamatan }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Kelurahan</th>
+                                                                        <td>{{ $item->kelurahan }}</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
-
                                                 </div>
+
+                                                <!-- Tab Riwayat Perkuliahan -->
                                                 <div class="tab-pane" id="history-{{ $item->id }}">
                                                     <table class="table table-bordered">
                                                         <tbody>
                                                             <tr>
-                                                                <th scope="row">No Alumni</th>
+                                                                <th>No Alumni</th>
                                                                 <td>{{ $item->no_alumni }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">NPM</th>
+                                                                <th>NPM</th>
                                                                 <td>{{ $item->npm }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">Program Studi</th>
+                                                                <th>Program Studi</th>
                                                                 <td>{{ $item->prodis->prodi }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">Peminatan</th>
+                                                                <th>Peminatan</th>
                                                                 <td>{{ $item->minat->peminatan }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">Fakultas</th>
+                                                                <th>Fakultas</th>
                                                                 <td>{{ $item->fakultas }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">Stambuk</th>
+                                                                <th>Stambuk</th>
                                                                 <td>{{ $item->stambuk }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">Seminar Proposal</th>
-                                                                @php
-                                                                    $dateString = $item->sempro;
-                                                                    $sempro = strftime(
-                                                                        '%d %B %Y',
-                                                                        strtotime($dateString),
-                                                                    );
-                                                                @endphp
-                                                                <td>{{ $sempro }}</td>
+                                                                <th>Seminar Proposal</th>
+                                                                <td>{{ \Carbon\Carbon::parse($item->sempro)->translatedFormat('d F Y') }}
+                                                                </td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">Seminar Hasil</th>
-                                                                @php
-                                                                    $dateString = $item->semhas;
-                                                                    $semhas = strftime(
-                                                                        '%d %B %Y',
-                                                                        strtotime($dateString),
-                                                                    );
-                                                                @endphp
-                                                                <td>{{ $semhas }}</td>
+                                                                <th>Seminar Hasil</th>
+                                                                <td>{{ \Carbon\Carbon::parse($item->semhas)->translatedFormat('d F Y') }}
+                                                                </td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">Sidang Meja Hijau</th>
-                                                                @php
-                                                                    $dateString = $item->mejahijau;
-                                                                    $sidang = strftime(
-                                                                        '%d %B %Y',
-                                                                        strtotime($dateString),
-                                                                    );
-                                                                @endphp
-                                                                <td>{{ $sidang }}</td>
+                                                                <th>Sidang Meja Hijau</th>
+                                                                <td>{{ \Carbon\Carbon::parse($item->mejahijau)->translatedFormat('d F Y') }}
+                                                                </td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">Yudisium</th>
-                                                                @php
-                                                                    $dateString = $item->yudisium;
-                                                                    $yudisium = strftime(
-                                                                        '%d %B %Y',
-                                                                        strtotime($dateString),
-                                                                    );
-                                                                @endphp
-                                                                <td>{{ $yudisium }}</td>
+                                                                <th>Yudisium</th>
+                                                                <td>{{ \Carbon\Carbon::parse($item->yudisium)->translatedFormat('d F Y') }}
+                                                                </td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">Judul Skripsi</th>
+                                                                <th>Judul Skripsi</th>
                                                                 <td>{{ $item->judul }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">Dosen Penguji 1</th>
+                                                                <th>Dosen Penguji 1</th>
                                                                 <td>{{ $item->penguji1 }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">Dosen Penguji 2</th>
+                                                                <th>Dosen Penguji 2</th>
                                                                 <td>{{ $item->penguji2 }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">IPK</th>
+                                                                <th>IPK</th>
                                                                 <td>{{ $item->ipk }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">Tahun Lulus</th>
+                                                                <th>Tahun Lulus</th>
                                                                 <td>{{ $item->thn_lulus }}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
+
+                                                <!-- Tab Berkas -->
                                                 <div class="tab-pane" id="file-{{ $item->id }}">
-                                                    <div class="tab-pane active show" id="file-{{ $item->id }}">
-                                                        <table class="table table-bordered">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th scope="col">Ijazah</th>
-                                                                    <th scope="col">KTP</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td class="text-center">
-                                                                        <img src="{{ asset('images/ijazah/' . $item->ijazah) }}"
-                                                                            alt="Ijazah" class="img-fluid"
-                                                                            style="max-width: 100%; height: auto;">
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <img src="{{ asset('images/ktp/' . $item->ktp) }}"
-                                                                            alt="KTP" class="img-fluid"
-                                                                            style="max-width: 100%; height: auto;">
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Ijazah</th>
+                                                                <th>KTP</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-center">
+                                                                    <img src="{{ asset('images/ijazah/' . $item->ijazah) }}"
+                                                                        alt="Ijazah" class="img-fluid w-100 h-auto">
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <img src="{{ asset('images/ktp/' . $item->ktp) }}"
+                                                                        alt="KTP" class="img-fluid w-100 h-auto">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>

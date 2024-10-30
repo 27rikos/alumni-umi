@@ -17,6 +17,7 @@ class DosenImport implements ToCollection, WithHeadingRow
         foreach ($rows as $row) {
             Dosen::create([
                 'nidn' => $row['nidn'],
+                'nuptk' => $row['nuptk'],
                 'nama' => $row['nama'],
             ]);
         }

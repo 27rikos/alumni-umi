@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nidn')->nullable();
             $table->string('nama')->nullable();
+            $table->string('nuptk')->nullable();
             $table->timestamps();
         });
     }

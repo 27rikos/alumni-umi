@@ -40,8 +40,9 @@
                     <table class="table table-bordered" id="example" width="100%">
                         <thead>
                             <tr>
-                                <th>N0.</th>
+                                <th>No.</th>
                                 <th>NIDN</th>
+                                <th>NUPTK</th>
                                 <th>Nama</th>
                                 <th>Aksi</th>
                             </tr>
@@ -51,6 +52,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->nidn }}</td>
+                                    <td>{{ $item->nuptk }}</td>
                                     <td>{{ $item->nama }}</td>
                                     <td class=" d-flex ">
                                         <a href="{{ route('dosen.edit', $item->id) }}" class="btn btn-primary me-2 "><i
