@@ -18,6 +18,7 @@ use App\Http\Controllers\PencarianController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\RegisAlumniController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\viewberitaController;
 use App\Http\Controllers\ViewLowonganController;
@@ -49,6 +50,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::resource("lamaran", LamarkerjaController::class);
     Route::resource('settings', SettingController::class);
     Route::resource('dosen', DosenController::class);
+    Route::resource('enduser', UserController::class);
     Route::get('print', [PDFController::class, 'print'])->name('print');
     Route::get('preview', [PDFController::class, 'preview']);
     Route::get('download-excel', [ExcelDownload::class, 'exportdata'])->name('download');

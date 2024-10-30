@@ -40,6 +40,10 @@
                             <input type="text" class="form-control" id="nidn" name="nidn">
                         </div>
                         <div class="mb-3">
+                            <label for="nuptk" class="form-label">NUPTK</label>
+                            <input type="text" class="form-control" id="nuptk" name="nuptk">
+                        </div>
+                        <div class="mb-3">
                             <label for="nama" class="form-label">Nama Dosen</label>
                             <input type="text" class="form-control" id="nama" name="nama">
                         </div>
