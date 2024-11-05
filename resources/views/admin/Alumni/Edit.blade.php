@@ -55,6 +55,18 @@
                                         value="{{ $find->nama }}" required>
                                 </div>
                                 <div class="mb-3">
+                                    <label for="gender" class="form-label">Jenis Kelamin</label>
+                                    <select name="gender" id="" class="form-control">
+                                        <option value="">Pilih</option>
+                                        @foreach (['Laki-Laki', 'Perempuan'] as $option)
+                                            <option value="{{ $option }}"
+                                                {{ $find->gender == $option ? 'selected' : '' }}>
+                                                {{ $option }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
                                     <label for="tempat_lhr" class="form-label">Tempat Lahir</label>
                                     <input type="text" class="form-control" id="tempat_lhr" name="tempat_lhr"
                                         value="{{ $find->tempat_lhr }}">
@@ -84,13 +96,15 @@
                                             <div class="mb-3">
                                                 <label for="kecamatan" class="form-label">Kecamatan</label>
                                                 <select class="form-control" id="kecamatan" name="kecamatan">
-                                                    <option value="{{ $find->kecamatan }}">{{ $find->kecamatan }}</option>
+                                                    <option value="{{ $find->kecamatan }}">{{ $find->kecamatan }}
+                                                    </option>
                                                 </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="kelurahan" class="form-label">Kelurahan</label>
                                                 <select class="form-control" id="kelurahan" name="kelurahan">
-                                                    <option value="{{ $find->kelurahan }}">{{ $find->kelurahan }}</option>
+                                                    <option value="{{ $find->kelurahan }}">{{ $find->kelurahan }}
+                                                    </option>
                                                 </select>
                                             </div>
                                         </div>

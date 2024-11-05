@@ -112,17 +112,11 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                <a href="#" class="dropdown-item">Status</a>
-                                <a href="#" class="dropdown-item">Profile</a>
-                                <a href="#" class="dropdown-item">Feedback</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">Settings</a>
                                 <a href="{{ route('logout') }}"onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();"
                                     class="dropdown-item">Logout</a>
                             </div>
-                            <form hidden id="logout-form" action="{{ route('logout') }}" method="POST"
-                                class="d-none">
+                            <form hidden id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
                         </div>

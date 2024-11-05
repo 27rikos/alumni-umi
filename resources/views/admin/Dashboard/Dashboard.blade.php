@@ -122,10 +122,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 mt-2">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div id="chart"></div>
+                    <div id="chart-tasks-overview"></div>
                 </div>
             </div>
         </div>
@@ -151,95 +151,70 @@
     </div>
 @endsection
 @push('graph')
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
-        // Data jumlah alumni berdasarkan stambuk
-        const options = {
-            chart: {
-                type: 'bar',
-                height: 350
-            },
-            title: {
-                text: 'Jumlah Alumni Berdasarkan Stambuk',
-                align: 'center'
-            },
-            xaxis: {
-                categories: ['2020', '2021', '2022', '2023'] // Tahun Stambuk
-            },
-            series: [{
-                name: 'Jumlah Alumni',
-                data: [50, 75, 100, 60] // Jumlah alumni untuk masing-masing stambuk
-            }],
-            yaxis: {
-                title: {
-                    text: 'Jumlah Alumni'
-                }
-            }
-        };
-
-        // Render chart
-        const chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
+        document.addEventListener("DOMContentLoaded", function() {
+            window.ApexCharts && (new ApexCharts(document.getElementById('chart-tasks-overview'), {
+                chart: {
+                    type: "bar",
+                    fontFamily: 'inherit',
+                    height: 320,
+                    parentHeightOffset: 0,
+                    toolbar: {
+                        show: false,
+                    },
+                    animations: {
+                        enabled: false
+                    },
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '50%',
+                    }
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                fill: {
+                    opacity: 1,
+                },
+                series: [{
+                    name: "Alumni Count",
+                    data: @json($data) // Pass the data array from the controller
+                }],
+                tooltip: {
+                    theme: 'dark'
+                },
+                grid: {
+                    padding: {
+                        top: -20,
+                        right: 0,
+                        left: -4,
+                        bottom: -4
+                    },
+                    strokeDashArray: 4,
+                },
+                xaxis: {
+                    labels: {
+                        padding: 0,
+                    },
+                    tooltip: {
+                        enabled: false
+                    },
+                    axisBorder: {
+                        show: false,
+                    },
+                    categories: @json($categories), // Pass the categories array from the controller
+                },
+                yaxis: {
+                    labels: {
+                        padding: 4
+                    },
+                },
+                colors: [tabler.getColor("primary")],
+                legend: {
+                    show: false,
+                },
+            })).render();
+        });
     </script>
-    <script>
-        const optionsJurusan = {
-            chart: {
-                type: 'pie',
-                height: 350
-            },
-            title: {
-                text: 'Distribusi Alumni Berdasarkan Jurusan',
-                align: 'center'
-            },
-            series: [40, 30, 20, 10], // Persentase alumni untuk masing-masing jurusan
-            labels: ['Teknik', 'Ekonomi', 'Ilmu Komunikasi', 'Seni'] // Nama jurusan
-        };
-
-        const chartJurusan = new ApexCharts(document.querySelector("#chart-jurusan"), optionsJurusan);
-        chartJurusan.render();
-    </script>
-    <script>
-        const optionsTren = {
-            chart: {
-                type: 'line',
-                height: 350
-            },
-            title: {
-                text: 'Tren Jumlah Alumni dari Tahun ke Tahun',
-                align: 'center'
-            },
-            xaxis: {
-                categories: ['2019', '2020', '2021', '2022', '2023'] // Tahun
-            },
-            series: [{
-                name: 'Jumlah Alumni',
-                data: [120, 150, 180, 200, 220] // Jumlah alumni untuk setiap tahun
-            }]
-        };
-
-        const chartTren = new ApexCharts(document.querySelector("#chart-tren"), optionsTren);
-        chartTren.render();
-    </script>
-    {{-- <script>
-        const optionsPekerjaan = {
-            chart: {
-                type: 'bar',
-                height: 350
-            },
-            title: {
-                text: 'Data Alumni Berdasarkan Jenis Pekerjaan',
-                align: 'center'
-            },
-            xaxis: {
-                categories: ['Pekerja Kantoran', 'Wirausaha', 'Freelancer', 'Lainnya'] // Jenis Pekerjaan
-            },
-            series: [{
-                name: 'Jumlah Alumni',
-                data: [100, 80, 50, 30] // Jumlah alumni untuk setiap jenis pekerjaan
-            }]
-        };
-
-        const chartPekerjaan = new ApexCharts(document.querySelector("#chart-pekerjaan"), optionsPekerjaan);
-        chartPekerjaan.render();
-    </script> --}}
 @endpush

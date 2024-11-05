@@ -17,7 +17,7 @@ class FalkutasExport implements FromView
 
     public function __construct()
     {
-        $this->data = Alumni::where('status', 1)->where('falkutas', auth()->user()->name)->get();
+        $this->data = Alumni::with('minat', 'prodis', 'dosenpenguji1', 'dosenpenguji2')->where('status', 1)->where('fakultas', auth()->user()->fakultas)->get();
     }
     public function view(): View
     {

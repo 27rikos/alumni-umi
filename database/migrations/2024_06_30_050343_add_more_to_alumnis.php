@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('no_alumni')->nullable();
             $table->string('tempat_lhr')->nullable();
             $table->date('tanggal_lhr')->nullable();
+            $table->enum('gender', ['Laki-Laki', 'Perempuan'])->nullable();
         });
     }
 

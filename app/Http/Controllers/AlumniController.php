@@ -67,6 +67,7 @@ class AlumniController extends Controller
             "ibu" => "required",
             "ipk" => "required",
             "nik" => "required",
+            "gender" => "required",
             "file" => "required|mimes:jpg,jpeg,png|max:2048",
             "ktp" => "required|mimes:jpg,jpeg,png|max:2048",
             "ijazah" => "required|mimes:jpg,jpeg,png|max:2048",
@@ -112,6 +113,7 @@ class AlumniController extends Controller
             "kota" => $request->kota,
             "kecamatan" => $request->kecamatan,
             "kelurahan" => $request->kelurahan,
+            "gender" => $request->gender,
         ]);
 
         // Handle file upload for 'file'
@@ -182,7 +184,7 @@ class AlumniController extends Controller
             'npm', 'nama', 'stambuk', 'peminatan', 'prodi',
             'thn_lulus', 'sempro', 'semhas', 'mejahijau',
             'yudisium', 'fakultas', 'judul', 'no_alumni', 'ipk', 'tanggal_lhr', 'tempat_lhr',
-            'ayah', 'ibu', 'penguji1', 'penguji2', 'nik', 'provinsi', 'kota', 'kecamatan', 'kelurahan',
+            'ayah', 'ibu', 'penguji1', 'penguji2', 'nik', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'gender',
         ]);
 
         // Cek apakah file baru diupload

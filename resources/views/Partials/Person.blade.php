@@ -134,7 +134,7 @@
                     <div class="navbar">
                         <div class="container-xl">
                             <ul class="navbar-nav">
-                                <li class="nav-item {{ request()->is('falkutas-dashboard') ? 'active' : '' }}">
+                                <li class="nav-item {{ request()->routeIs('user.home') ? 'active' : '' }}">
                                     <a class="nav-link" href="{{ url('/home') }}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                                             <i class="fa-solid fa-gauge"></i>
@@ -144,7 +144,7 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li class="nav-item {{ request()->is('falkutas') ? 'active' : '' }}">
+                                <li class="nav-item {{ request()->routeIs('Daftar.create') ? 'active' : '' }}">
                                     <a class="nav-link" href="{{ route('Daftar.create') }}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                                             <i class="fa-solid fa-graduation-cap"></i>

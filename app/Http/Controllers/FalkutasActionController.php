@@ -68,6 +68,7 @@ class FalkutasActionController extends Controller
             "kota" => "required",
             "kecamatan" => "required",
             "kelurahan" => "required",
+            "gender" => "required",
         ], messages: [
             'npm.unique' => 'NIP sudah digunakan',
             'file.mimes' => 'Format file foto harus jpg,jpeg,png',
@@ -100,6 +101,7 @@ class FalkutasActionController extends Controller
             "nik" => $request->nik,
             "penguji1" => $request->penguji1,
             "penguji2" => $request->penguji2,
+            "gender" => $request->gender,
 
         ]);
         // Handle file upload for 'file'
@@ -168,7 +170,7 @@ class FalkutasActionController extends Controller
             'npm', 'nama', 'stambuk', 'peminatan', 'prodi',
             'thn_lulus', 'sempro', 'semhas', 'mejahijau',
             'yudisium', 'judul', 'pekerjaan', 'no_alumni', 'ipk', 'tanggal_lhr', 'tempat_lhr',
-            'ayah', 'ibu', 'alamat', 'penguji1', 'penguji2', 'nik', 'provinsi', 'kota', 'kecamatan', 'kelurahan',
+            'ayah', 'ibu', 'alamat', 'penguji1', 'penguji2', 'nik', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'gender',
         ]);
 
         // Cek apakah file baru diupload

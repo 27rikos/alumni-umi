@@ -42,6 +42,8 @@ class AlumniImport implements ToCollection, WithHeadingRow
                     'no_alumni' => $row['no_alumni'],
                     'npm' => $row['npm'],
                     'nama' => $row['nama'],
+                    'nik' => $row['nik'],
+                    'gender' => $row['gender'],
                     'falkutas' => $row['falkutas'],
                     'prodi' => $prodi_id['id'],
                     'peminatan' => $peminatan_id['id'],

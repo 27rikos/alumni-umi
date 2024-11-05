@@ -120,12 +120,8 @@
                                         </select>
                                         <div class="row">
                                             <div class="col">
-                                                <input type="date" class="form-control" name="start"
-                                                    placeholder="Start date">
-                                            </div>
-                                            <div class="col">
-                                                <input type="date" class="form-control" name="end"
-                                                    placeholder="End date">
+                                                <input type="number" class="form-control" name="tahun"
+                                                    placeholder="Tahun">
                                             </div>
                                         </div>
                                     </div>
@@ -281,11 +277,11 @@
                                                             </tr>
                                                             <tr>
                                                                 <th>Dosen Penguji 1</th>
-                                                                <td>{{ $item->penguji1 }}</td>
+                                                                <td>{{ $item->dosenpenguji1->nama }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Dosen Penguji 2</th>
-                                                                <td>{{ $item->penguji2 }}</td>
+                                                                <td>{{ $item->dosenpenguji2->nama }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>IPK</th>
