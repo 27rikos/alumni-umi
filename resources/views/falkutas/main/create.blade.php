@@ -96,7 +96,7 @@
                                     <input type="text" class="form-control" id="stambuk" name="stambuk" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="peminatan" class="form-label">Peminatan*</label>
+                                    <label for="peminatan" class="form-label">Peminatan</label>
                                     <select name="peminatan" id="peminatan" class="form-select" required>
                                         <option value="">--Pilih--</option>
                                         @foreach ($peminatan as $item)

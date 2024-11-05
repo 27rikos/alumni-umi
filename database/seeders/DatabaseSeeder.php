@@ -23,21 +23,6 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
             'email_verified_at' => date('Y-m-d H:i:s', time()),
         ]);
-        User::create([
-            'name' => 'Fakultas Ilmu Komputer',
-            'email' => 'fikom@gmail.com',
-            'password' => bcrypt('fikom1234'),
-            'role' => 'fakultas',
-            'email_verified_at' => date('Y-m-d H:i:s', time()),
-        ]);
-        User::create([
-            'name' => 'Fakultas Ekonomi',
-            'email' => 'fe@gmail.com',
-            'password' => bcrypt('fikom1234'),
-            'role' => 'fakultas',
-            'email_verified_at' => date('Y-m-d H:i:s', time()),
-        ]);
-
         Peminatan::create([
             'kd_peminatan' => 'SC',
             'peminatan' => 'Sistem Cerdas',

@@ -29,10 +29,10 @@
             <div class="card">
                 <div class="card-header">
                     <div class="">
-                        <a href="#" type="button" class="btn btn-success" data-bs-toggle="modal"
+                        {{-- <a href="#" type="button" class="btn btn-success" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
                             <i class="fa-solid fa-file-import me-2"></i> Import
-                        </a>
+                        </a> --}}
                         {{-- modal --}}
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
@@ -180,6 +180,10 @@
                                                                     <tr>
                                                                         <th>Nama</th>
                                                                         <td>{{ $item->nama }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Jenis Kelamin</th>
+                                                                        <td>{{ $item->gender }}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Tempat Lahir</th>

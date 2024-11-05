@@ -17,7 +17,7 @@ class AlumniExport implements FromView, ShouldAutoSize
      */
     public function __construct()
     {
-        $this->alumni = Alumni::with('dosenpenguji1', 'dosenpenguji2')->where('status', 1)->get();
+        $this->alumni = Alumni::with('minat', 'prodis', 'dosenpenguji1', 'dosenpenguji2')->where('status', 1)->get();
     }
     public function view(): View
     {

@@ -3,11 +3,13 @@
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\ApproveController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\CooperationController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\ExcelDownload;
 use App\Http\Controllers\FalkutasActionController;
 use App\Http\Controllers\FalkutasController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\JenisKerjaSamaController;
 use App\Http\Controllers\KelolaUserController;
 use App\Http\Controllers\LamarkerjaController;
 use App\Http\Controllers\LandingPageController;
@@ -56,6 +58,8 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('download-excel', [ExcelDownload::class, 'exportdata'])->name('download');
     Route::post('import-alumni', [AlumniController::class, 'imports'])->name('import-alumni');
     Route::post('import-dosen', [DosenController::class, 'import'])->name('import-dosen');
+    Route::resource('cooperation', CooperationController::class);
+    Route::resource('cooperation-type', JenisKerjaSamaController::class);
 });
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

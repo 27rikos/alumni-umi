@@ -22,9 +22,7 @@ class ExcelDownload extends Controller
     public function filter(Request $request)
     {
         $filter = $request->input('filteredby');
-        $end = $request->input('end');
-        $start = $request->input('start');
-
-        return Excel::download(new filter($start, $end, $filter), 'filter.xlsx');
+        $tahun = $request->input('tahun');
+        return Excel::download(new filter($tahun, $filter), 'filter.xlsx');
     }
 }

@@ -234,6 +234,28 @@
                                         </span>
                                     </a>
                                 </li>
+                                <li
+                                    class="nav-item dropdown {{ request()->routeIs('cooperation.index') || request()->routeIs('cooperation-type.index') ? 'active' : '' }}">
+                                    <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown"
+                                        data-bs-auto-close="outside" role="button" aria-expanded="false">
+                                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                            <i class="fa-solid fa-handshake"></i>
+                                        </span>
+                                        <span class="nav-link-title">
+                                            Kelola Kerjasama
+                                        </span>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item {{ request()->routeIs('cooperation-type.index') ? 'active' : '' }}"
+                                            href="{{ route('cooperation-type.index') }}">
+                                            Jenis Kerjasama
+                                        </a>
+                                        <a class="dropdown-item {{ request()->routeIs('cooperation.index') ? 'active' : '' }}"
+                                            href="{{ route('cooperation.index') }}">
+                                            Kerjasama
+                                        </a>
+                                    </div>
+                                </li>
                                 {{-- <li class="nav-item {{ request()->routeIs('settings.index') ? 'active' : '' }} ">
                                     <a class="nav-link" href="{{ route('settings.index') }}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
