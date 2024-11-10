@@ -41,12 +41,12 @@
                                 <div class="mb-3">
                                     <label for="no_alumni" class="form-label">No Alumni</label>
                                     <input type="text" class="form-control" id="no_alumni" name="no_alumni"
-                                        value="{{ $find->no_alumni }}" required>
+                                        value="{{ $find->no_alumni }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="npm" class="form-label">NPM</label>
                                     <input type="text" class="form-control" id="npm" name="npm"
-                                        value="{{ $find->npm }}">
+                                        value="{{ $find->npm }}" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="nama" class="form-label">Nama</label>
@@ -112,11 +112,11 @@
                                 <div class="mb-3">
                                     <label for="stambuk" class="form-label">Stambuk</label>
                                     <input type="text" class="form-control" id="stambuk" name="stambuk"
-                                        value="{{ $find->stambuk }}" required>
+                                        value="{{ $find->stambuk }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="peminatan" class="form-label">Peminatan</label>
-                                    <select name="peminatan" id="peminatan" class="form-select" required>
+                                    <select name="peminatan" id="peminatan" class="form-select">
                                         @foreach ($peminatan as $item)
                                             <option value="{{ $item->id }}"
                                                 {{ $find->minat->peminatan == $item->peminatan ? 'selected' : '' }}>
@@ -127,7 +127,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="studi" class="form-label">Program Studi</label>
-                                    <select name="prodi" id="studi" class="form-select" required>
+                                    <select name="prodi" id="studi" class="form-select">
                                         @foreach ($prodi as $item)
                                             <option value="{{ $item->id }}"
                                                 {{ $find->prodis->prodi == $item->prodi ? 'selected' : '' }}>
@@ -139,7 +139,7 @@
                                 <div class="mb-3">
                                     <label for="lulus" class="form-label">Tahun Lulus</label>
                                     <input type="text" class="form-control" id="lulus" name="thn_lulus"
-                                        value="{{ $find->thn_lulus }}" required>
+                                        value="{{ $find->thn_lulus }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="ipk" class="form-label">IPK</label>
@@ -201,22 +201,22 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="sempro" class="form-label">Tanggal Seminar Proposal</label>
-                                    <input type="date" class="form-control" id="sempro" name="sempro" required
+                                    <input type="date" class="form-control" id="sempro" name="sempro"
                                         value="{{ $find->sempro }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="semhas" class="form-label">Tanggal Seminar Hasil</label>
-                                    <input type="date" class="form-control" id="semhas" name="semhas" required
+                                    <input type="date" class="form-control" id="semhas" name="semhas"
                                         value="{{ $find->semhas }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="mejahijau" class="form-label">Tanggal Meja Hijau</label>
-                                    <input type="date" class="form-control" id="mejahijau" name="mejahijau" required
+                                    <input type="date" class="form-control" id="mejahijau" name="mejahijau"
                                         value="{{ $find->mejahijau }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="yudisium" class="form-label">Yudisium</label>
-                                    <input type="date" class="form-control" id="yudisium" name="yudisium" required
+                                    <input type="date" class="form-control" id="yudisium" name="yudisium"
                                         value="{{ $find->yudisium }}">
                                 </div>
                                 <div class="mb-3">

@@ -29,16 +29,45 @@
             <div class="card">
                 <div class="card-header">
                     <div class="">
-                        <button type="button" class="btn btn-azure" data-bs-toggle="modal" data-bs-target="#filter">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filter">
                             <i class="fa-solid fa-filter me-1"></i> Filter
                         </button>
-                        <a href="{{ route('falkutas-excel') }}" class="btn btn-warning ">
+                        <a href="{{ route('falkutas-excel') }}" class="btn btn-primary ">
                             <i class="fa-solid fa-file-excel me-2"></i> Export
                         </a>
                         {{-- <a href="{{ route('print-data') }}" class="btn btn-danger ">
                             <i class="fa-solid fa-file-pdf me-2"></i> PDF
                         </a> --}}
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#zipModal">
+                            <i class="fa-solid fa-images me-2"></i>Foto
+                        </button>
 
+                        <!-- Modal -->
+                        <div class="modal fade" id="zipModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-2" id="exampleModalLabel">Foto Wisudawan</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <form action="{{ route('zip-download-fakultas') }}" method="post">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <input type="number" class="form-control" name="tahun"
+                                                placeholder="Masukkan Tahun">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Tutup</button>
+                                            <button class="btn btn-primary" type="submit">Download</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- end modal --}}
                         <a href="{{ route('falkutas.create') }}" class="btn btn-primary">
                             <i class="fa-solid fa-plus me-2"></i> Tambah
                         </a>
@@ -253,22 +282,22 @@
                                                             </tr>
                                                             <tr>
                                                                 <th>Seminar Proposal</th>
-                                                                <td>{{ \Carbon\Carbon::parse($item->sempro)->translatedFormat('d F Y') }}
+                                                                <td>{{ $item->sempro ? \Carbon\Carbon::parse($item->sempro)->translatedFormat('d F Y') : '-' }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Seminar Hasil</th>
-                                                                <td>{{ \Carbon\Carbon::parse($item->semhas)->translatedFormat('d F Y') }}
+                                                                <td>{{ $item->semhas ? \Carbon\Carbon::parse($item->semhas)->translatedFormat('d F Y') : '-' }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Sidang Meja Hijau</th>
-                                                                <td>{{ \Carbon\Carbon::parse($item->mejahijau)->translatedFormat('d F Y') }}
+                                                                <td>{{ $item->mejahijau ? \Carbon\Carbon::parse($item->mejahijau)->translatedFormat('d F Y') : '-' }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Yudisium</th>
-                                                                <td>{{ \Carbon\Carbon::parse($item->yudisium)->translatedFormat('d F Y') }}
+                                                                <td>{{ $item->yudisium ? \Carbon\Carbon::parse($item->yudisium)->translatedFormat('d F Y') : '-' }}
                                                                 </td>
                                                             </tr>
                                                             <tr>

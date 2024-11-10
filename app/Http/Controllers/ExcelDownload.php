@@ -13,18 +13,22 @@ class ExcelDownload extends Controller
 {
     public function exportdata()
     {
-        // return Excel::download(AlumniExport::class);
-        return Excel::download(new AlumniExport(), 'alumni.xlsx');
+        return Excel::download(new AlumniExport(), 'data-alumni.xlsx');
     }
     public function exportfalkutas()
     {
-        return Excel::download(new FalkutasExport(), 'falkutas.xlsx');
+        $fakultas = auth()->user()->fakultas;
+        $filename = 'alumni_' . $fakultas . '.xlsx';
+        return Excel::download(new FalkutasExport(), $filename);
     }
+
     public function filter(Request $request)
     {
         $filter = $request->input('filteredby');
         $tahun = $request->input('tahun');
-        return Excel::download(new filter($tahun, $filter), 'filter.xlsx');
+        $filename = 'filter_' . $tahun . '_' . $filter . '.xlsx';
+
+        return Excel::download(new filter($tahun, $filter), $filename);
     }
 
     public function graduate(Request $request)

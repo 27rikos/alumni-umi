@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="card-body">
                                     <img src="{{ asset('images/alumni/' . $item->file) }}" alt=".." id="profile"
-                                        class="rounded-circle" style="width: 200px; height: 200px;">
+                                        class="rounded-circle" style="width: 200px; height: 200px; object-fit:cover;">
                                     <div class="mt-3">
                                         <h5>{{ $item->nama }}</h5>
                                         <div class="card-footer">
