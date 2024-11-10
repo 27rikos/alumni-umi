@@ -122,7 +122,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12">
+        <div class="col-12 mt-3">
             <div class="card">
                 <div class="card-body">
                     <div id="chart-tasks-overview"></div>

@@ -11,6 +11,7 @@ use App\Http\Controllers\FalkutasController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\JenisKerjaSamaController;
 use App\Http\Controllers\KelolaUserController;
+use App\Http\Controllers\KerjasamaStatus;
 use App\Http\Controllers\LamarkerjaController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MediaController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\viewberitaController;
 use App\Http\Controllers\ViewLowonganController;
+use App\Http\Controllers\ZipController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -56,10 +58,15 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('print', [PDFController::class, 'print'])->name('print');
     Route::get('preview', [PDFController::class, 'preview']);
     Route::get('download-excel', [ExcelDownload::class, 'exportdata'])->name('download');
+    Route::post('buku-wisuda', [ExcelDownload::class, 'graduate'])->name('graduate');
     Route::post('import-alumni', [AlumniController::class, 'imports'])->name('import-alumni');
     Route::post('import-dosen', [DosenController::class, 'import'])->name('import-dosen');
     Route::resource('cooperation', CooperationController::class);
     Route::resource('cooperation-type', JenisKerjaSamaController::class);
+    Route::get('cooperation-active/{id}', [KerjasamaStatus::class, 'active'])->name('kerjasama-active');
+    Route::get('cooperation-nonaktif/{id}', [KerjasamaStatus::class, 'nonaktif'])->name('kerjasama-nonaktif');
+    Route::get('cooperation-selesai/{id}', [KerjasamaStatus::class, 'selesai'])->name('kerjasama-selesai');
+    Route::post('zip-download', [ZipController::class, 'index'])->name('zip-download');
 });
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
