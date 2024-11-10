@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\AlumniExport;
+use App\Exports\bukuExport;
 use App\Exports\FalkutasExport;
 use App\Exports\filter;
 use Illuminate\Http\Request;
@@ -24,5 +25,12 @@ class ExcelDownload extends Controller
         $filter = $request->input('filteredby');
         $tahun = $request->input('tahun');
         return Excel::download(new filter($tahun, $filter), 'filter.xlsx');
+    }
+
+    public function graduate(Request $request)
+    {
+        $tahun = $request->input('tahun');
+        $nameFile = "buku_wisudawan_" . $tahun . ".xlsx";
+        return Excel::download(new bukuExport($tahun), $nameFile);
     }
 }

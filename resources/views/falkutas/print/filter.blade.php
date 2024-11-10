@@ -17,7 +17,7 @@
                 <th>NPM</th>
                 <th>Nama</th>
                 <th>NIK</th>
-                <th>Falkutas</th>
+                <th>Fakultas</th>
                 <th>Prodi</th>
                 <th>Peminatan</th>
                 <th>Stambuk</th>
@@ -33,6 +33,9 @@
                 <th>Dosen Penguji 2</th>
             </tr>
         </thead>
+        @php
+            use Carbon\Carbon;
+        @endphp
         <tbody>
             @foreach ($data as $item)
                 <tr>
@@ -40,21 +43,21 @@
                     <td>{{ $item->no_alumni }}</td>
                     <td>{{ $item->npm }}</td>
                     <td>{{ $item->nama }}</td>
-                    <td>{{ $item->nik }}</td>
-                    <td>{{ $item->falkutas }}</td>
+                    <td data-format="0">{{ $item->nik }}</td>
+                    <td>{{ $item->fakultas }}</td>
                     <td>{{ $item->prodis->prodi }}</td>
                     <td>{{ $item->minat->peminatan }}</td>
                     <td>{{ $item->stambuk }}</td>
-                    <td>{{ $item->sempro }}</td>
-                    <td>{{ $item->semhas }}</td>
-                    <td>{{ $item->mejahijau }}</td>
-                    <td>{{ $item->yudisium }}</td>
+                    <td>{{ Carbon::parse($item->sempro)->translatedFormat('d F Y') }}</td>
+                    <td>{{ Carbon::parse($item->semhas)->translatedFormat('d F Y') }}</td>
+                    <td>{{ Carbon::parse($item->mejahijau)->translatedFormat('d F Y') }}</td>
+                    <td>{{ Carbon::parse($item->yudisium)->translatedFormat('d F Y') }}</td>
                     <td>{{ $item->thn_lulus }}</td>
                     <td>{{ $item->judul }}</td>
                     <td>{{ $item->ayah }}</td>
                     <td>{{ $item->ibu }}</td>
-                    <td>{{ $item->penguji1 }}</td>
-                    <td>{{ $item->penguji2 }}</td>
+                    <td>{{ $item->dosenpenguji1->nama }}</td>
+                    <td>{{ $item->dosenpenguji2->nama }}</td>
                 </tr>
             @endforeach
         </tbody>

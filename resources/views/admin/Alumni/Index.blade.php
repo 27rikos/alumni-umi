@@ -30,11 +30,11 @@
                 <div class="card-header">
                     <div class="">
                         {{-- <a href="#" type="button" class="btn btn-success" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
+                            data-bs-target="#importModal">
                             <i class="fa-solid fa-file-import me-2"></i> Import
                         </a> --}}
                         {{-- modal --}}
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
@@ -60,13 +60,77 @@
                             </div>
                         </div>
                         {{-- end modal --}}
-                        <a href="{{ route('download') }}" class="btn btn-warning ">
+                        {{-- modal import buku wisuda --}}
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bukuModal">
+                            <i class="fa-solid fa-book me-2"></i>Buku Wisuda
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="bukuModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-2" id="exampleModalLabel">Buku Daftar Wisudawan</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <form action="{{ route('graduate') }}" method="post">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <input type="number" class="form-control" name="tahun"
+                                                placeholder="Masukkan Tahun">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Tutup</button>
+                                            <button class="btn btn-primary" type="submit">Download</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- end modal --}}
+                        <a href="{{ route('download') }}" class="btn btn-primary ">
                             <i class="fa-solid fa-file-excel me-2"></i> Export
                         </a>
+
                         {{-- <a href="{{ route('print') }}" class="btn btn-danger ">
                             <i class="fa-solid fa-file-pdf me-2"></i> PDF
                         </a> --}}
+                        {{-- export foto zip modal --}}
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#zipModal">
+                            <i class="fa-solid fa-images me-2"></i>Foto
+                        </button>
 
+                        <!-- Modal -->
+                        <div class="modal fade" id="zipModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-2" id="exampleModalLabel">Foto Wisudawan</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <form action="{{ route('zip-download') }}" method="post">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <input type="number" class="form-control" name="tahun"
+                                                placeholder="Masukkan Tahun">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Tutup</button>
+                                            <button class="btn btn-primary" type="submit">Download</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- end modal --}}
                         <a href="{{ route('alumni.create') }}" class="btn btn-primary">
                             <i class="fa-solid fa-plus me-2"></i> Tambah
                         </a>
@@ -99,8 +163,8 @@
                                     </td>
                                     <td class="d-flex">
                                         <!-- Button trigger modal detail -->
-                                        <button type="button" class="btn btn-dark" title="Detail" data-bs-toggle="modal"
-                                            data-bs-target="#detail{{ $item->id }}">
+                                        <button type="button" class="btn btn-dark" title="Detail"
+                                            data-bs-toggle="modal" data-bs-target="#detail{{ $item->id }}">
                                             <i class="fa-regular fa-eye"></i>
                                         </button>
 
@@ -254,24 +318,25 @@
                                                             </tr>
                                                             <tr>
                                                                 <th>Seminar Proposal</th>
-                                                                <td>{{ \Carbon\Carbon::parse($item->sempro)->translatedFormat('d F Y') }}
+                                                                <td>{{ $item->sempro ? \Carbon\Carbon::parse($item->sempro)->translatedFormat('d F Y') : '-' }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Seminar Hasil</th>
-                                                                <td>{{ \Carbon\Carbon::parse($item->semhas)->translatedFormat('d F Y') }}
+                                                                <td>{{ $item->semhas ? \Carbon\Carbon::parse($item->semhas)->translatedFormat('d F Y') : '-' }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Sidang Meja Hijau</th>
-                                                                <td>{{ \Carbon\Carbon::parse($item->mejahijau)->translatedFormat('d F Y') }}
+                                                                <td>{{ $item->mejahijau ? \Carbon\Carbon::parse($item->mejahijau)->translatedFormat('d F Y') : '-' }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Yudisium</th>
-                                                                <td>{{ \Carbon\Carbon::parse($item->yudisium)->translatedFormat('d F Y') }}
+                                                                <td>{{ $item->yudisium ? \Carbon\Carbon::parse($item->yudisium)->translatedFormat('d F Y') : '-' }}
                                                                 </td>
                                                             </tr>
+
                                                             <tr>
                                                                 <th>Judul Skripsi</th>
                                                                 <td>{{ $item->judul }}</td>

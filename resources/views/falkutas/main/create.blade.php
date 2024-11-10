@@ -49,6 +49,14 @@
                                     <input type="text" class="form-control" id="nama" name="nama" required>
                                 </div>
                                 <div class="mb-3">
+                                    <label for="gender" class="form-label">Jenis Kelamin</label>
+                                    <select name="gender" id="" class="form-control">
+                                        <option value="">Pilih</option>
+                                        <option value="Laki-Laki">Laki-Laki</option>
+                                        <option value="Perempuan">Perempuan</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
                                     <label for="tempat_lhr" class="form-label">Tempat Lahir</label>
                                     <input type="text" class="form-control" id="tempat_lhr" name="tempat_lhr">
                                 </div>

@@ -7,9 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Export Excel</title>
 </head>
-@php
-    use Carbon\Carbon;
-@endphp
 
 <body>
     <table class="table">
@@ -36,6 +33,9 @@
                 <th>Dosen Penguji 2</th>
             </tr>
         </thead>
+        @php
+            use Carbon\Carbon;
+        @endphp
         <tbody>
             @foreach ($data as $item)
                 <tr>

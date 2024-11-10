@@ -59,7 +59,7 @@
                                 <div class="col-md-6">
                                     <label for="password">Tanggal Selesai</label>
                                     <input type="date" name="tanggal_selesai" class="form-control" id="tanggal_selesai"
-                                        name="tanggal_mulai"required>
+                                        required>
                                 </div>
                             </div>
                         </div>

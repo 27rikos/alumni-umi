@@ -91,7 +91,9 @@ class CooperationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $jenis_kerjasama = JenisKerjasama::all();
+        $data = Kerjasama::findOrFail($id);
+        return view('admin.kerjasama.edit', compact('data', 'jenis_kerjasama'));
     }
 
     /**
@@ -103,7 +105,53 @@ class CooperationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = Kerjasama::findOrFail($id);
+
+        $updateData = $request->all();
+
+        // Cek apakah file baru diupload
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+            // Hapus file lama jika ada
+            if ($data->file) {
+                $oldFilePath = public_path('dokumen/kerjasama/' . $data->file);
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+
+            // Simpan file baru
+            $file = $request->file('file');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('dokumen/kerjasama'), $fileName);
+
+            // Tambahkan nama file baru ke data update
+            $updateData['file'] = $fileName;
+        }
+
+        // Handle file upload untuk 'foto' (logo instansi)
+        if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
+            // Hapus file logo lama jika ada
+            if ($data->foto) {
+                $oldLogoPath = public_path('images/logo_instansi/' . $data->foto);
+                if (file_exists($oldLogoPath)) {
+                    unlink($oldLogoPath);
+                }
+            }
+
+            // Simpan file logo baru
+            $fotoFile = $request->file('foto');
+            $fileName = 'logo_' . time() . '_' . $fotoFile->getClientOriginalName();
+            $fotoFile->move(public_path('images/logo_instansi'), $fileName);
+
+            // Tambahkan nama file logo baru ke data update
+            $updateData['foto'] = $fileName;
+        }
+
+        // Update data lainnya
+        $data->update($updateData);
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('cooperation.index')->with('toast_success', 'Kerjasama Berhasil Diupdate');
     }
 
     /**
@@ -114,6 +162,30 @@ class CooperationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Temukan data berdasarkan ID
+        $data = Kerjasama::findOrFail($id);
+
+        // Hapus file yang terkait dengan 'file'
+        if ($data->file) {
+            $oldFilePath = public_path('dokumen/kerjasama/' . $data->file);
+            if (file_exists($oldFilePath)) {
+                unlink($oldFilePath);
+            }
+        }
+
+        // Hapus file yang terkait dengan 'foto' (logo instansi)
+        if ($data->foto) {
+            $oldLogoPath = public_path('images/logo_instansi/' . $data->foto);
+            if (file_exists($oldLogoPath)) {
+                unlink($oldLogoPath);
+            }
+        }
+
+        // Hapus data dari database
+        $data->delete();
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('cooperation.index')->with('toast_success', 'Kerjasama Berhasil Dihapus');
     }
+
 }

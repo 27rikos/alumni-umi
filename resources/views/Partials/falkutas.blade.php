@@ -128,7 +128,7 @@
                     <div class="navbar">
                         <div class="container-xl">
                             <ul class="navbar-nav">
-                                <li class="nav-item {{ request()->is('falkutas-dashboard') ? 'active' : '' }}">
+                                <li class="nav-item {{ request()->routeIs('falkutas.home') ? 'active' : '' }}">
                                     <a class="nav-link" href="{{ route('falkutas.home') }}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                                             <i class="fa-solid fa-gauge"></i>
@@ -138,7 +138,8 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li class="nav-item {{ request()->is('falkutas') ? 'active' : '' }}">
+                                <li
+                                    class="nav-item {{ request()->routeIs('falkutas.index', 'falkutas.create', 'falkutas.edit') ? 'active' : '' }}">
                                     <a class="nav-link" href="{{ route('falkutas.index') }}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                                             <i class="fa-solid fa-graduation-cap"></i>
@@ -155,6 +156,16 @@
                                         </span>
                                         <span class="nav-link-title">
                                             Alumni Tracer
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="#">
+                                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                            <i class="fa-solid fa-user-group"></i>
+                                        </span>
+                                        <span class="nav-link-title">
+                                            Kemahasiswaan
                                         </span>
                                     </a>
                                 </li>
