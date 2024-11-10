@@ -48,10 +48,12 @@
                     <td>{{ $item->prodis->prodi }}</td>
                     <td>{{ $item->minat->peminatan }}</td>
                     <td>{{ $item->stambuk }}</td>
-                    <td>{{ Carbon::parse($item->sempro)->translatedFormat('d F Y') }}</td>
-                    <td>{{ Carbon::parse($item->semhas)->translatedFormat('d F Y') }}</td>
-                    <td>{{ Carbon::parse($item->mejahijau)->translatedFormat('d F Y') }}</td>
-                    <td>{{ Carbon::parse($item->yudisium)->translatedFormat('d F Y') }}</td>
+                    <td>{{ $item->sempro ? Carbon::parse($item->sempro)->translatedFormat('d F Y') : '-' }}</td>
+                    <td>{{ $item->semhas ? Carbon::parse($item->semhas)->translatedFormat('d F Y') : '-' }}</td>
+                    <td>{{ $item->mejahijau ? Carbon::parse($item->mejahijau)->translatedFormat('d F Y') : '-' }}
+                    </td>
+                    <td>{{ $item->yudisium ? Carbon::parse($item->yudisium)->translatedFormat('d F Y') : '-' }}
+                    </td>
                     <td>{{ $item->thn_lulus }}</td>
                     <td>{{ $item->judul }}</td>
                     <td>{{ $item->ayah }}</td>

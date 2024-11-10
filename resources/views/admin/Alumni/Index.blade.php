@@ -336,7 +336,6 @@
                                                                 <td>{{ $item->yudisium ? \Carbon\Carbon::parse($item->yudisium)->translatedFormat('d F Y') : '-' }}
                                                                 </td>
                                                             </tr>
-
                                                             <tr>
                                                                 <th>Judul Skripsi</th>
                                                                 <td>{{ $item->judul }}</td>

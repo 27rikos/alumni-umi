@@ -101,11 +101,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="stambuk" class="form-label">Stambuk</label>
-                                    <input type="text" class="form-control" id="stambuk" name="stambuk" required>
+                                    <input type="text" class="form-control" id="stambuk" name="stambuk">
                                 </div>
                                 <div class="mb-3">
                                     <label for="peminatan" class="form-label">Peminatan</label>
-                                    <select name="peminatan" id="peminatan" class="form-select" required>
+                                    <select name="peminatan" id="peminatan" class="form-select">
                                         <option value="">--Pilih--</option>
                                         @foreach ($peminatan as $item)
                                             <option value="{{ $item->id }}">{{ $item->peminatan }}</option>
@@ -114,7 +114,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="studi" class="form-label">Program Studi</label>
-                                    <select name="prodi" id="studi" class="form-select" required>
+                                    <select name="prodi" id="studi" class="form-select">
                                         <option value="">--Pilih--</option>
                                         @foreach ($prodi as $item)
                                             <option value="{{ $item->id }}">{{ $item->prodi }}</option>
@@ -123,7 +123,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="lulus" class="form-label">Tahun Lulus</label>
-                                    <input type="text" class="form-control" id="lulus" name="thn_lulus" required>
+                                    <input type="text" class="form-control" id="lulus" name="thn_lulus">
                                 </div>
                                 <div class="mb-3">
                                     <label for="ipk" class="form-label">IPK</label>
@@ -177,19 +177,19 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="sempro" class="form-label">Tanggal Seminar Proposal</label>
-                                    <input type="date" class="form-control" id="sempro" name="sempro" required>
+                                    <input type="date" class="form-control" id="sempro" name="sempro">
                                 </div>
                                 <div class="mb-3">
                                     <label for="semhas" class="form-label">Tanggal Seminar Hasil</label>
-                                    <input type="date" class="form-control" id="semhas" name="semhas" required>
+                                    <input type="date" class="form-control" id="semhas" name="semhas">
                                 </div>
                                 <div class="mb-3">
                                     <label for="mejahijau" class="form-label">Tanggal Meja Hijau</label>
-                                    <input type="date" class="form-control" id="mejahijau" name="mejahijau" required>
+                                    <input type="date" class="form-control" id="mejahijau" name="mejahijau">
                                 </div>
                                 <div class="mb-3">
                                     <label for="yudisium" class="form-label">Yudisium</label>
-                                    <input type="date" class="form-control" id="yudisium" name="yudisium" required>
+                                    <input type="date" class="form-control" id="yudisium" name="yudisium">
                                 </div>
                                 <div class="mb-3">
                                     <label for="judul" class="form-label">Judul Skripsi</label>

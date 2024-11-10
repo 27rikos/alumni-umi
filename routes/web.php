@@ -8,6 +8,7 @@ use App\Http\Controllers\DosenController;
 use App\Http\Controllers\ExcelDownload;
 use App\Http\Controllers\FalkutasActionController;
 use App\Http\Controllers\FalkutasController;
+use App\Http\Controllers\FaQController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\JenisKerjaSamaController;
 use App\Http\Controllers\KelolaUserController;
@@ -85,6 +86,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'user'])->name('user.home');
     Route::resource("Daftar", RegisAlumniController::class);
     Route::get('validation/{id}', [PDFController::class, 'cetak_surat']);
+    Route::get('faQ', [FaQController::class, 'index'])->name('faq');
 });
 
 Route::middleware(['auth', 'user-access:fakultas'])->group(function () {
@@ -96,5 +98,6 @@ Route::middleware(['auth', 'user-access:fakultas'])->group(function () {
     Route::get('preview-falkutas-alumni', [PDFController::class, 'pdf']);
     Route::get('print-preview', [PDFController::class, 'printpdf'])->name('print-data');
     Route::post('filter-export', [ExcelDownload::class, 'filter'])->name('filter');
+    Route::post('zip-download-fakultas', [ZipController::class, 'fakultas_images'])->name('zip-download-fakultas');
 
 });

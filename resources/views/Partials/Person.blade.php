@@ -13,7 +13,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Admin - @yield('title')</title>
+    <title>User - @yield('title')</title>
     <!-- CSS files -->
     <link href="{{ asset('./dist/css/tabler.min.css?1692870487') }}" rel="stylesheet" />
     <link href="{{ asset('./dist/css/tabler-flags.min.css?1692870487') }}" rel="stylesheet" />
@@ -112,17 +112,11 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                <a href="#" class="dropdown-item">Status</a>
-                                <a href="#" class="dropdown-item">Profile</a>
-                                <a href="#" class="dropdown-item">Feedback</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">Settings</a>
                                 <a href="{{ route('logout') }}"onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();"
                                     class="dropdown-item">Logout</a>
                             </div>
-                            <form hidden id="logout-form" action="{{ route('logout') }}" method="POST"
-                                class="d-none">
+                            <form hidden id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
                         </div>
@@ -140,7 +134,7 @@
                                             <i class="fa-solid fa-gauge"></i>
                                         </span>
                                         <span class="nav-link-title">
-                                            Dashboard
+                                            Profile
                                         </span>
                                     </a>
                                 </li>
@@ -161,6 +155,16 @@
                                         </span>
                                         <span class="nav-link-title">
                                             Alumni Tracer
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item {{ request()->routeIs('faq') ? 'active' : '' }}">
+                                    <a class="nav-link" href="{{ route('faq') }}">
+                                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                            <i class="fa-solid fa-circle-question"></i>
+                                        </span>
+                                        <span class="nav-link-title">
+                                            FAQ
                                         </span>
                                     </a>
                                 </li>

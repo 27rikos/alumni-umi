@@ -18,7 +18,7 @@
                                 History Perkuliahan</a>
                         </li>
                     </ul>
-                    <a href="{{ url('validation/' . $item->id) }}" class="btn btn-danger"><i
+                    <a href="{{ url('validation/' . $item->id) }}" title="Surat Keterangan" class="btn btn-danger"><i
                             class="fa-regular fa-file-pdf"></i></a>
                 </div>
                 <div class="card-body">
@@ -190,6 +190,7 @@
                     </div>
                 </div>
             </div>
+            <img src="{{ asset('static/3298067.png') }}" alt="Blank_Image" style="height: 450px;object-fit:contain">
         @endforelse
     </div>
 @endsection
