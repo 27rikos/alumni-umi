@@ -30,33 +30,43 @@
             <hr>
             <div class="row">
                 <div class="four col-md-3 mb-3">
-                    <div class="counter-box faculty-fk"> <i class="fa-solid fa-user-doctor"></i> <span
-                            class="counter">{{ $fk }}</span>
-                        <p>Falkutas Kedokteran</p>
+                    <div data-aos="fade-up">
+                        <div class="counter-box faculty-fk"> <i class="fa-solid fa-user-doctor"></i> <span
+                                class="counter">{{ $fk }}</span>
+                            <p>Falkutas Kedokteran</p>
+                        </div>
                     </div>
                 </div>
                 <div class="four col-md-3 mb-3">
-                    <div class="counter-box faculty-fe"> <i class="fa-solid fa-coins"></i> <span
-                            class="counter">{{ $fe }}</span>
-                        <p>Falkutas Ekonomi</p>
+                    <div data-aos="fade-up">
+                        <div class="counter-box faculty-fe"> <i class="fa-solid fa-coins"></i> <span
+                                class="counter">{{ $fe }}</span>
+                            <p>Falkutas Ekonomi</p>
+                        </div>
                     </div>
                 </div>
                 <div class="four col-md-3 mb-3">
-                    <div class="counter-box faculty-fikom"> <i class="fa-solid fa-computer"></i> <span
-                            class="counter">{{ $fikom }}</span>
-                        <p>Falkutas Ilmu Komputer</p>
+                    <div data-aos="fade-up">
+                        <div class="counter-box faculty-fikom"> <i class="fa-solid fa-computer"></i> <span
+                                class="counter">{{ $fikom }}</span>
+                            <p>Falkutas Ilmu Komputer</p>
+                        </div>
                     </div>
                 </div>
                 <div class="four col-md-3 mb-3">
-                    <div class="counter-box faculty-fs"> <i class="fa-solid fa-book-open-reader"></i> <span
-                            class="counter">{{ $fs }}</span>
-                        <p>Falkutas Sastra</p>
+                    <div data-aos="fade-up">
+                        <div class="counter-box faculty-fs"> <i class="fa-solid fa-book-open-reader"></i> <span
+                                class="counter">{{ $fs }}</span>
+                            <p>Falkutas Sastra</p>
+                        </div>
                     </div>
                 </div>
                 <div class="four col-md-3 mb-3">
-                    <div class="counter-box faculty-fp"> <i class="fa-solid fa-wheat-awn"></i> <span
-                            class="counter">{{ $fp }}</span>
-                        <p>Falkutas Pertanian</p>
+                    <div data-aos="fade-up">
+                        <div class="counter-box faculty-fp"> <i class="fa-solid fa-wheat-awn"></i> <span
+                                class="counter">{{ $fp }}</span>
+                            <p>Falkutas Pertanian</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,18 +80,20 @@
             <div class="row">
                 @forelse ($datas as $item)
                     <div class="col-md-4 mb-3">
-                        <img src="{{ asset('images/berita/' . $item->file) }}" class="img-fluid mb-3 object-fit-cover"
-                            style="height: 200px; width:100%" alt="News {{ $item->id }}" />
-                        <h5 class="news-title">{{ $item->judul }}</h5>
-                        @php
-                            $dateString = $item->tanggal;
-                            $news = strftime('%d %B %Y', strtotime($dateString));
-                        @endphp
-                        <p class="news-date text-muted">{{ $news }}</p>
-                        <p class="news-description">
-                            {{ Str::limit(Strip_tags($item['konten']), 30, '...') }}
-                        </p>
-                        <a href="/read/{{ $item->id }}" class="btn btn-primary">Read More</a>
+                        <div data-aos="fade-up">
+                            <img src="{{ asset('images/berita/' . $item->file) }}" class="img-fluid mb-3 object-fit-cover"
+                                loading="lazy" style="height: 200px; width:100%" alt="News {{ $item->id }}" />
+                            <h5 class="news-title">{{ $item->judul }}</h5>
+                            @php
+                                $dateString = $item->tanggal;
+                                $news = strftime('%d %B %Y', strtotime($dateString));
+                            @endphp
+                            <p class="news-date text-muted">{{ $news }}</p>
+                            <p class="news-description">
+                                {{ Str::limit(Strip_tags($item['konten']), 30, '...') }}
+                            </p>
+                            <a href="/read/{{ $item->id }}" class="btn btn-primary">Read More</a>
+                        </div>
                     </div>
                 @empty
                     <div class="alert alert-primary text-center" role="alert">

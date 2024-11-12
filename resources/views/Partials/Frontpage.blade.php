@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@yield('title')</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-    <script src="https://kit.fontawesome.com/fb034efa9e.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -21,6 +20,7 @@
     {{-- AOS --}}
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://kit.fontawesome.com/fb034efa9e.js" crossorigin="anonymous"></script>
     {{-- end --}}
     <link rel="stylesheet" href="{{ asset('style.css') }}">
     @stack('foto')
@@ -100,14 +100,14 @@
         <div class="container p-3">
             <div class="row">
                 <div class="col-md-4">
-                    <h5 class="text-light">CONTACT:</h5>
+                    <h5 class="text-light">VISIT US:</h5>
                     <ul class="list-unstyled">
                         <li class="text-light mb-2">
                             <i class="fas fa-location-dot fa-lg mr-2"></i>
                             Jl. Hang Tuah No. 8 Madras Hulu, Kecamatan Medan Polonia, Kota Medan, Sumatra Utara
                         </li>
                         <li class="text-light">
-                            <i class="fas fa-envelope fa-xl mt-2 mr-2"></i>
+                            <i class="fa-solid fa-globe mt-2 mr-2"></i>
                             <a href="https://www.methodist.ac.id" class="text-light">www.methodist.ac.id</a>
                         </li>
                     </ul>
@@ -160,7 +160,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
 </body>
 

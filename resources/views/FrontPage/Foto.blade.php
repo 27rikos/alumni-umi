@@ -21,7 +21,7 @@
                 @forelse ($data as $item)
                     <div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1 px-0">
                         <div class="image">
-                            <img src="{{ asset('images/foto/' . $item->file) }}" alt="">
+                            <img src="{{ asset('images/foto/' . $item->file) }}" loading="lazy" alt="">
                             <div class="overlay">
                                 <a data-fancybox="gallery" class="h4"
                                     href="{{ asset('images/foto/' . $item->file) }}">{{ $item->keterangan }}</a>
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 @empty
-                    <div class="alert alert-info" role="alert">
+                    <div class="alert alert-primary w-100 text-center" role="alert">
                         Foto Belum Di Update
                     </div>
                 @endforelse

@@ -18,7 +18,7 @@
 
         <div class="cari container text-center">
             <div class="alert alert-primary mt-5" role="alert">
-                Silahkan Masukkan <strong>Nama/NPM/Stambuk</strong> Sebagai Kata Kunci
+                Silahkan Masukkan <strong>Nama/NPM/Stambuk</strong> Sebagai Kata Kunci Pencarian
             </div>
             <div class="d-flex justify-content-center align-items-center mt-3">
                 <form class="form-inline d-sm-inline-flex flex-column flex-sm-row" role="search" method="GET"
@@ -36,23 +36,31 @@
         <div class="container mt-5 mb-4">
             <div class="row">
                 @forelse ($datas as $item)
-                    <div class="col-12 col-xs-6 col-sm-6 col-lg-3 mb-3">
-                        <div class="d-flex justify-content-center">
-                            <div class="card mb-3 text-center shadow" style="width: 18rem; height: 27rem;">
-                                <div class="card-header">
-                                    <h6>{{ $item->npm }}</h6>
-                                    <h6>{{ $item->stambuk }}</h6>
-                                </div>
-                                <div class="card-body">
-                                    <img src="{{ asset('images/alumni/' . $item->file) }}" alt=".." id="profile"
-                                        class="rounded-circle" style="width: 200px; height: 200px; object-fit:cover;">
-                                    <div class="mt-3">
-                                        <h5>{{ $item->nama }}</h5>
-                                        <div class="card-footer">
-                                            <small>
-                                                {{ $item->prodis->prodi }} <br>
-                                                {{ $item->minat->peminatan }}
-                                            </small>
+                    <div class="col-12 col-xs-6 col-sm-6 col-lg-3 mb-4">
+                        <div data-aos="fade-up">
+                            <div class="d-flex justify-content-center">
+                                <div class="card shadow border-0"
+                                    style="width: 300px; height: 450px; border-radius: 15px; overflow: hidden;">
+
+                                    <!-- Header -->
+                                    <div class="card-header text-white text-center"
+                                        style="background: linear-gradient(135deg, #4a90e2, #0052cc); padding: 15px;">
+                                        <h6 class="mb-1">{{ $item->npm }}</h6>
+                                        <small>{{ $item->stambuk }}</small>
+                                    </div>
+
+                                    <!-- Body -->
+                                    <div class="card-body text-center">
+                                        <img src="{{ asset('images/alumni/' . $item->file) }}" alt="Profile"
+                                            class="rounded-circle shadow" loading="lazy"
+                                            style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #f8f9fa;">
+                                        <div class="mt-3">
+                                            <h5 class="font-weight-semibold">{{ $item->nama }}</h5>
+                                            <p class="text-muted mb-1" style="font-size: 14px;">
+                                                {{ $item->prodis->prodi }}
+                                            </p>
+                                            <span class="badge  text-white"
+                                                style="background: linear-gradient(135deg, #4a90e2, #0052cc);">{{ $item->minat->peminatan }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -60,12 +68,14 @@
                         </div>
                     </div>
                 @empty
-                    <div class="alert alert-info mt-5 text-center" role="alert">
+                    <div class="alert alert-primary mt-5 text-center w-100" role="alert">
                         Data Belum Tersedia
                     </div>
                 @endforelse
             </div>
-            {{ $datas->links('pagination::bootstrap-4') }}
+            <div class="d-flex justify-content-center">
+                {{ $datas->links('pagination::bootstrap-4') }}
+            </div>
         </div>
     </section>
 

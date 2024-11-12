@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Alumni;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PencarianController extends Controller
 {
@@ -17,7 +16,19 @@ class PencarianController extends Controller
     public function cari(Request $request)
     {
         $cari = $request->cari;
-        $datas = Alumni::where('stambuk', 'like', "%" . $cari . "%")->orwhere('npm', 'like', "%" . $cari . "%")->orwhere('nama', 'like', "%" . $cari . "%")->Paginate();
-        return view('FrontPage.Pencarian', compact(['datas']));
+
+        // Cek apakah $cari bernilai null atau kosong
+        if (is_null($cari) || trim($cari) === '') {
+            return back()->with('error', 'Kata kunci pencarian tidak boleh kosong.');
+        }
+
+        $datas = Alumni::where('stambuk', 'like', "%" . $cari . "%")
+            ->orWhere('npm', 'like', "%" . $cari . "%")
+            ->orWhere('nama', 'like', "%" . $cari . "%")
+            ->where('status', 1)
+            ->paginate();
+
+        return view('FrontPage.Pencarian', compact('datas'));
     }
+
 }
