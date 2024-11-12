@@ -1,17 +1,16 @@
-@extends('Partials.FrontPage')
+@extends('Partials.Frontpage')
 @section('title', 'Foto')
-@push('foto')
-    <link rel="stylesheet" href="{{ asset('foto.css') }}">
-@endpush
 @section('content')
-    <section class="min-vh-100">
-        <div class="jumbotron jumbotron-fluid mt-5">
+    <section class="min-vh-100 pt-5">
+        <div class="jumbotron jumbotron-fluid"
+            style="background: linear-gradient(135deg, #4a90e2, #0052cc); color: white; padding: 50px 0;">
             <div class="container">
-                <h1 class="display-4">Gallery Foto</h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('main') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Foto Kegiatan Alumni</li>
+                <h1 class="display-4 font-weight-bold" style="font-size: 3rem;">Gallery Foto</h1>
+                <p class="lead">Koleksi foto kegiatan alumni yang penuh kenangan dan semangat.</p>
+                <nav aria-label="breadcrumb" class="d-flex mt-4">
+                    <ol class="breadcrumb bg-transparent p-0">
+                        <li class="breadcrumb-item"><a href="{{ route('main') }}" class="text-light">Home</a></li>
+                        <li class="breadcrumb-item active text-light" aria-current="page">Foto Kegiatan Alumni</li>
                     </ol>
                 </nav>
             </div>
@@ -41,3 +40,6 @@
 
     </section>
 @endsection
+@push('foto')
+    <link rel="stylesheet" href="{{ asset('foto.css') }}">
+@endpush
