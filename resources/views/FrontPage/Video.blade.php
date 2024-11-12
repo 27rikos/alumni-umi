@@ -1,14 +1,16 @@
-@extends('Partials.FrontPage')
+@extends('Partials.Frontpage')
 @section('title', 'Video')
 @section('content')
-    <section class="min-vh-100">
-        <div class="jumbotron jumbotron-fluid mt-5">
+    <section class="min-vh-100 pt-5">
+        <div class="jumbotron jumbotron-fluid"
+            style="background: linear-gradient(135deg, #4a90e2, #0052cc); color: white; padding: 50px 0;">
             <div class="container">
-                <h1 class="display-4">Gallery Video</h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('main') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Video Kegiatan Alumni</li>
+                <h1 class="display-4 font-weight-bold" style="font-size: 3rem;">Gallery Video</h1>
+                <p class="lead">Dapatkan informasi video kegiatan alumni terbaru.</p>
+                <nav aria-label="breadcrumb" class="d-flex mt-4">
+                    <ol class="breadcrumb bg-transparent p-0">
+                        <li class="breadcrumb-item"><a href="{{ route('main') }}" class="text-light">Home</a></li>
+                        <li class="breadcrumb-item active text-light" aria-current="page">Video Kegiatan Alumni</li>
                     </ol>
                 </nav>
             </div>

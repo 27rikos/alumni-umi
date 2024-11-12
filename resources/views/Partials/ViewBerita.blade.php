@@ -1,8 +1,8 @@
 @extends('Partials.Frontpage')
 @section('title', 'Berita')
 @section('content')
-    <main>
-        <div class="container pt-3">
+    <section>
+        <div class="container pt-5">
             <div class="row mt-5">
                 <div class="col-md-8">
                     <article class="mb-5">
@@ -22,6 +22,17 @@
                                 <i class="fas fa-calendar-alt ml-2 mr-1"></i><span>{{ $tanggal }}</span>
                             </p>
                         </div>
+                        <!-- AddToAny BEGIN -->
+                        <div class="a2a_kit a2a_kit_size_32 a2a_default_style mb-3">
+                            <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                            <a class="a2a_button_facebook"></a>
+                            <a class="a2a_button_whatsapp"></a>
+                            <a class="a2a_button_threads"></a>
+                            <a class="a2a_button_x"></a>
+                            <a class="a2a_button_telegram"></a>
+                        </div>
+                        <script async src="https://static.addtoany.com/menu/page.js"></script>
+                        <!-- AddToAny END -->
                         <article style="text-align: justify" class="mb-3"> {!! $data->konten !!}</article>
 
                     </article>
@@ -49,5 +60,5 @@
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 @endsection

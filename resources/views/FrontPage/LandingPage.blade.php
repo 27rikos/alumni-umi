@@ -3,62 +3,75 @@
 @section('content')
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div data-aos="zoom-in">
-                <h1>Welcome to Alumni UMI</h1>
-            </div>
-            <div data-aos="fade-up" data-aos-duration="1000">
-                <p>
-                    Connect with your fellow alumni and stay updated with campus news.
-                </p>
-            </div>
-            <div data-aos="fade-up" data-aos-duration="1500">
-                <a href="{{ route('login') }}" class="btn btn-primary btn-lg rounded-pill">Get Started</a>
+        <div class="container">
+            <div class="hero-content" style="text-align: left;margin-left: auto;">
+                <div data-aos="zoom-in">
+                    <h1>Welcome To Alumni UMI</h1>
+                </div>
+                <div data-aos="fade-up" data-aos-duration="1000">
+                    <p>
+                        Connect with your fellow alumni, stay updated on campus news, and explore opportunities to grow your
+                        network.
+                    </p>
+                    <p>
+                        Join us in building a strong alumni community and contribute to our legacy at UMI.
+                    </p>
+                </div>
+                <div data-aos="fade-up" data-aos-duration="1500">
+                    <a href="{{ route('login') }}" class="btn btn-outline-light btn-lg">Get Started</a>
+                </div>
             </div>
         </div>
     </section>
+
     <section class="pt-5">
         <div class="container">
-            <h1 class="text-center mb-1">Jumlah Alumni</h1>
+            <h1 class="mb-1">Jumlah Alumni</h1>
+            <hr>
             <div class="row">
                 <div class="four col-md-3 mb-3">
-                    <div class="counter-box "> <i class="fa-solid fa-user-graduate"></i> <span class="counter">{{ $fk }}</span>
+                    <div class="counter-box faculty-fk"> <i class="fa-solid fa-user-doctor"></i> <span
+                            class="counter">{{ $fk }}</span>
                         <p>Falkutas Kedokteran</p>
                     </div>
                 </div>
                 <div class="four col-md-3 mb-3">
-                    <div class="counter-box"> <i class="fa-solid fa-user-graduate"></i> <span class="counter">{{ $fe }}</span>
+                    <div class="counter-box faculty-fe"> <i class="fa-solid fa-coins"></i> <span
+                            class="counter">{{ $fe }}</span>
                         <p>Falkutas Ekonomi</p>
                     </div>
                 </div>
                 <div class="four col-md-3 mb-3">
-                    <div class="counter-box"> <i class="fa-solid fa-user-graduate"></i> <span class="counter">{{ $fikom }}</span>
+                    <div class="counter-box faculty-fikom"> <i class="fa-solid fa-computer"></i> <span
+                            class="counter">{{ $fikom }}</span>
                         <p>Falkutas Ilmu Komputer</p>
                     </div>
                 </div>
                 <div class="four col-md-3 mb-3">
-                    <div class="counter-box"> <i class="fa-solid fa-user-graduate"></i> <span class="counter">{{ $fs }}</span>
+                    <div class="counter-box faculty-fs"> <i class="fa-solid fa-book-open-reader"></i> <span
+                            class="counter">{{ $fs }}</span>
                         <p>Falkutas Sastra</p>
                     </div>
                 </div>
                 <div class="four col-md-3 mb-3">
-                    <div class="counter-box"> <i class="fa-solid fa-user-graduate"></i> <span class="counter">{{ $fp }}</span>
+                    <div class="counter-box faculty-fp"> <i class="fa-solid fa-wheat-awn"></i> <span
+                            class="counter">{{ $fp }}</span>
                         <p>Falkutas Pertanian</p>
                     </div>
                 </div>
             </div>
         </div>
+
     </section>
     <section class="news py-5 bg-light">
         <div class="container">
-            <h2 class="text-center mb-4">Latest News</h2>
+            <h2>Berita Terbaru</h2>
             <hr>
             <div class="row">
                 @forelse ($datas as $item)
                     <div class="col-md-4 mb-3">
                         <img src="{{ asset('images/berita/' . $item->file) }}" class="img-fluid mb-3 object-fit-cover"
-                            alt="News 1" />
+                            style="height: 200px; width:100%" alt="News {{ $item->id }}" />
                         <h5 class="news-title">{{ $item->judul }}</h5>
                         @php
                             $dateString = $item->tanggal;
@@ -80,17 +93,15 @@
         </div>
     </section>
     <style>
-        .container {
-            margin-top: 100px
-        }
-
         .counter-box {
-            display: block;
-            padding: 40px 20px 37px;
+            display: grid;
+            place-items: center;
+            height: 200px;
+            padding: 0 20px;
             text-align: center;
-            border: 1px solid #ddd;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: #f8f8f8;
+            /* Default background color */
         }
 
         .counter-box p {
@@ -115,16 +126,64 @@
             line-height: 28px;
         }
 
-        .counter-box.colored {
-            background: #3acf87;
+        /* Custom colors for each faculty box */
+        .counter-box.faculty-fk {
+            background: #e8f4f8;
+            /* Light blue */
         }
 
-        .counter-box.colored p,
-        .counter-box.colored i,
-        .counter-box.colored .counter {
-            color: #fff;
+        .counter-box.faculty-fe {
+            background: #f9f3e4;
+            /* Light yellow */
+        }
+
+        .counter-box.faculty-fikom {
+            background: #e9f4e8;
+            /* Light green */
+        }
+
+        .counter-box.faculty-fs {
+            background: #f4e9f6;
+            /* Light purple */
+        }
+
+        .counter-box.faculty-fp {
+            background: #f6f0e9;
+            /* Light beige */
+        }
+
+        /* Optional: Style text and icons in white if needed for contrast */
+        .counter-box.faculty-fk p,
+        .counter-box.faculty-fk i,
+        .counter-box.faculty-fk .counter {
+            color: #333;
+        }
+
+        .counter-box.faculty-fe p,
+        .counter-box.faculty-fe i,
+        .counter-box.faculty-fe .counter {
+            color: #333;
+        }
+
+        .counter-box.faculty-fikom p,
+        .counter-box.faculty-fikom i,
+        .counter-box.faculty-fikom .counter {
+            color: #333;
+        }
+
+        .counter-box.faculty-fs p,
+        .counter-box.faculty-fs i,
+        .counter-box.faculty-fs .counter {
+            color: #333;
+        }
+
+        .counter-box.faculty-fp p,
+        .counter-box.faculty-fp i,
+        .counter-box.faculty-fp .counter {
+            color: #333;
         }
     </style>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var counters = document.querySelectorAll('.counter');

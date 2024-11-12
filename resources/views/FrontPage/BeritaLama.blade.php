@@ -1,14 +1,16 @@
-@extends('Partials.FrontPage')
+@extends('Partials.Frontpage')
 @section('title', 'Berita Terkait')
 @section('content')
     <section class="min-vh-100 pt-5">
-        <div class="jumbotron jumbotron-fluid">
+        <div class="jumbotron jumbotron-fluid"
+            style="background: linear-gradient(135deg, #4a90e2, #0052cc); color: white; padding: 50px 0;">
             <div class="container">
-                <h1 class="display-4">Berita</h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('main') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Berita Lainnya</li>
+                <h1 class="display-4 font-weight-bold" style="font-size: 3rem;">Berita</h1>
+                <p class="lead">Dapatkan informasi terbaru dan berita menarik.</p>
+                <nav aria-label="breadcrumb" class="d-flex  mt-4">
+                    <ol class="breadcrumb bg-transparent p-0">
+                        <li class="breadcrumb-item"><a href="{{ route('main') }}" class="text-light">Home</a></li>
+                        <li class="breadcrumb-item" aria-current="page" class="text-light">Berita Lainnya</li>
                     </ol>
                 </nav>
             </div>

@@ -1,26 +1,19 @@
 .hero {
     position: relative;
-    background: url("pexels-pixabay-267885.jpg") no-repeat center center;
     background-size: cover;
     height: 100vh;
+    background: linear-gradient(135deg, #4a90e2, #0052cc);
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
 }
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
 .hero-content {
     position: relative;
     z-index: 2;
 }
+
 .teks {
     text-align: justify;
 }
@@ -30,7 +23,7 @@ body {
 footer {
     width: 100%;
     bottom: 0;
-    background-color: #10439f;
+    background: linear-gradient(135deg, #4a90e2, #0052cc);
     background-size: 100% 100%;
     text-align: justify;
 }

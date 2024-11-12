@@ -1,9 +1,23 @@
 @extends('Partials.Frontpage')
 @section('title', 'Pencarian')
 @section('content')
-    <section class="pt-3">
+    <section class="min-vh-100 pt-5">
+        <div class="jumbotron jumbotron-fluid"
+            style="background: linear-gradient(135deg, #4a90e2, #0052cc); color: white; padding: 50px 0;">
+            <div class="container">
+                <h1 class="display-4 font-weight-bold" style="font-size: 3rem;">Pencarian Data Alumni</h1>
+                <p class="lead">Telusuri informasi alumni dan temukan profil para lulusan kami yang berprestasi.</p>
+                <nav aria-label="breadcrumb" class="d-flex mt-4">
+                    <ol class="breadcrumb bg-transparent p-0">
+                        <li class="breadcrumb-item"><a href="{{ route('main') }}" class="text-light">Home</a></li>
+                        <li class="breadcrumb-item " aria-current="page" class="text-light">Data Alumni</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
         <div class="cari container text-center">
-            <div class="alert alert-info mt-5" role="alert">
+            <div class="alert alert-primary mt-5" role="alert">
                 Silahkan Masukkan <strong>Nama/NPM/Stambuk</strong> Sebagai Kata Kunci
             </div>
             <div class="d-flex justify-content-center align-items-center mt-3">
@@ -13,7 +27,7 @@
                         <input type="search" class="form-control rounded mr-1" name="cari" type="search"
                             placeholder="Cari alumni" placeholder="Search" aria-label="Search"
                             aria-describedby="search-addon" value="{{ request('cari') }}" />
-                        <button type="submit" class="btn btn-outline-info"><i
+                        <button type="submit" class="btn btn-outline-primary"><i
                                 class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </form>
