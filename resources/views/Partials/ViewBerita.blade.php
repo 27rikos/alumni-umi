@@ -7,11 +7,11 @@
                 <div class="col-md-8">
                     <article class="mb-5">
                         <img src="{{ asset('images/berita/' . $data->file) }}" id="main-img" alt=""
-                            class="mb-3 img-fluid" />
+                            class="mb-3 img-fluid" loading="lazy" />
                         <h3>{{ $data->judul }}</h3>
                         <div class="d-flex gap-2">
                             <p>
-                                <i class="fas fa-user-circle "></i> <span>{{ $data->penulis }}</span>
+                                <i class="fa-regular fa-user mr-2"></i> <span>{{ $data->penulis }}</span>
                             </p>
                             @php
                                 $dateString = $data->tanggal;
@@ -19,7 +19,7 @@
                             @endphp
 
                             <p>
-                                <i class="fas fa-calendar-alt ml-2 mr-1"></i><span>{{ $tanggal }}</span>
+                                <i class="fa-solid fa-calendar-days mx-2"></i><span>{{ $tanggal }}</span>
                             </p>
                         </div>
                         <!-- AddToAny BEGIN -->

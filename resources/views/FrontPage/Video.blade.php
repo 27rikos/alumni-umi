@@ -21,14 +21,14 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                         <div class="card shadow" style="height: 18rem">
                             <img src="{{ asset('images/thumbnail/' . $item->file) }}" class="card-img-top object-fit-cover"
-                                alt="{{ $item->judul }}">
+                                loading="lazy" alt="{{ $item->judul }}">
                             <div class="card-body">
                                 <a data-fancybox="gallery" href="http://{{ $item->link }}">{{ $item->judul }}</a>
                             </div>
                         </div>
                     </div>
                 @empty
-                    <div class="alert alert-info mt-3 text-center w-100" role="alert">
+                    <div class="alert alert-primary mt-3 text-center w-100" role="alert">
                         Gallery Kosong
                     </div>
                 @endforelse
