@@ -48,12 +48,9 @@
                                                 <td>{{ $item->tempat_lhr }}</td>
                                             </tr>
                                             <tr>
-                                                @php
-                                                    $dateString = $item->tanggal_lhr;
-                                                    $tanggal_lhr = strftime('%d %B %Y', strtotime($dateString));
-                                                @endphp
-                                                <th scope="row">Tanggal Lahir</th>
-                                                <td>{{ $tanggal_lhr }}</td>
+                                                <th>Tanggal Lahir</th>
+                                                <td>{{ \Carbon\Carbon::parse($item->tanggal_lhr)->translatedFormat('d F Y') }}
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Nama Ayah</th>
@@ -112,40 +109,36 @@
                                         <td>{{ $item->stambuk }}</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Seminar Proposal</th>
-                                        @php
-                                            $dateString = $item->sempro;
-                                            $sempro = strftime('%d %B %Y', strtotime($dateString));
-                                        @endphp
-                                        <td>{{ $sempro }}</td>
+                                        <th>Seminar Proposal</th>
+                                        <td>{{ $item->sempro ? \Carbon\Carbon::parse($item->sempro)->translatedFormat('d F Y') : '-' }}
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Seminar Hasil</th>
-                                        @php
-                                            $dateString = $item->semhas;
-                                            $semhas = strftime('%d %B %Y', strtotime($dateString));
-                                        @endphp
-                                        <td>{{ $semhas }}</td>
+                                        <th>Seminar Hasil</th>
+                                        <td>{{ $item->semhas ? \Carbon\Carbon::parse($item->semhas)->translatedFormat('d F Y') : '-' }}
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Sidang Meja Hijau</th>
-                                        @php
-                                            $dateString = $item->mejahijau;
-                                            $sidang = strftime('%d %B %Y', strtotime($dateString));
-                                        @endphp
-                                        <td>{{ $sidang }}</td>
+                                        <th>Sidang Meja Hijau</th>
+                                        <td>{{ $item->mejahijau ? \Carbon\Carbon::parse($item->mejahijau)->translatedFormat('d F Y') : '-' }}
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Yudisium</th>
-                                        @php
-                                            $dateString = $item->yudisium;
-                                            $yudisium = strftime('%d %B %Y', strtotime($dateString));
-                                        @endphp
-                                        <td>{{ $yudisium }}</td>
+                                        <th>Yudisium</th>
+                                        <td>{{ $item->yudisium ? \Carbon\Carbon::parse($item->yudisium)->translatedFormat('d F Y') : '-' }}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Judul Skripsi</th>
                                         <td>{{ $item->judul }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Dosen Pembimbing 1</th>
+                                        <td>{{ $item->dosenpembimbing1->nama }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Dosen Pembimbing 2</th>
+                                        <td>{{ $item->dosenpembimbing2->nama }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Dosen Penguji 1</th>
@@ -157,11 +150,11 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">IPK</th>
-                                        <td>{{ $item->ipk }}</td>
+                                        <td>{{ $item->ipk ?? '-' }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Tahun Lulus</th>
-                                        <td>{{ $item->thn_lulus }}</td>
+                                        <td>{{ $item->thn_lulus ?? '-' }}</td>
                                     </tr>
                                 </tbody>
                             </table>
