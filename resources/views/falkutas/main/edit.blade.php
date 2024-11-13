@@ -168,8 +168,30 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
+                                    <label for="pembimbing1" class="form-label">Dosen Pembimbing 1</label>
+                                    <select name="pembimbing1" id="select_box1" class="form-select">
+                                        <option value="">Pilih Dosen Pembimbing 1</option>
+                                        @foreach ($dosens as $item)
+                                            <option
+                                                value="{{ $item->id }}"{{ $item->id == $find->pembimbing1 ? 'selected' : '' }}>
+                                                {{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pembimbing2" class="form-label">Dosen Pembimbing 2</label>
+                                    <select name="pembimbing2" id="select_box2" class="form-select">
+                                        <option value="">Pilih Dosen Pembimbing 2</option>
+                                        @foreach ($dosens as $item)
+                                            <option
+                                                value="{{ $item->id }}"{{ $item->id == $find->pembimbing2 ? 'selected' : '' }}>
+                                                {{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
                                     <label for="penguji1" class="form-label">Dosen Penguji 1</label>
-                                    <select name="penguji1" id="select_box1" class="form-select">
+                                    <select name="penguji1" id="select_box3" class="form-select">
                                         <option value="">Pilih Dosen Penguji 1</option>
                                         @foreach ($dosens as $item)
                                             <option value="{{ $item->id }}"
@@ -180,7 +202,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="penguji2" class="form-label">Dosen Penguji 2</label>
-                                    <select name="penguji2" id="select_box2" class="form-select">
+                                    <select name="penguji2" id="select_box4" class="form-select">
                                         <option value="">Pilih Dosen Penguji 2</option>
                                         @foreach ($dosens as $item)
                                             <option value="{{ $item->id }}"
@@ -429,8 +451,12 @@
         // Inisialisasi untuk dua selectbox
         var select_box_element1 = document.querySelector('#select_box1');
         var select_box_element2 = document.querySelector('#select_box2');
+        var select_box_element3 = document.querySelector('#select_box3');
+        var select_box_element4 = document.querySelector('#select_box4');
 
         initSelectBox(select_box_element1);
         initSelectBox(select_box_element2);
+        initSelectBox(select_box_element3);
+        initSelectBox(select_box_element4);
     </script>
 @endsection

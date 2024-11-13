@@ -32,8 +32,12 @@ return new class extends Migration
             $table->text('ijazah')->nullable();
             $table->unsignedBigInteger('penguji1');
             $table->unsignedBigInteger('penguji2');
+            $table->unsignedBigInteger('pembimbing1');
+            $table->unsignedBigInteger('pembimbing2');
             $table->foreign('penguji1')->references('id')->on('dosens')->cascadeOnDelete();
             $table->foreign('penguji2')->references('id')->on('dosens')->cascadeOnDelete();
+            $table->foreign('pembimbing1')->references('id')->on('dosens')->cascadeOnDelete();
+            $table->foreign('pembimbing2')->references('id')->on('dosens')->cascadeOnDelete();
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

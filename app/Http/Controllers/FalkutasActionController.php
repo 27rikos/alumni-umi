@@ -18,7 +18,7 @@ class FalkutasActionController extends Controller
      */
     public function index()
     {
-        $data = Alumni::with('prodis', 'minat')->where(function ($query) {
+        $data = Alumni::with('minat', 'prodis', 'dosenpenguji1', 'dosenpenguji2', 'dosenpembimbing1', 'dosenpembimbing2')->where(function ($query) {
             $query->where('fakultas', Auth()->user()->fakultas);
         })->get();
         return view("falkutas.main.index", compact("data"));
@@ -71,13 +71,15 @@ class FalkutasActionController extends Controller
             "kecamatan" => "required",
             "kelurahan" => "required",
             "gender" => "required",
+            "penguji1" => "required",
+            "penguji2" => "required",
+            "pembimbing1" => "required",
+            "pembimbing2" => "required",
         ], messages: [
             'npm.unique' => 'NPM sudah digunakan',
             'file.mimes' => 'Format file foto harus jpg,jpeg,png',
             'ktp.mimes' => 'Format file KTP harus jpg,jpeg,png',
             'ijazah.mimes' => 'Format file Ijazah harus jpg,jpeg,png',
-            'penguji1.required' => 'Nama penguji 1 harus diisi', // Custom error message for penguji1
-            'penguji2.required' => 'Nama penguji 2 harus diisi',
         ]);
         $fakultas = auth()->user()->fakultas;
         $data = Alumni::create([
@@ -107,6 +109,8 @@ class FalkutasActionController extends Controller
             "nik" => $request->nik,
             "penguji1" => $request->penguji1,
             "penguji2" => $request->penguji2,
+            "pembimbing1" => $request->pembimbing1,
+            "pembimbing2" => $request->pembimbing2,
             "gender" => $request->gender,
 
         ]);
@@ -176,7 +180,7 @@ class FalkutasActionController extends Controller
             'npm', 'nama', 'stambuk', 'peminatan', 'prodi',
             'thn_lulus', 'sempro', 'semhas', 'mejahijau',
             'yudisium', 'judul', 'pekerjaan', 'no_alumni', 'ipk', 'tanggal_lhr', 'tempat_lhr',
-            'ayah', 'ibu', 'alamat', 'penguji1', 'penguji2', 'nik', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'gender',
+            'ayah', 'ibu', 'alamat', 'penguji1', 'penguji2', 'pembimbing1', 'pembimbing2', 'nik', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'gender',
         ]);
 
         // Cek apakah file baru diupload

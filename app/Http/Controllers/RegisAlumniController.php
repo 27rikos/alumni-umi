@@ -54,7 +54,6 @@ class RegisAlumniController extends Controller
             "semhas" => "nullable",
             "mejahijau" => "nullable",
             "yudisium" => "nullable",
-            "pekerjaan" => "nullable",
             "judul" => "required",
             "tempat_lhr" => "required",
             "tanggal_lhr" => "required",
@@ -65,10 +64,13 @@ class RegisAlumniController extends Controller
             "ijazah" => "required|mimes:jpg,jpeg,png|max:2048",
             "penguji1" => "required",
             "penguji2" => "required",
+            "pembimbing1" => "required",
+            "pembimbing2" => "required",
             "provinsi" => "required",
             "kota" => "required",
             "kecamatan" => "required",
             "kelurahan" => "required",
+            "gender" => "required",
         ], messages: [
             'npm.unique' => 'NIP sudah digunakan',
             'file.mimes' => 'Format file foto harus jpg,jpeg,png',
@@ -90,13 +92,15 @@ class RegisAlumniController extends Controller
             "nik" => $request->nik,
             "ibu" => $request->ibu,
             "judul" => $request->judul,
-            "file" => $request->file,
             "penguji1" => $request->penguji1,
             "penguji2" => $request->penguji2,
+            "pembimbing1" => $request->pembimbing1,
+            "pembimbing2" => $request->pembimbing2,
             "provinsi" => $request->provinsi,
             "kota" => $request->kota,
             "kecamatan" => $request->kecamatan,
             "kelurahan" => $request->kelurahan,
+            "gender" => $request->gender,
         ]);
         // Handle file upload for 'file'
         if ($request->hasFile('file')) {

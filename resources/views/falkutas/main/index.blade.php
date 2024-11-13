@@ -78,6 +78,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>No Alumni</th>
                                 <th>Nama</th>
                                 <th>NPM</th>
                                 <th>Stambuk</th>
@@ -91,6 +92,7 @@
                             @foreach ($data as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->no_alumni ?? '-' }}</td>
                                     <td>{{ $item->nama }}</td>
                                     <td>{{ $item->npm }}</td>
                                     <td>{{ $item->stambuk }}</td>
@@ -258,7 +260,7 @@
                                                         <tbody>
                                                             <tr>
                                                                 <th>No Alumni</th>
-                                                                <td>{{ $item->no_alumni }}</td>
+                                                                <td>{{ $item->no_alumni ?? '-' }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>NPM</th>
@@ -305,6 +307,14 @@
                                                                 <td>{{ $item->judul }}</td>
                                                             </tr>
                                                             <tr>
+                                                                <th>Dosen Pembimbing 1</th>
+                                                                <td>{{ $item->dosenpembimbing1->nama }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Dosen Pembimbing 2</th>
+                                                                <td>{{ $item->dosenpembimbing2->nama }}</td>
+                                                            </tr>
+                                                            <tr>
                                                                 <th>Dosen Penguji 1</th>
                                                                 <td>{{ $item->dosenpenguji1->nama }}</td>
                                                             </tr>
@@ -314,11 +324,11 @@
                                                             </tr>
                                                             <tr>
                                                                 <th>IPK</th>
-                                                                <td>{{ $item->ipk }}</td>
+                                                                <td>{{ $item->ipk ?? '-' }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Tahun Lulus</th>
-                                                                <td>{{ $item->thn_lulus }}</td>
+                                                                <td>{{ $item->thn_lulus ?? '-' }}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>

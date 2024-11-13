@@ -96,7 +96,7 @@
                         </div>
                     </div>
                 @empty
-                    <div class="alert alert-primary text-center" role="alert">
+                    <div class="alert alert-primary text-center w-100" role="alert">
                         Berita Belum Di update
                     </div>
                 @endforelse

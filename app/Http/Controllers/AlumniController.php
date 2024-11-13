@@ -21,7 +21,7 @@ class AlumniController extends Controller
      */
     public function index()
     {
-        $alumni = Alumni::with('minat', 'prodis', 'dosenpenguji1', 'dosenpenguji2')->get();
+        $alumni = Alumni::with('minat', 'prodis', 'dosenpenguji1', 'dosenpenguji2', 'dosenpembimbing1', 'dosenpembimbing2')->get();
         return view('admin.Alumni.Index', compact('alumni'));
     }
 
@@ -73,6 +73,8 @@ class AlumniController extends Controller
             "ijazah" => "mimes:jpg,jpeg,png|max:2048",
             "penguji1" => "required",
             "penguji2" => "required",
+            "pembimbing1" => "required",
+            "pembimbing2" => "required",
             "provinsi" => "required",
             "kota" => "required",
             "kecamatan" => "required",
@@ -109,6 +111,8 @@ class AlumniController extends Controller
             "ipk" => $request->ipk,
             "penguji1" => $request->penguji1,
             "penguji2" => $request->penguji2,
+            "pembimbing1" => $request->pembimbing1,
+            "pembimbing2" => $request->pembimbing2,
             "provinsi" => $request->provinsi,
             "kota" => $request->kota,
             "kecamatan" => $request->kecamatan,
@@ -184,7 +188,7 @@ class AlumniController extends Controller
             'npm', 'nama', 'stambuk', 'peminatan', 'prodi',
             'thn_lulus', 'sempro', 'semhas', 'mejahijau',
             'yudisium', 'fakultas', 'judul', 'no_alumni', 'ipk', 'tanggal_lhr', 'tempat_lhr',
-            'ayah', 'ibu', 'penguji1', 'penguji2', 'nik', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'gender',
+            'ayah', 'ibu', 'penguji1', 'penguji2', 'pembimbing1', 'pembimbing2', 'nik', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'gender',
         ]);
 
         // Cek apakah file baru diupload

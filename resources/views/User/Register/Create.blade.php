@@ -1,19 +1,18 @@
 @extends('Partials.Person')
 @section('title', 'Registrasi Alumni')
 @section('content')
-
-    <div class="container-xl min-vh-100">
-        <div class="py-5">
-            <div class="container">
-                <h3 class="display-6">Petunjuk Registrasi Alumni:</h3>
-                <ol>
-                    <li>Isi setiap field input pada form pengisian data</li>
-                    <li>Format foto yang dapat diupload: JPG, JPEG, PNG.</li>
-                    <li>Ukuran maksimal foto: 1MB.</li>
-                </ol>
+    <div class="page-header d-print-none mb-3">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">
+                        Registrasi Data Alumni
+                    </h2>
+                </div>
             </div>
         </div>
-
+    </div>
+    <div class="container-xl min-vh-100">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -23,15 +22,23 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="mb-3" hidden>
+                                <div class="mb-3">
                                     <label for="npm" class="form-label">NPM</label>
                                     <input type="text" class="form-control" readonly id="npm" name="npm"
                                         value="{{ $data->npm }}">
                                 </div>
-                                <div class="mb-3" hidden>
+                                <div class="mb-3">
                                     <label for="nama" class="form-label">Nama</label>
                                     <input type="text" class="form-control" readonly id="nama" name="nama"
                                         value="{{ $data->name }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="gender" class="form-label">Jenis Kelamin</label>
+                                    <select name="gender" id="" class="form-control">
+                                        <option value="">Pilih</option>
+                                        <option value="Laki-Laki">Laki-Laki</option>
+                                        <option value="Perempuan">Perempuan</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="tempat_lhr" class="form-label">Tempat Lahir</label>
@@ -130,8 +137,26 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
+                                    <label for="pembimbing1" class="form-label">Dosen Pembimbing 1</label>
+                                    <select name="pembimbing1" id="select_box1" class="form-select">
+                                        <option value="">Pilih Dosen Pembimbing 1</option>
+                                        @foreach ($dosens as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pembimbing2" class="form-label">Dosen Pembimbing 2</label>
+                                    <select name="pembimbing2" id="select_box2" class="form-select">
+                                        <option value="">Pilih Dosen Pembimbing 2</option>
+                                        @foreach ($dosens as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
                                     <label for="penguji1" class="form-label">Dosen Penguji 1</label>
-                                    <select name="penguji1" id="select_box1" class="form-select">
+                                    <select name="penguji1" id="select_box3" class="form-select">
                                         <option value="">Pilih Dosen Penguji 1</option>
                                         @foreach ($dosens as $item)
                                             <option value="{{ $item->id }}">{{ $item->nama }}</option>
@@ -140,7 +165,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="penguji2" class="form-label">Dosen Penguji 2</label>
-                                    <select name="penguji2" id="select_box2" class="form-select">
+                                    <select name="penguji2" id="select_box4" class="form-select">
                                         <option value="">Pilih Dosen Penguji 2</option>
                                         @foreach ($dosens as $item)
                                             <option value="{{ $item->id }}">{{ $item->nama }}</option>
@@ -235,9 +260,13 @@
         // Inisialisasi untuk dua selectbox
         var select_box_element1 = document.querySelector('#select_box1');
         var select_box_element2 = document.querySelector('#select_box2');
+        var select_box_element3 = document.querySelector('#select_box3');
+        var select_box_element4 = document.querySelector('#select_box4');
 
         initSelectBox(select_box_element1);
         initSelectBox(select_box_element2);
+        initSelectBox(select_box_element3);
+        initSelectBox(select_box_element4);
     </script>
     <script src="{{ asset('js/location.js') }}"></script>
 @endpush
