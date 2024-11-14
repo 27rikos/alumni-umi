@@ -104,6 +104,45 @@
             <a href="{{ route('old-news') }}" class="d-flex justify-content-end">Lihat Semua Berita..</a>
         </div>
     </section>
+    <section id="partner-logos" class="py-5">
+        <div class="container">
+            <h2 class="mb-4">Partner Kerja Sama</h2>
+            <div id="logoCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="d-flex justify-content-around">
+                            <img src="https://img.freepik.com/free-icon/brand_318-602545.jpg" class="img-fluid"
+                                alt="Logo 1" style="max-height: 100px;">
+                            <img src="https://img.freepik.com/free-icon/brand_318-602545.jpg" class="img-fluid"
+                                alt="Logo 2" style="max-height: 100px;">
+                            <img src="https://img.freepik.com/free-icon/brand_318-602545.jpg" class="img-fluid"
+                                alt="Logo 3" style="max-height: 100px;">
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="d-flex justify-content-around">
+                            <img src="https://img.freepik.com/free-icon/brand_318-602545.jpg" class="img-fluid"
+                                alt="Logo 4" style="max-height: 100px;">
+                            <img src="https://img.freepik.com/free-icon/brand_318-602545.jpg" class="img-fluid"
+                                alt="Logo 5" style="max-height: 100px;">
+                            <img src="https://img.freepik.com/free-icon/brand_318-602545.jpg" class="img-fluid"
+                                alt="Logo 6" style="max-height: 100px;">
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#logoCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#logoCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </section>
+@endsection
+@push('script-css')
     <style>
         .counter-box {
             display: grid;
@@ -194,6 +233,11 @@
         .counter-box.faculty-fp .counter {
             color: #333;
         }
+
+        #partner-logos img {
+            max-height: 100px;
+            object-fit: contain;
+        }
     </style>
 
     <script>
@@ -221,5 +265,28 @@
                 updateCount();
             });
         });
+
+        $(document).ready(function() {
+            $('.customer-logos').slick({
+                slidesToShow: 6,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 1500,
+                arrows: false,
+                dots: false,
+                pauseOnHover: false,
+                responsive: [{
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 4
+                    }
+                }, {
+                    breakpoint: 520,
+                    settings: {
+                        slidesToShow: 3
+                    }
+                }]
+            });
+        });
     </script>
-@endsection
+@endpush
