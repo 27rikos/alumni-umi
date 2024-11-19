@@ -30,10 +30,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('Video.create') }}" class="btn btn-primary me-2"><i
+                    <a href="{{ route('Video.create') }}" class="btn btn-outline-primary me-2"><i
                             class="fa-solid fa-plus me-2"></i>Tambah</a>
-                    <a href="{{ route('Video.index') }}" class="btn btn-azure"> <i class="fa fa-refresh me-2"></i>
-                        Refresh</a>
                 </div>
                 <div class="table-responsive m-3">
                     <table class="table table-bordered" id="example" width="100%" cellspacing="0">

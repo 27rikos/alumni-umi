@@ -31,16 +31,23 @@
         body {
             font-feature-settings: "cv03", "cv04", "cv11";
         }
+
+        #logo {
+            width: auto;
+            height: 50px;
+        }
     </style>
 </head>
 
 <body class=" d-flex flex-column bg-white">
-    <script src="{{ asset('./dist/js/demo-theme.min.js?1692870487') }}"></script>
+    {{-- <script src="{{ asset('./dist/js/demo-theme.min.js?1692870487') }}"></script> --}}
+
     <div class="row g-0 flex-fill">
         <div class="col-12 col-lg-6 col-xl-4 border-top-wide border-primary d-flex flex-column justify-content-center">
             <div class="container container-tight my-5 px-lg-5">
                 <div class="text-center mb-4 display-6 text-primary">
-                    Alumni UMI<i class="fa-solid fa-graduation-cap fa-2x"></i>
+                    <img src="{{ asset('static/photos/LOGO UMI.png') }}" id="logo" alt="" srcset="">
+                    SIKAK UMI
                 </div>
                 <form action="{{ route('login') }}" method="POST">
                     @csrf

@@ -44,13 +44,20 @@
             margin-bottom: 0;
         }
     }
+
+    #logo {
+        width: 30px;
+        height: auto;
+    }
 </style>
 
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand font-weight-bold" href="#">Alumni <span class="text-primary">UMI</span></a>
+            <a class="navbar-brand font-weight-bold" href="#"> <img id="logo"
+                    src="{{ asset('static/photos/LOGO UMI.png') }}" alt="" srcset=""> SIKAK<span
+                    class="text-primary">UMI</span></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -99,7 +106,7 @@
     <footer class="footer mt-3 text-light">
         <div class="container p-3">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <h5 class="text-light">VISIT US:</h5>
                     <ul class="list-unstyled">
                         <li class="text-light mb-2">
@@ -113,7 +120,7 @@
                     </ul>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <h5 class="text-light mb-3">FOLLOW US:</h5>
                     <ul class="d-flex justify-content-start p-0 list-unstyled">
                         <li class="mr-3">
@@ -139,13 +146,6 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-4">
-                    <h5 class="mb-3">OUR LOCATION:</h5>
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.0369967861297!2d98.6678751733135!3d3.5789729503635677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x303131d2ca9e8e4f%3A0x8f9e1923eea126ac!2sIndonesian%20Methodist%20University!5e0!3m2!1sen!2sid!4v1731335211151!5m2!1sen!2sid"
-                        width="100%" height="150" style="border:0; border-radius:5px" allowfullscreen=""
-                        loading="lazy"></iframe>
-                </div>
             </div>
         </div>
         <div class="text-center p-3">
@@ -157,7 +157,7 @@
         AOS.init();
     </script>
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     @stack('script-css')
