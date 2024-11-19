@@ -39,6 +39,11 @@
         trix-toolbar [data-trix-button-group="file-tools"] {
             display: none;
         }
+
+        #logo {
+            width: auto;
+            height: 30px;
+        }
     </style>
     {{-- End Trix --}}
     {{-- data table CDN --}}
@@ -66,9 +71,9 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-                        <a href="#" class="text-blue text-decoration-none">
-                            Alumni <span>UMI</span><i class="fa-solid fa-graduation-cap fa-2x"></i>
-                        </a>
+                        <img src="{{ asset('static/photos/LOGO UMI.png') }}" id="logo" alt=""
+                            srcset="">
+                        SIKAK<span class="ms-1">UMI</span>
                     </h1>
                     <div class="navbar-nav flex-row order-md-last">
                         <div class="d-none d-md-flex me-3">

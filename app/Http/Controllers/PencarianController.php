@@ -15,7 +15,7 @@ class PencarianController extends Controller
 
     public function cari(Request $request)
     {
-        $cari = $request->cari;
+        $cari = $request->input('cari');
 
         // Cek apakah $cari bernilai null atau kosong
         if (is_null($cari) || trim($cari) === '') {

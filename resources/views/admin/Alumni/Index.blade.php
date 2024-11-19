@@ -62,7 +62,8 @@
                         {{-- end modal --}}
                         {{-- modal import buku wisuda --}}
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bukuModal">
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                            data-bs-target="#bukuModal">
                             <i class="fa-solid fa-book me-2"></i>Buku Wisuda
                         </button>
 
@@ -92,7 +93,7 @@
                             </div>
                         </div>
                         {{-- end modal --}}
-                        <a href="{{ route('download') }}" class="btn btn-primary ">
+                        <a href="{{ route('download') }}" class="btn btn-outline-primary ">
                             <i class="fa-solid fa-file-excel me-2"></i> Export
                         </a>
 
@@ -101,7 +102,8 @@
                         </a> --}}
                         {{-- export foto zip modal --}}
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#zipModal">
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                            data-bs-target="#zipModal">
                             <i class="fa-solid fa-images me-2"></i>Foto
                         </button>
 
@@ -131,7 +133,7 @@
                             </div>
                         </div>
                         {{-- end modal --}}
-                        <a href="{{ route('alumni.create') }}" class="btn btn-primary">
+                        <a href="{{ route('alumni.create') }}" class="btn btn-outline-primary">
                             <i class="fa-solid fa-plus me-2"></i> Tambah
                         </a>
 

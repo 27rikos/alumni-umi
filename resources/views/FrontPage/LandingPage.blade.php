@@ -4,17 +4,17 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <div class="hero-content" style="text-align: left;margin-left: auto;">
+            <div class="hero-content" style="text-align: left; margin-left: auto;">
                 <div data-aos="zoom-in">
-                    <h1>Welcome To Alumni UMI</h1>
+                    <h1>SIKAK UMI</h1>
                 </div>
                 <div data-aos="fade-up" data-aos-duration="1000">
                     <p>
-                        Connect with your fellow alumni, stay updated on campus news, and explore opportunities to grow your
-                        network.
+                        A comprehensive platform to manage academic and student activities at UMI. Stay connected with your
+                        academic progress, access important course information, and make the most of student services.
                     </p>
                     <p>
-                        Join us in building a strong alumni community and contribute to our legacy at UMI.
+                        Join us in enhancing the academic and student experience at UMI through SIKAK.
                     </p>
                 </div>
                 <div data-aos="fade-up" data-aos-duration="1500">
@@ -23,6 +23,7 @@
             </div>
         </div>
     </section>
+
 
     <section class="pt-5">
         <div class="container">
@@ -107,28 +108,26 @@
     <section id="partner-logos" class="py-5">
         <div class="container">
             <h2 class="mb-4">Partner Kerja Sama</h2>
+            <hr>
             <div id="logoCarousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="d-flex justify-content-around">
-                            <img src="https://img.freepik.com/free-icon/brand_318-602545.jpg" class="img-fluid"
-                                alt="Logo 1" style="max-height: 100px;">
-                            <img src="https://img.freepik.com/free-icon/brand_318-602545.jpg" class="img-fluid"
-                                alt="Logo 2" style="max-height: 100px;">
-                            <img src="https://img.freepik.com/free-icon/brand_318-602545.jpg" class="img-fluid"
-                                alt="Logo 3" style="max-height: 100px;">
+                    @if ($partner->isEmpty())
+                        <div class="alert alert-primary text-center w-100" role="alert">
+                            Data Belum Tersedia
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="d-flex justify-content-around">
-                            <img src="https://img.freepik.com/free-icon/brand_318-602545.jpg" class="img-fluid"
-                                alt="Logo 4" style="max-height: 100px;">
-                            <img src="https://img.freepik.com/free-icon/brand_318-602545.jpg" class="img-fluid"
-                                alt="Logo 5" style="max-height: 100px;">
-                            <img src="https://img.freepik.com/free-icon/brand_318-602545.jpg" class="img-fluid"
-                                alt="Logo 6" style="max-height: 100px;">
-                        </div>
-                    </div>
+                    @else
+                        @foreach ($partner->chunk(3) as $chunkIndex => $chunk)
+                            <div class="carousel-item {{ $chunkIndex === 0 ? 'active' : '' }}">
+                                <div class="d-flex justify-content-around">
+                                    @foreach ($chunk as $item)
+                                        <img src="{{ asset('images/logo_instansi/' . $item->foto) }}"
+                                            alt="{{ $item->instansi }}" class="img-fluid"
+                                            alt="Logo {{ $loop->iteration }}" style="max-height: 100px;">
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
                 <a class="carousel-control-prev" href="#logoCarousel" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -141,6 +140,7 @@
             </div>
         </div>
     </section>
+
 @endsection
 @push('script-css')
     <style>

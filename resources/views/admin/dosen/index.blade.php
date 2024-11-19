@@ -28,13 +28,12 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header gap-1">
-                    <a href="{{ route('dosen.create') }}" class="btn btn-primary"><i class="fa-solid fa-plus"></i>Tambah</a>
+                    <a href="{{ route('dosen.create') }}" class="btn btn-outline-primary"><i
+                            class="fa-solid fa-plus"></i>Tambah</a>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#upload">
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#upload">
                         <i class="fa-solid fa-file-import me-2"></i> Import
                     </button>
-                    <a href="{{ route('dosen.index') }}" class="btn btn-azure"> <i class="fa fa-refresh me-2"></i>
-                        Refresh</a>
                 </div>
                 <div class="table-responsive m-3">
                     <table class="table table-bordered" id="example" width="100%">
