@@ -1,4 +1,4 @@
-@extends('Partials.AdminDashboard')
+@extends('Partials.falkutas')
 @section('title', 'Kelola Admin')
 @section('content')
     <div class="container-xl min-vh-100">
@@ -30,18 +30,18 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('cooperation.index') }}" class="btn btn-primary ms-auto"><i
+                    <a href="{{ route('kerjasama-fakultas.index') }}" class="btn btn-primary ms-auto"><i
                             class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('cooperation.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('kerjasama-fakultas.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group mb-3">
-                            <label for="instansi"class="form-label">Nama Instansi</label>
+                            <label for="instansi">Nama Instansi</label>
                             <input type="text" class="form-control" id="instansi" name="instansi"required>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="jenis_kerjasama" class="form-label">Jenis Kerjasama</label>
+                            <label for="jenis_kerjasama">Jenis Kerjasama</label>
                             <select name="jenis_kerjasama" id="select_box" class="form-select">
                                 <option value="">Pilih Kerjasama</option>
                                 @foreach ($jenis_kerjasama as $item)
@@ -52,12 +52,12 @@
                         <div class="form-group mb-3">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="password" class="form-label">Tanggal Mulai</label>
+                                    <label for="password">Tanggal Mulai</label>
                                     <input type="date" class="form-control" id="tanggal_mulai"
                                         name="tanggal_mulai"required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="password" class="form-label">Tanggal Selesai</label>
+                                    <label for="password">Tanggal Selesai</label>
                                     <input type="date" name="tanggal_selesai" class="form-control" id="tanggal_selesai"
                                         required>
                                 </div>
@@ -66,11 +66,11 @@
                         <div class="form-group mb-3">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="file" class="form-label">Bukti Dokumen</label>
+                                    <label for="file">Bukti Dokumen</label>
                                     <input type="file" name="file" class="form-control" accept=".pdf">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="foto" class="form-label">Logo Instansi</label>
+                                    <label for="foto">Logo Instansi</label>
                                     <input type="file" name="foto" class="form-control" accept=".png,.jpeg,.jpg"
                                         id="image-input">
                                     <img id="image-preview" src="" class="rounded img-fluid mt-4"

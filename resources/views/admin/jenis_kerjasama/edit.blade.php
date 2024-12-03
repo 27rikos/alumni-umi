@@ -39,7 +39,7 @@
                         @method('put')
                         @csrf
                         <div class="form-group mb-2">
-                            <label for="jenis_kerjasama">Jenis Kerjasama</label>
+                            <label for="jenis_kerjasama" class="form-label">Jenis Kerjasama</label>
                             <input type="text" class="form-control" id="jenis_kerjasama" name="jenis_kerjasama"required
                                 value="{{ $data->jenis_kerjasama }}">
                         </div>

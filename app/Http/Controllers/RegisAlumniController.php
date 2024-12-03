@@ -32,7 +32,8 @@ class RegisAlumniController extends Controller
         $peminatan = Peminatan::all();
         $prodi = Prodi::all();
         $dosens = Dosen::all();
-        return view('User.Register.Create', compact(['prodi', 'peminatan', 'data', 'dosens']));
+        $alumni = Alumni::where('npm', auth()->user()->npm)->first();
+        return view('User.Register.Create', compact(['prodi', 'peminatan', 'data', 'dosens', 'alumni']));
     }
 
     /**
@@ -158,7 +159,75 @@ class RegisAlumniController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = Alumni::findOrFail($id);
+
+        // Simpan data yang akan diupdate ke dalam array
+        $updateData = $request->only([
+            'npm', 'nama', 'stambuk', 'peminatan', 'prodi',
+            'sempro', 'semhas', 'mejahijau', 'yudisium', 'fakultas', 'judul', 'tanggal_lhr', 'tempat_lhr',
+            'ayah', 'ibu', 'penguji1', 'penguji2', 'pembimbing1', 'pembimbing2', 'nik', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'gender',
+        ]);
+
+        // Cek apakah file baru diupload
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+            // Hapus file foto lama jika ada
+            if ($data->file) {
+                $oldPhotoPath = public_path('images/alumni/' . $data->file);
+                if (file_exists($oldPhotoPath)) {
+                    unlink($oldPhotoPath);
+                }
+            }
+
+            // Simpan file baru
+            $file = $request->file('file');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/alumni'), $fileName);
+
+            // Tambahkan nama file baru ke data update
+            $updateData['file'] = $fileName;
+        }
+
+        // Handle file upload for 'ktp'
+        if ($request->hasFile('ktp') && $request->file('ktp')->isValid()) {
+            // Hapus file KTP lama jika ada
+            if ($data->ktp) {
+                $oldKtpPath = public_path('images/ktp/' . $data->ktp);
+                if (file_exists($oldKtpPath)) {
+                    unlink($oldKtpPath);
+                }
+            }
+
+            // Simpan file KTP baru
+            $ktpFile = $request->file('ktp');
+            $ktpFileName = 'ktp_' . time() . '_' . $ktpFile->getClientOriginalName();
+            $ktpFile->move(public_path('images/ktp'), $ktpFileName);
+
+            // Tambahkan nama file KTP baru ke data update
+            $updateData['ktp'] = $ktpFileName;
+        }
+
+        // Handle file upload for 'ijazah'
+        if ($request->hasFile('ijazah') && $request->file('ijazah')->isValid()) {
+            // Hapus file Ijazah lama jika ada
+            if ($data->ijazah) {
+                $oldIjazahPath = public_path('images/ijazah/' . $data->ijazah);
+                if (file_exists($oldIjazahPath)) {
+                    unlink($oldIjazahPath);
+                }
+            }
+
+            // Simpan file Ijazah baru
+            $ijazahFile = $request->file('ijazah');
+            $ijazahFileName = 'ijazah_' . time() . '_' . $ijazahFile->getClientOriginalName();
+            $ijazahFile->move(public_path('images/ijazah'), $ijazahFileName);
+
+            // Tambahkan nama file Ijazah baru ke data update
+            $updateData['ijazah'] = $ijazahFileName;
+        }
+
+        // Update data user
+        $data->update($updateData);
+        return redirect()->route('user.home')->with('toast_info', 'Perubahan berhasil disimpan. Admin akan memvalidasi data yang telah Anda ubah');
     }
 
     /**

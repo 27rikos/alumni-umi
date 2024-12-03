@@ -43,7 +43,47 @@ class DatabaseSeeder extends Seeder
         ]);
         Prodi::create([
             'kd_prodi' => 53,
-            'prodi' => 'Pendidikan Teknologi Informatika',
+            'prodi' => 'Pendidikan Teknologi Informasi',
+        ]);
+        Prodi::create([
+            'kd_prodi' => 54,
+            'prodi' => 'Sastra Inggris',
+        ]);
+        Prodi::create([
+            'kd_prodi' => 55,
+            'prodi' => 'Magister Ilmu Biomedik',
+        ]);
+        Prodi::create([
+            'kd_prodi' => 56,
+            'prodi' => 'Agroteknologi',
+        ]);
+        Prodi::create([
+            'kd_prodi' => 57,
+            'prodi' => 'Agribisnis',
+        ]);
+        Prodi::create([
+            'kd_prodi' => 58,
+            'prodi' => 'Manajemen',
+        ]);
+        Prodi::create([
+            'kd_prodi' => 59,
+            'prodi' => 'Magister Ilmu Manajemen',
+        ]);
+        Prodi::create([
+            'kd_prodi' => 60,
+            'prodi' => 'Manajemen Informatika',
+        ]);
+        Prodi::create([
+            'kd_prodi' => 61,
+            'prodi' => 'Akuntansi',
+        ]);
+        Prodi::create([
+            'kd_prodi' => 62,
+            'prodi' => 'Komputerisasi Akuntansi',
+        ]);
+        Prodi::create([
+            'kd_prodi' => 63,
+            'prodi' => 'Komputerisasi Akuntansi',
         ]);
     }
 }

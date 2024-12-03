@@ -43,11 +43,11 @@
                                 value="{{ $find->kd_peminatan }}">
                         </div>
                         <div class="form-group mb-2">
-                            <label for="peminatan">Peminatan</label>
+                            <label for="peminatan" class="form-label">Peminatan</label>
                             <input type="text" class="form-control" id="peminatan" name="peminatan"
                                 value="{{ $find->peminatan }}">
                         </div>
-                        <div class="form-group mb-2">
+                        <div class="form-group mb-2" class="form-label">
                             <button class="btn btn-primary" type="submit">Simpan</button>
                         </div>
                     </form>

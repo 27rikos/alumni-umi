@@ -13,13 +13,24 @@
         </div>
     </div>
     <div class="container-xl min-vh-100">
+        @if ($alumni->status ?? null == 1)
+            <div class="alert alert-primary d-flex align-items-center" role="alert">
+                <div>
+                    Data Anda telah disetujui oleh admin, sehingga Anda tidak dapat mengubahnya lagi.
+                </div>
+            </div>
+        @endif
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('Daftar.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ isset($alumni) ? route('Daftar.update', $alumni->id) : route('Daftar.store') }}"
+                        method="POST" enctype="multipart/form-data">
                         @csrf
+                        @if (isset($alumni))
+                            @method('put')
+                        @endif
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -36,17 +47,24 @@
                                     <label for="gender" class="form-label">Jenis Kelamin</label>
                                     <select name="gender" id="" class="form-control">
                                         <option value="">Pilih</option>
-                                        <option value="Laki-Laki">Laki-Laki</option>
-                                        <option value="Perempuan">Perempuan</option>
+                                        @foreach (['Laki-Laki', 'Perempuan'] as $option)
+                                            <option value="{{ $option }}"
+                                                {{ isset($alumni->gender) && $alumni->gender == $option ? 'selected' : '' }}>
+                                                {{ $option }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="tempat_lhr" class="form-label">Tempat Lahir</label>
-                                    <input type="text" class="form-control" id="tempat_lhr" name="tempat_lhr">
+                                    <input type="text" class="form-control" id="tempat_lhr" name="tempat_lhr"
+                                        value="{{ isset($alumni->tempat_lhr) ? $alumni->tempat_lhr : '' }}">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="tanggal_lhr" class="form-label">Tanggal Lahir</label>
-                                    <input type="date" class="form-control" id="tanggal_lhr" name="tanggal_lhr">
+                                    <label for="tanggal_lhr" class="form-label">Tanggal
+                                        Lahir</label>
+                                    <input type="date" class="form-control" id="tanggal_lhr" name="tanggal_lhr"
+                                        value="{{ isset($alumni->tanggal_lhr) ? $alumni->tanggal_lhr : '' }}">
                                 </div>
                                 <div class="mb-3">
                                     <div class="row">
@@ -85,54 +103,89 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="stambuk" class="form-label">Stambuk</label>
-                                    <input type="text" class="form-control" id="stambuk" name="stambuk">
+                                    <input type="text" class="form-control" id="stambuk" name="stambuk"
+                                        value="{{ isset($alumni->stambuk) ? $alumni->stambuk : '' }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="peminatan" class="form-label">Peminatan</label>
                                     <select name="peminatan" id="peminatan" class="form-select">
                                         <option value="">Pilih Peminatan</option>
                                         @foreach ($peminatan as $item)
-                                            <option value="{{ $item->id }}">{{ $item->peminatan }}</option>
+                                            <option value="{{ $item->id }}"
+                                                {{ isset($alumni->peminatan) && $alumni->peminatan == $item->id ? 'selected' : '' }}>
+                                                {{ $item->peminatan }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="studi" class="form-label">Program Studi</label>
                                     <select name="prodi" id="studi" class="form-select">
                                         <option value="">Pilih Program Studi</option>
                                         @foreach ($prodi as $item)
-                                            <option value="{{ $item->id }}">{{ $item->prodi }}</option>
+                                            <option value="{{ $item->id }}"
+                                                {{ isset($alumni->prodi) && $alumni->prodi == $item->id ? 'selected' : '' }}>
+                                                {{ $item->prodi }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="fakultas" class="form-label">Fakultas</label>
                                     <select name="fakultas" id="fakultas" class="form-select">
                                         <option value="">Pilih Fakultas</option>
-                                        <option value="Fakultas Ilmu Komputer">Fakultas Ilmu Komputer</option>
-                                        <option value="Fakultas Kedokteran">Fakultas Kedokteran</option>
-                                        <option value="Fakultas Sastra">Fakultas Sastra</option>
-                                        <option value="Fakultas Pertanian">Fakultas Pertanian</option>
-                                        <option value="Fakultas Ekonomi">Fakultas Ekonomi</option>
+                                        @foreach (['Fakultas Ilmu Komputer', 'Fakultas Kedokteran', 'Fakultas Sastra', 'Fakultas Ekonomi', 'Fakultas Pertanian'] as $option)
+                                            <option value="{{ $option }}"
+                                                {{ isset($alumni->fakultas) && $alumni->fakultas == $option ? 'selected' : '' }}>
+                                                {{ $option }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="nik" class="form-label">NIK</label>
-                                    <input type="text" class="form-control" id="nik" name="nik">
+                                    <input type="text" class="form-control" id="nik" name="nik"
+                                        value="{{ isset($alumni->nik) ? $alumni->nik : '' }}">
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="ktp" class="form-label">KTP</label>
                                     <input type="file" class="form-control" id="ktp" accept="image/*"
                                         name="ktp">
-                                    <img id="ktp-preview" src="" class="rounded mt-2 img-fluid"
-                                        alt="KTP Preview" style="display:none; width: 200px; height: auto;" />
+                                    @if (isset($alumni->ktp))
+                                        <div>
+                                            <img id="ktp-preview" src="{{ asset('images/ktp/' . $alumni->ktp) }}"
+                                                class="rounded mt-2 img-fluid" alt="KTP Preview"
+                                                style="width: 200px; height: auto;">
+                                        </div>
+                                    @else
+                                        <div>
+                                            <img id="ktp-preview" src="" class="rounded mt-2 img-fluid"
+                                                alt="KTP Preview" style="display: none; width: 200px; height: auto;">
+                                        </div>
+                                    @endif
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="ijazah" class="form-label">Ijazah</label>
                                     <input type="file" class="form-control" id="ijazah" accept="image/*"
                                         name="ijazah">
-                                    <img id="ijazah-preview" src="" class="rounded mt-2 img-fluid"
-                                        alt="Ijazah Preview" style="display:none; width: 200px; height: auto;" />
+                                    @if (isset($alumni->ijazah))
+                                        <div>
+                                            <img id="ijazah-preview"
+                                                src="{{ asset('images/ijazah/' . $alumni->ijazah) }}"
+                                                class="rounded mt-2 img-fluid" alt="Ijazah Preview"
+                                                style="width: 200px; height: auto;">
+                                        </div>
+                                    @else
+                                        <div>
+                                            <img id="ijazah-preview" src="" class="rounded mt-2 img-fluid"
+                                                alt="Ijazah Preview" style="display: none; width: 200px; height: auto;">
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -141,7 +194,9 @@
                                     <select name="pembimbing1" id="select_box1" class="form-select">
                                         <option value="">Pilih Dosen Pembimbing 1</option>
                                         @foreach ($dosens as $item)
-                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                            <option value="{{ $item->id }}"
+                                                {{ isset($alumni->pembimbing1) && $alumni->pembimbing1 == $item->id ? 'selected' : '' }}>
+                                                {{ $item->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -150,7 +205,9 @@
                                     <select name="pembimbing2" id="select_box2" class="form-select">
                                         <option value="">Pilih Dosen Pembimbing 2</option>
                                         @foreach ($dosens as $item)
-                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                            <option value="{{ $item->id }}"
+                                                {{ isset($alumni->pembimbing2) && $alumni->pembimbing2 == $item->id ? 'selected' : '' }}>
+                                                {{ $item->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -159,7 +216,9 @@
                                     <select name="penguji1" id="select_box3" class="form-select">
                                         <option value="">Pilih Dosen Penguji 1</option>
                                         @foreach ($dosens as $item)
-                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                            <option value="{{ $item->id }}"
+                                                {{ isset($alumni->penguji1) && $alumni->penguji1 == $item->id ? 'selected' : '' }}>
+                                                {{ $item->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -168,49 +227,71 @@
                                     <select name="penguji2" id="select_box4" class="form-select">
                                         <option value="">Pilih Dosen Penguji 2</option>
                                         @foreach ($dosens as $item)
-                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                            <option value="{{ $item->id }}"
+                                                {{ isset($alumni->penguji2) && $alumni->penguji2 == $item->id ? 'selected' : '' }}>
+                                                {{ $item->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="ayah" class="form-label">Nama Ayah</label>
-                                    <input type="text" class="form-control" id="ayah" name="ayah">
+                                    <input type="text" class="form-control" id="ayah" name="ayah"
+                                        value="{{ isset($alumni->ayah) ? $alumni->ayah : '' }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="ibu" class="form-label">Nama Ibu</label>
-                                    <input type="text" class="form-control" id="ibu" name="ibu">
+                                    <input type="text" class="form-control" id="ibu" name="ibu"
+                                        value="{{ isset($alumni->ibu) ? $alumni->ibu : '' }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="sempro" class="form-label">Tanggal Seminar Proposal</label>
-                                    <input type="date" class="form-control" id="sempro" name="sempro">
+                                    <input type="date" class="form-control" id="sempro" name="sempro"
+                                        value="{{ isset($alumni->sempro) ? $alumni->sempro : '' }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="semhas" class="form-label">Tanggal Seminar Hasil</label>
-                                    <input type="date" class="form-control" id="semhas" name="semhas">
+                                    <input type="date" class="form-control" id="semhas" name="semhas"
+                                        value="{{ isset($alumni->semhas) ? $alumni->semhas : '' }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="mejahijau" class="form-label">Tanggal Meja Hijau</label>
-                                    <input type="date" class="form-control" id="mejahijau" name="mejahijau">
+                                    <input type="date" class="form-control" id="mejahijau" name="mejahijau"
+                                        value="{{ isset($alumni->mejahijau) ? $alumni->mejahijau : '' }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="yudisium" class="form-label">Yudisium</label>
-                                    <input type="date" class="form-control" id="yudisium" name="yudisium">
+                                    <input type="date" class="form-control" id="yudisium" name="yudisium"
+                                        value="{{ isset($alumni->yudisium) ? $alumni->yudisium : '' }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="judul" class="form-label">Judul Skripsi</label>
-                                    <input type="text" class="form-control" id="judul" name="judul">
+                                    <input type="text" class="form-control" id="judul" name="judul"
+                                        value="{{ isset($alumni->judul) ? $alumni->judul : '' }}">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="file" class="form-label">Foto Alumni</label>
+                                    <label for="file" class="form-label">Foto Alumni <span class="text-danger ms-1">(
+                                            Nama Foto : NIM-Nama )</span> </label>
                                     <input type="file" class="form-control" id="image-input" accept="image/*"
                                         name="file">
                                 </div>
-                                <img id="image-preview" src="" class="rounded" alt="Image Preview"
-                                    style="display:none; width: 200px; height: auto;" />
+                                @if (isset($alumni->file))
+                                    <div>
+                                        <img id="image-preview" src="{{ asset('images/alumni/' . $alumni->file) }}"
+                                            class="rounded mt-2 img-fluid" alt="Image Preview"
+                                            style="width: 200px; height: auto;">
+                                    </div>
+                                @else
+                                    <div>
+                                        <img id="image-preview" src="" class="rounded mt-2 img-fluid"
+                                            alt="Image Preview" style="display: none; width: 200px; height: auto;">
+                                    </div>
+                                @endif
                             </div>
+
                         </div>
                         <div class="mt-3">
-                            <button class="btn btn-primary" type="submit">Simpan</button>
+                            <button class="btn btn-primary" {{ $alumni->status ?? null == 1 ? 'disabled hidden' : '' }}
+                                type="submit">Simpan</button>
                         </div>
                     </form>
 
@@ -268,5 +349,151 @@
         initSelectBox(select_box_element3);
         initSelectBox(select_box_element4);
     </script>
-    <script src="{{ asset('js/location.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            const $provinsi = $('#provinsi');
+            const $kota = $('#kota');
+            const $kecamatan = $('#kecamatan');
+            const $kelurahan = $('#kelurahan');
+
+            // Function to fetch data and populate select
+            function fetchAndPopulate(url, $selectElement, placeholder, selectedValue = '') {
+                $.getJSON(url, function(data) {
+                    let options = `<option value="">${placeholder}</option>`;
+                    $.each(data, function(index, item) {
+                        options +=
+                            `<option value="${item.name}" data-id="${item.id}" ${item.name === selectedValue ? 'selected' : ''}>${item.name}</option>`;
+                    });
+                    $selectElement.html(options).prop('disabled', false); // Ensure select is enabled
+                }).fail(function(jqxhr, textStatus, error) {
+                    console.error("Error fetching data:", textStatus, error);
+                });
+            }
+
+            // Load sub-regions based on parent (provinsi, kota, kecamatan)
+            function loadSubRegions(parentId, endpoint, $childSelect, placeholder, selectedValue = '') {
+                const url = `https://www.emsifa.com/api-wilayah-indonesia/api/${endpoint}/${parentId}.json`;
+                fetchAndPopulate(url, $childSelect, placeholder, selectedValue);
+            }
+
+            // Load provinces first
+            function loadProvinces(provinsiValue = '') {
+                fetchAndPopulate('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json', $provinsi,
+                    'Pilih Provinsi', provinsiValue);
+            }
+
+            // Initialize with pre-filled values
+            function initializeSelects() {
+                const provinsiValue = "{{ isset($alumni->provinsi) ? $alumni->provinsi : '' }}";
+                const kotaValue = "{{ isset($alumni->kota) ? $alumni->kota : '' }}";
+                const kecamatanValue = "{{ isset($alumni->kecamatan) ? $alumni->kecamatan : '' }}";
+                const kelurahanValue = "{{ isset($alumni->kelurahan) ? $alumni->kelurahan : '' }}";
+
+                // Load provinces with the default value
+                loadProvinces(provinsiValue);
+
+                if (provinsiValue) {
+                    $.getJSON('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json', function(
+                        provinces) {
+                        const selectedProvince = provinces.find(prov => prov.name === provinsiValue);
+                        if (selectedProvince) {
+                            loadSubRegions(selectedProvince.id, 'regencies', $kota, 'Pilih Kota/Kabupaten',
+                                kotaValue);
+                        }
+
+                        if (kotaValue) {
+                            $.getJSON(
+                                `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${selectedProvince.id}.json`,
+                                function(kotas) {
+                                    const selectedKota = kotas.find(kota => kota.name === kotaValue);
+                                    if (selectedKota) {
+                                        loadSubRegions(selectedKota.id, 'districts', $kecamatan,
+                                            'Pilih Kecamatan', kecamatanValue);
+                                    }
+
+                                    if (kecamatanValue) {
+                                        $.getJSON(
+                                            `https://www.emsifa.com/api-wilayah-indonesia/api/districts/${selectedKota.id}.json`,
+                                            function(kecamatans) {
+                                                const selectedKecamatan = kecamatans.find(kec => kec
+                                                    .name === kecamatanValue);
+                                                if (selectedKecamatan) {
+                                                    loadSubRegions(selectedKecamatan.id, 'villages',
+                                                        $kelurahan, 'Pilih Kelurahan',
+                                                        kelurahanValue);
+                                                }
+                                            });
+                                    }
+                                });
+                        }
+                    });
+                }
+            }
+
+            // Event listener for Provinsi
+            $provinsi.on('change', function() {
+                const provinsiName = $(this).val();
+                if (provinsiName) {
+                    $.getJSON('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json', function(
+                        data) {
+                        const selectedProvince = data.find(prov => prov.name === provinsiName);
+                        if (selectedProvince) {
+                            loadSubRegions(selectedProvince.id, 'regencies', $kota,
+                                'Pilih Kota/Kabupaten');
+                        }
+                    });
+                    $kecamatan.html('<option value="">Pilih Kecamatan</option>').prop('disabled', true);
+                    $kelurahan.html('<option value="">Pilih Kelurahan</option>').prop('disabled', true);
+                } else {
+                    $kota.html('<option value="">Pilih Kota/Kabupaten</option>').prop('disabled', true);
+                    $kecamatan.html('<option value="">Pilih Kecamatan</option>').prop('disabled', true);
+                    $kelurahan.html('<option value="">Pilih Kelurahan</option>').prop('disabled', true);
+                }
+            });
+
+            // Event listener for Kota
+            $kota.on('change', function() {
+                const kotaName = $(this).val();
+                if (kotaName) {
+                    const selectedProvinceId = $provinsi.find(':selected').data('id');
+                    $.getJSON(
+                        `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${selectedProvinceId}.json`,
+                        function(kotas) {
+                            const selectedKota = kotas.find(kota => kota.name === kotaName);
+                            if (selectedKota) {
+                                loadSubRegions(selectedKota.id, 'districts', $kecamatan,
+                                    'Pilih Kecamatan');
+                            }
+                        });
+                    $kelurahan.html('<option value="">Pilih Kelurahan</option>').prop('disabled', true);
+                } else {
+                    $kecamatan.html('<option value="">Pilih Kecamatan</option>').prop('disabled', true);
+                    $kelurahan.html('<option value="">Pilih Kelurahan</option>').prop('disabled', true);
+                }
+            });
+
+            // Event listener for Kecamatan
+            $kecamatan.on('change', function() {
+                const kecamatanName = $(this).val();
+                if (kecamatanName) {
+                    const selectedKotaId = $kota.find(':selected').data('id'); // Get the selected Kota ID
+                    $.getJSON(
+                        `https://www.emsifa.com/api-wilayah-indonesia/api/districts/${selectedKotaId}.json`,
+                        function(kecamatans) {
+                            const selectedKecamatan = kecamatans.find(kec => kec.name ===
+                                kecamatanName);
+                            if (selectedKecamatan) {
+                                loadSubRegions(selectedKecamatan.id, 'villages', $kelurahan,
+                                    'Pilih Kelurahan');
+                            }
+                        });
+                } else {
+                    $kelurahan.html('<option value="">Pilih Kelurahan</option>').prop('disabled', true);
+                }
+            });
+
+            // Initialize the selects with pre-filled data from the backend
+            initializeSelects();
+        });
+    </script>
 @endpush

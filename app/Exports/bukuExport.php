@@ -15,7 +15,7 @@ class bukuExport implements FromView, ShouldAutoSize
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function __construct($tahun)
+    public function __construct($tahun, $fakultas)
     {
         $this->data = Alumni::select(
             'no_alumni', 'nama', 'fakultas', 'npm', 'tempat_lhr', 'tanggal_lhr',
@@ -24,6 +24,7 @@ class bukuExport implements FromView, ShouldAutoSize
         )
             ->whereYear('yudisium', $tahun)
             ->where('status', 1)
+            ->where('fakultas', $fakultas)
             ->get();
     }
 

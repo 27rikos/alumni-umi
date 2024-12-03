@@ -155,12 +155,12 @@
                                     </a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="{{ route('kerjasama-fakultas.index') }}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                            <i class="fa-solid fa-handshake"></i>
                                         </span>
                                         <span class="nav-link-title">
-                                            Alumni Tracer
+                                            Kerjasama
                                         </span>
                                     </a>
                                 </li>
@@ -227,6 +227,7 @@
             responsive: true
         });
     </script>
+    @stack('script')
 </body>
 
 </html>

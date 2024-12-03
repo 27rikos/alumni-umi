@@ -21,6 +21,7 @@
     <link href="{{ asset('./dist/css/tabler-vendors.min.css?1692870487') }}" rel="stylesheet" />
     <link href="{{ asset('./dist/css/demo.min.css?1692870487') }}" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/fb034efa9e.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
         @import url('https://rsms.me/inter/inter.css');
 
@@ -232,7 +233,7 @@
                                         </a>
                                     </div>
                                 </li>
-                                <li class="nav-item ">
+                                {{-- <li class="nav-item ">
                                     <a class="nav-link" href="#">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                                             <i class="fa-solid fa-magnifying-glass"></i>
@@ -241,7 +242,7 @@
                                             Alumni Tracer
                                         </span>
                                     </a>
-                                </li>
+                                </li> --}}
                                 <li
                                     class="nav-item dropdown {{ request()->routeIs('cooperation.index', 'cooperation.create', 'cooperation.edit') || request()->routeIs('cooperation-type.index', 'cooperation-type.create', 'cooperation-type.edit') ? 'active' : '' }}">
                                     <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown"
@@ -264,8 +265,10 @@
                                         </a>
                                     </div>
                                 </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="#">
+                                <li
+                                    class="nav-item dropdown {{ request()->routeIs('kategori_mahasiswa.index', 'kategori_mahasiswa.create', 'kategori_mahasiswa.edit') || request()->routeIs('mahasiswa.index', 'mahasiswa.create', 'mahasiswa.edit') ? 'active' : '' }}">
+                                    <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown"
+                                        data-bs-auto-close="outside" role="button" aria-expanded="false">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                                             <i class="fa-solid fa-user-group"></i>
                                         </span>
@@ -273,6 +276,16 @@
                                             Kemahasiswaan
                                         </span>
                                     </a>
+                                    <div
+                                        class="dropdown-menu {{ request()->routeIs('kategori_mahasiswa.index', 'kategori_mahasiswa.create', 'kategori_mahasiswa.edit') ? 'active' : '' }}">
+                                        <a class="dropdown-item " href="{{ route('kategori_mahasiswa.index') }}">
+                                            Kategori Mahasiswa
+                                        </a>
+                                        <a class="dropdown-item {{ request()->routeIs('mahasiswa.index', 'mahasiswa.create', 'mahasiswa.edit') ? 'active' : '' }} }} "
+                                            href="{{ route('mahasiswa.index') }}">
+                                            Mahasiswa
+                                        </a>
+                                    </div>
                                 </li>
                                 {{-- <li class="nav-item {{ request()->routeIs('settings.index') ? 'active' : '' }} ">
                                     <a class="nav-link" href="{{ route('settings.index') }}">

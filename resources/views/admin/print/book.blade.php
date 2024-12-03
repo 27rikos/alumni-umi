@@ -19,16 +19,12 @@
                     <th>Nama</th>
                     <th>Tempat Lahir</th>
                     <th>Tanggal Lahir</th>
-                    <th>Provinsi</th>
-                    <th>Kabupaten</th>
-                    <th>Kecamatan</th>
-                    <th>Kelurahan</th>
+                    <th>Alamat</th>
                     <th>Tanggal Lulus</th>
                     <th>IPK</th>
                     <th>Nama Ayah</th>
                     <th>Nama Ibu</th>
                     <th>Judul Skripsi</th>
-                    <th>Fakultas</th>
                 </tr>
             </thead>
             @php
@@ -45,16 +41,12 @@
                         <td>{{ $item->tempat_lhr }}</td>
                         <td>{{ $item->tanggal_lhr ? Carbon::parse($item->tanggal_lhr)->translatedFormat('d F Y') : '-' }}
                         </td>
-                        <td>{{ $item->provinsi }}</td>
-                        <td>{{ $item->kota }}</td>
-                        <td>{{ $item->kecamatan }}</td>
-                        <td>{{ $item->kelurahan }}</td>
+                        <td>{{ $item->provinsi }},{{ $item->kota }},{{ $item->kecamatan }},{{ $item->kelurahan }}</td>
                         <td>{{ $item->yudisium ? Carbon::parse($item->yudisium)->translatedFormat('d F Y') : '-' }}
                         <td>{{ $item->ipk }}</td>
                         <td>{{ $item->ayah }}</td>
                         <td>{{ $item->ibu }}</td>
                         <td>{{ $item->judul }}</td>
-                        <td>{{ $item->fakultas }}</td>
                     </tr>
                 @endforeach
             </tbody>
