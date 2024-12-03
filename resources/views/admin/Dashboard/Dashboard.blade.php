@@ -32,8 +32,7 @@
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col-auto">
-                                    <span
-                                        class="bg-primary text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/currency-dollar -->
+                                    <span class="bg-primary text-white avatar">
                                         <i class="fa-solid fa-graduation-cap"></i>
                                     </span>
                                 </div>
@@ -85,10 +84,10 @@
                                 </div>
                                 <div class="col">
                                     <div class="font-weight-medium">
-                                        {{ $approved }} <spanc class="me-1">Approve</span>
+                                        {{ $mahasiswa }} <spanc class="me-1">Mahasiswa</span>
                                     </div>
                                     <div class="text-secondary">
-                                        <a href="{{ route('alumni.index') }}"
+                                        <a href="{{ route('mahasiswa.index') }}"
                                             class="d-flex justify-content-between text-decoration-none">
                                             <span>Detail</span> <i class="fa-solid fa-arrow-right me-1"></i></a>
                                     </div>
@@ -129,26 +128,29 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 mt-2">
+        <div class="col-12 mt-3">
             <div class="card">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div id="chart-jurusan"></div>
-                    </div>
-                    <div class="col-md-6">
-                        <div id="chart-tren"></div>
-                    </div>
+                <div class="card-body">
+                    <div id="simple-pie-chart"></div>
                 </div>
             </div>
         </div>
-        {{-- <div class="col-12 mt-2">
+        <div class="col-12 mt-3">
             <div class="card">
                 <div class="card-body">
-                    <div id="chart-pekerjaan"></div>
+                    <div id="provinsi-pie-chart"></div>
                 </div>
             </div>
-        </div> --}}
+        </div>
+        <div class="col-12 mt-3">
+            <div class="card">
+                <div class="card-body">
+                    <div id="bar-chart-mahasiswa-per-tahun"></div>
+                </div>
+            </div>
+        </div>
     </div>
+
 @endsection
 @push('graph')
     <script>
@@ -210,11 +212,169 @@
                         padding: 4
                     },
                 },
-                colors: [tabler.getColor("primary")],
+                colors: ['#1E90FF'],
                 legend: {
                     show: false,
                 },
+                title: {
+                    text: 'Jumlah Alumni Per Stambuk', // Judul chart bar
+                    align: 'center',
+                    style: {
+                        fontSize: '18px',
+                        fontWeight: 'bold',
+                        color: '#333'
+                    }
+                }
             })).render();
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Data dari Laravel
+            const labels = {!! json_encode($labels) !!};
+            const series = {!! json_encode($values) !!};
+
+            // Inisialisasi Simple Pie Chart dengan teks dan border putih
+            new ApexCharts(document.querySelector("#simple-pie-chart"), {
+                chart: {
+                    type: "pie",
+                    height: 600
+                },
+                series: series,
+                labels: labels,
+                colors: ["#1E90FF", "#32CD32", "#FFD700", "#FF6347", "#8A2BE2"],
+                dataLabels: {
+                    style: {
+                        colors: ['#FFFFFF'], // Mengubah warna teks menjadi putih
+                    },
+                    dropShadow: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '70%',
+                        },
+                        borderColor: "#FFFFFF", // Mengubah border chart menjadi putih
+                        borderWidth: 2 // Lebar border
+                    }
+                },
+                stroke: {
+                    width: 2,
+                    colors: ["#FFFFFF"], // Border putih untuk keseluruhan pie
+                },
+                title: {
+                    text: 'Jumlah Mahasiswa Per Kabupaten/Kota', // Judul chart pie
+                    align: 'center',
+                    style: {
+                        fontSize: '18px',
+                        fontWeight: 'bold',
+                        color: '#333'
+                    }
+                }
+            }).render();
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Data untuk chart provinsi dari Laravel
+            const provinceNames = {!! json_encode($province_names) !!};
+            const provinceValues = {!! json_encode($province_values) !!};
+
+            // Inisialisasi Pie Chart Provinsi
+            new ApexCharts(document.querySelector("#provinsi-pie-chart"), {
+                chart: {
+                    type: "pie",
+                    height: 600
+                },
+                title: {
+                    text: 'Jumlah Mahasiswa per Provinsi', // Judul chart
+                    align: 'center', // Menempatkan judul di tengah
+                    style: {
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                        color: '#000000' // Mengatur warna judul menjadi hitam
+                    }
+                },
+                series: provinceValues,
+                labels: provinceNames,
+                colors: ["#1E90FF", "#32CD32", "#FFD700", "#FF6347", "#8A2BE2"],
+                dataLabels: {
+                    style: {
+                        colors: ['#FFFFFF'], // Mengubah warna teks menjadi putih
+                    },
+                    dropShadow: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '70%',
+                        },
+                        borderColor: "#FFFFFF", // Mengubah border chart menjadi putih
+                        borderWidth: 2 // Lebar border
+                    }
+                },
+                stroke: {
+                    width: 2,
+                    colors: ["#FFFFFF"], // Border putih untuk keseluruhan pie
+                }
+
+            }).render();
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Data dari Controller
+            const years = @json($yearstahunmasuk); // Tahun masuk
+            const counts = @json($countstahunmasuk); // Jumlah mahasiswa per tahun
+
+            // Membuat bar chart menggunakan ApexCharts
+            new ApexCharts(document.querySelector("#bar-chart-mahasiswa-per-tahun"), {
+                chart: {
+                    type: "bar",
+                    height: 400
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '50%',
+                    }
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                series: [{
+                    name: "Jumlah Mahasiswa",
+                    data: counts
+                }],
+                xaxis: {
+                    categories: years,
+                    title: {
+                        text: 'Tahun Masuk'
+                    }
+                },
+                yaxis: {
+                    title: {
+                        text: 'Jumlah Mahasiswa'
+                    }
+                },
+                title: {
+                    text: 'Jumlah Mahasiswa Per Tahun Masuk',
+                    align: 'center',
+                    style: {
+                        fontSize: '18px',
+                        fontWeight: 'bold',
+                        color: '#333'
+                    }
+                },
+                tooltip: {
+                    theme: 'light'
+                }
+            }).render();
         });
     </script>
 @endpush

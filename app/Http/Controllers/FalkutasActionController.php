@@ -18,10 +18,21 @@ class FalkutasActionController extends Controller
      */
     public function index()
     {
-        $data = Alumni::with('minat', 'prodis', 'dosenpenguji1', 'dosenpenguji2', 'dosenpembimbing1', 'dosenpembimbing2')->where(function ($query) {
-            $query->where('fakultas', Auth()->user()->fakultas);
-        })->get();
-        return view("falkutas.main.index", compact("data"));
+        // Cari ID Prodi berdasarkan nama prodi user yang sedang login
+        $id_prodi = Prodi::where('prodi', Auth()->user()->prodi)->value('id');
+
+        // Jika ID Prodi tidak ditemukan, tambahkan handling error
+        if (!$id_prodi) {
+            abort(404, 'Program Studi tidak ditemukan');
+        }
+
+        // Ambil data alumni berdasarkan fakultas dan ID Prodi
+        $data = Alumni::with(['minat', 'prodis', 'dosenpenguji1', 'dosenpenguji2', 'dosenpembimbing1', 'dosenpembimbing2'])
+            ->where('fakultas', Auth()->user()->fakultas)
+            ->where('prodi', $id_prodi)
+            ->get();
+
+        return view('falkutas.main.index', compact('data'));
     }
 
     /**

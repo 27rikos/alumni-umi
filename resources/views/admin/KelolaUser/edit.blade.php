@@ -38,17 +38,29 @@
                         @method('put')
                         @csrf
                         <div class="form-group mb-2">
-                            <label for="name">Username</label>
+                            <label for="name"class="form-label">Username</label>
                             <input type="text" class="form-control" id="name" name="name"required
                                 value="{{ $data->name }}">
                         </div>
                         <div class="form-group mb-2">
-                            <label for="email">Email</label>
+                            <label for="email"class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" name="email" required
                                 value="{{ $data->email }}">
                         </div>
                         <div class="form-group mb-2">
-                            <label for="fakultas">Admin Fakultas (Untuk Role Admin Fakultas)</label>
+                            <label for="falkutas" class="form-label">Role</label>
+                            <select name="role" id="role" class="form-control">
+                                <option value="">Pilih</option>
+                                @foreach (['admin' => 'Super Admin', 'fakultas' => 'Admin Fakultas'] as $value => $label)
+                                    <option value="{{ $value }}" {{ $data->role == $value ? 'selected' : '' }}>
+                                        {{ $label }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="fakultas" class="form-label">Admin Fakultas (Untuk Role Admin Fakultas)</label>
                             <select name="fakultas" id="fakultas" class="form-control">
                                 <option value="">Pilih Fakultas</option>
                                 @foreach (['Fakultas Ilmu Komputer', 'Fakultas Kedokteran', 'Fakultas Sastra', 'Fakultas Ekonomi', 'Fakultas Pertanian'] as $option)
@@ -60,16 +72,15 @@
                         </div>
 
                         <div class="form-group mb-2">
-                            <label for="falkutas">Role</label>
-                            <select name="role" id="" class="form-control" value="{{ $data->role }}">
-                                <option value="">--Pilih--</option>
-                                @foreach (['fakultas', 'admin'] as $option)
-                                    <option value="{{ $option }}" {{ $data->role == $option ? 'selected' : '' }}>
-                                        {{ $option }}
-                                    </option>
+                            <label for="prodi" class="form-label">Prodi</label>
+                            <select name="prodi" id="prodi" class="form-select">
+                                <option value="">Pilih Prodi</option>
+                                @foreach ($prodi as $item)
+                                    <option
+                                        value="{{ $item->prodi }}"{{ $item->prodi == $data->prodi ? 'selected' : '' }}>
+                                        {{ $item->prodi }}</option>
                                 @endforeach
                             </select>
-
                         </div>
                         <div class="form-group mt-3">
                             <button class="btn btn-primary" type="submit">Simpan</button>
@@ -80,3 +91,27 @@
         </div>
     </div>
 @endsection
+@push('script')
+    <script>
+        $(document).ready(function() {
+            function toggleFakultasDropdown() {
+                var selectedRole = $('#role').val();
+                if (selectedRole === "admin") {
+                    $('#fakultas').prop('disabled', true); // Disable Fakultas dropdown
+                    $('#prodi').prop('disabled', true); // Disable Prodi dropdown
+                } else {
+                    $('#fakultas').prop('disabled', false); // Enable Fakultas dropdown
+                    $('#prodi').prop('disabled', false); // Enable Prodi dropdown
+                }
+            }
+
+            // Initial state check
+            toggleFakultasDropdown();
+
+            // On role change
+            $('#role').change(function() {
+                toggleFakultasDropdown();
+            });
+        });
+    </script>
+@endpush

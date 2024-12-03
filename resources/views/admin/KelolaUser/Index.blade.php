@@ -40,6 +40,7 @@
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>Hak Akses</th>
+                                <th>Prodi</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -60,6 +61,13 @@
                                             Access for all
                                         @else
                                             {{ $item->fakultas }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->prodi == null)
+                                            Access for all
+                                        @else
+                                            {{ $item->prodi }}
                                         @endif
                                     </td>
                                     <td class=" d-flex ">

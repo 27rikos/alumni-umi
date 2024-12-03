@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Prodi;
 use App\Models\User;
-use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,7 +16,7 @@ class KelolaUserController extends Controller
      */
     public function index()
     {
-        $users = User::select('name', 'email', 'role', 'id', 'fakultas')->whereIn('role', ['admin', 'fakultas'])->get();
+        $users = User::select('name', 'email', 'role', 'id', 'fakultas', 'prodi')->whereIn('role', ['admin', 'fakultas'])->get();
         return view("admin.KelolaUser.Index", compact('users'));
     }
 
@@ -27,7 +27,8 @@ class KelolaUserController extends Controller
      */
     public function create()
     {
-        return view('admin.KelolaUser.create');
+        $prodi = Prodi::all();
+        return view('admin.KelolaUser.create', compact('prodi'));
     }
 
     /**
@@ -43,6 +44,7 @@ class KelolaUserController extends Controller
             'email' => 'required',
             'fakultas' => 'nullable',
             'role' => 'required',
+            'prodi' => 'required',
             'password' => 'required',
         ]);
         $hashedpassword = Hash::make($request->password);
@@ -52,6 +54,7 @@ class KelolaUserController extends Controller
             'password' => $hashedpassword,
             'role' => $request->role,
             'fakultas' => $request->fakultas,
+            'prodi' => $request->prodi,
         ]);
         $data->save();
         return redirect()->route('kelolauser.index')->with('toast_success', 'User Berhasil Dibuat');
@@ -76,8 +79,9 @@ class KelolaUserController extends Controller
      */
     public function edit($id)
     {
+        $prodi = Prodi::all();
         $data = User::findOrFail($id);
-        return view('admin.KelolaUser.edit', compact('data'));
+        return view('admin.KelolaUser.edit', compact('data', 'prodi'));
     }
 
     /**

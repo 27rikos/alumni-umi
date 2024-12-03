@@ -38,12 +38,12 @@
                         @method('put')
                         @csrf
                         <div class="form-group mb-3">
-                            <label for="kd_prodi">Kode Program Studi</label>
+                            <label for="kd_prodi"class="form-label">Kode Program Studi</label>
                             <input type="text" class="form-control" id="kd_prodi" name="kd_prodi"
                                 value="{{ $prodi->kd_prodi }}" required>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="prodi">Program Studi</label>
+                            <label for="prodi"class="form-label">Program Studi</label>
                             <input type="text" class="form-control" id="prodi" name="prodi"
                                 value="{{ $prodi->prodi }}" value="">
                         </div>

@@ -34,7 +34,8 @@ class ExcelDownload extends Controller
     public function graduate(Request $request)
     {
         $tahun = $request->input('tahun');
-        $nameFile = "buku_wisudawan_" . $tahun . ".xlsx";
-        return Excel::download(new bukuExport($tahun), $nameFile);
+        $fakultas = $request->input('fakultas');
+        $nameFile = "buku_wisudawan_" . $tahun . "_" . $fakultas . ".xlsx";
+        return Excel::download(new bukuExport($tahun, $fakultas), $nameFile);
     }
 }

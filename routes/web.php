@@ -6,15 +6,19 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\CooperationController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\ExcelDownload;
+use App\Http\Controllers\ExcelMahasiswaController;
+use App\Http\Controllers\FakultasKerjasamaController;
 use App\Http\Controllers\FalkutasActionController;
 use App\Http\Controllers\FalkutasController;
 use App\Http\Controllers\FaQController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\JenisKerjaSamaController;
+use App\Http\Controllers\KategoriMahasiswaController;
 use App\Http\Controllers\KelolaUserController;
 use App\Http\Controllers\KerjasamaStatus;
 use App\Http\Controllers\LamarkerjaController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PeminatanController;
@@ -68,6 +72,10 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('cooperation-nonaktif/{id}', [KerjasamaStatus::class, 'nonaktif'])->name('kerjasama-nonaktif');
     Route::get('cooperation-selesai/{id}', [KerjasamaStatus::class, 'selesai'])->name('kerjasama-selesai');
     Route::post('zip-download', [ZipController::class, 'index'])->name('zip-download');
+    Route::resource('kategori_mahasiswa', KategoriMahasiswaController::class);
+    Route::resource('mahasiswa', MahasiswaController::class);
+    Route::post('import-mahasiswa', [ExcelMahasiswaController::class, 'import'])->name('import_data_mahasiswa');
+    Route::post('export-mahasiswa', [ExcelMahasiswaController::class, 'export'])->name('export-mahasiswa');
 });
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -99,5 +107,6 @@ Route::middleware(['auth', 'user-access:fakultas'])->group(function () {
     Route::get('print-preview', [PDFController::class, 'printpdf'])->name('print-data');
     Route::post('filter-export', [ExcelDownload::class, 'filter'])->name('filter');
     Route::post('zip-download-fakultas', [ZipController::class, 'fakultas_images'])->name('zip-download-fakultas');
+    Route::resource('kerjasama-fakultas', FakultasKerjasamaController::class);
 
 });

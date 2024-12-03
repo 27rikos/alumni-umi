@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Alumni;
+use App\Models\Prodi;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -17,7 +18,13 @@ class FalkutasExport implements FromView
 
     public function __construct()
     {
-        $this->data = Alumni::with('minat', 'prodis', 'dosenpenguji1', 'dosenpenguji2')->where('status', 1)->where('fakultas', auth()->user()->fakultas)->get();
+        // Cari ID Prodi berdasarkan nama prodi user yang sedang login
+        $id_prodi = Prodi::where('prodi', Auth()->user()->prodi)->value('id');
+        $this->data = Alumni::with('minat', 'prodis', 'dosenpenguji1', 'dosenpenguji2')
+            ->where('status', 1)
+            ->where('fakultas', auth()->user()->fakultas)
+            ->where('prodi', $id_prodi)
+            ->get();
     }
     public function view(): View
     {

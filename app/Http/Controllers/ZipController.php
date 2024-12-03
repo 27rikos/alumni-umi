@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumni;
+use App\Models\Prodi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -13,12 +14,16 @@ class ZipController extends Controller
     public function index(Request $request)
     {
         $tahun = $request->tahun;
+        $fakultas = $request->fakultas;
 
         // Ambil data alumni berdasarkan tahun yudisium
-        $alumniData = Alumni::whereYear('yudisium', $tahun)->where('status', 1)->get();
+        $alumniData = Alumni::whereYear('yudisium', $tahun)
+            ->where('status', 1)
+            ->where('fakultas', $fakultas)
+            ->get();
 
         // Nama file zip
-        $zipFileName = 'foto_wisudawan' . $tahun . '.zip';
+        $zipFileName = 'foto_wisudawan' . '_' . $fakultas . $tahun . '.zip';
 
         // Lokasi penyimpanan di direktori public
         $zipPath = public_path($zipFileName);
@@ -56,14 +61,22 @@ class ZipController extends Controller
     {
         $tahun = $request->tahun;
 
+        // Cari ID Prodi berdasarkan nama prodi user yang sedang login
+        $id_prodi = Prodi::where('prodi', Auth()->user()->prodi)->value('id');
+
+        // Jika ID Prodi tidak ditemukan, tambahkan handling error
+        if (!$id_prodi) {
+            abort(404, 'Program Studi tidak ditemukan');
+        }
         // Ambil data alumni berdasarkan tahun yudisium
         $alumniData = Alumni::whereYear('yudisium', $tahun)
             ->where('status', 1)
             ->where('fakultas', auth()->user()->fakultas)
+            ->where('prodi', $id_prodi)
             ->get();
 
         // Nama file zip
-        $zipFileName = 'foto_wisudawan' . '_' . auth()->user()->fakultas . '_' . $tahun . '.zip';
+        $zipFileName = 'foto_wisudawan' . '_' . auth()->user()->fakultas . '_' . 'prodi_' . auth()->user()->prodi . $tahun . '.zip';
 
         // Lokasi penyimpanan di direktori public
         $zipPath = public_path($zipFileName);

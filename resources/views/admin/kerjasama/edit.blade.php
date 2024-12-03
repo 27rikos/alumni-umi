@@ -39,12 +39,12 @@
                         @method('put')
                         @csrf
                         <div class="form-group mb-3">
-                            <label for="instansi">Nama Instansi</label>
+                            <label for="instansi" class="form-label">Nama Instansi</label>
                             <input type="text" class="form-control" id="instansi" name="instansi"required
                                 value="{{ $data->instansi }}">
                         </div>
                         <div class="form-group mb-3">
-                            <label for="jenis_kerjasama">Jenis Kerjasama</label>
+                            <label for="jenis_kerjasama" class="form-label">Jenis Kerjasama</label>
                             <select name="jenis_kerjasama" id="select_box" class="form-select">
                                 <option value="">Pilih Kerjasama</option>
                                 @foreach ($jenis_kerjasama as $item)
@@ -58,11 +58,11 @@
                         <div class="form-group mb-3">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="password">Tanggal Mulai</label>
+                                    <label for="password" class="form-label">Tanggal Mulai</label>
                                     <input type="date" class="form-control" id="tanggal_mulai"
                                         name="tanggal_mulai"required value="{{ $data->tanggal_mulai }}">
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6" class="form-label">
                                     <label for="password">Tanggal Selesai</label>
                                     <input type="date" name="tanggal_selesai" class="form-control" id="tanggal_selesai"
                                         required value="{{ $data->tanggal_selesai }}">
@@ -72,11 +72,11 @@
                         <div class="form-group mb-3">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="file">Bukti Dokumen</label>
+                                    <label for="file" class="form-label">Bukti Dokumen</label>
                                     <input type="file" name="file" class="form-control" accept=".pdf">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="foto">Logo Instansi</label>
+                                    <label for="foto" class="form-label">Logo Instansi</label>
                                     <input type="file" name="foto" class="form-control" accept=".png,.jpeg,.jpg"
                                         id="image-input">
                                     <img id="image-preview" src="" class="rounded img-fluid mt-4"

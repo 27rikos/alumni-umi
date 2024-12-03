@@ -80,8 +80,22 @@
                                     <form action="{{ route('graduate') }}" method="post">
                                         @csrf
                                         <div class="modal-body">
-                                            <input type="number" class="form-control" name="tahun"
-                                                placeholder="Masukkan Tahun">
+                                            <div class="mb-3">
+                                                <label for="fakultas" class="form-label">Fakultas</label>
+                                                <select name="fakultas" id="fakultas" class="form-select">
+                                                    <option value="">Pilih Fakultas</option>
+                                                    <option value="Fakultas Ilmu Komputer">Fakultas Ilmu Komputer</option>
+                                                    <option value="Fakultas Kedokteran">Fakultas Kedokteran</option>
+                                                    <option value="Fakultas Sastra">Fakultas Sastra</option>
+                                                    <option value="Fakultas Pertanian">Fakultas Pertanian</option>
+                                                    <option value="Fakultas Ekonomi">Fakultas Ekonomi</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="">Tahun Wisuda</label>
+                                                <input type="number" class="form-control" name="tahun"
+                                                    placeholder="Masukkan Tahun">
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger"
@@ -120,8 +134,22 @@
                                     <form action="{{ route('zip-download') }}" method="post">
                                         @csrf
                                         <div class="modal-body">
-                                            <input type="number" class="form-control" name="tahun"
-                                                placeholder="Masukkan Tahun">
+                                            <div class="mb-3">
+                                                <label for="fakultas" class="form-label">Fakultas</label>
+                                                <select name="fakultas" id="fakultas" class="form-select">
+                                                    <option value="">Pilih Fakultas</option>
+                                                    <option value="Fakultas Ilmu Komputer">Fakultas Ilmu Komputer</option>
+                                                    <option value="Fakultas Kedokteran">Fakultas Kedokteran</option>
+                                                    <option value="Fakultas Sastra">Fakultas Sastra</option>
+                                                    <option value="Fakultas Pertanian">Fakultas Pertanian</option>
+                                                    <option value="Fakultas Ekonomi">Fakultas Ekonomi</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="">Tahun Wisuda</label>
+                                                <input type="number" class="form-control" name="tahun"
+                                                    placeholder="Masukkan Tahun">
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger"
@@ -259,7 +287,7 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Tanggal Lahir</th>
-                                                                        <td>{{ \Carbon\Carbon::parse($item->tanggal_lhr)->translatedFormat('d F Y') }}
+                                                                        <td>{{ $item->tanggal_lhr ? \Carbon\Carbon::parse($item->tanggal_lhr)->translatedFormat('d F Y') : '-' }}
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
