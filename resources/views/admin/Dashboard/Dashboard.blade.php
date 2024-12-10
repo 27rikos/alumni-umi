@@ -1,4 +1,4 @@
-@extends('partials.AdminDashboard')
+@extends('Partials.AdminDashboard')
 @section('title', 'Dashboard')
 @section('content')
     <div class="container-xl min-vh-100">
