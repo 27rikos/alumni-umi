@@ -10,21 +10,25 @@
                 </div>
                 <div data-aos="fade-up" data-aos-duration="1000">
                     <p>
-                        A comprehensive platform to manage academic and student activities at UMI. Stay connected with your
-                        academic progress, access important course information, and make the most of student services.
+                        SIKAK UMI adalah platform komprehensif yang dirancang untuk mendukung manajemen informasi bagi
+                        mahasiswa, alumni,
+                        dan mitra kerja sama Universitas Methodist Indonesia. Dengan SIKAK, Anda dapat mengakses berbagai
+                        layanan akademik,
+                        informasi alumni, serta peluang kolaborasi dengan mitra strategis.
                     </p>
                     <p>
-                        Join us in enhancing the academic and student experience at UMI through SIKAK.
+                        Kami berkomitmen untuk memberikan kemudahan dalam pengelolaan aktivitas akademik, pengembangan
+                        jaringan alumni,
+                        dan penguatan kerja sama yang berdampak positif bagi komunitas kampus.
+                        Bersama, kita menciptakan ekosistem pendidikan yang lebih inovatif dan inklusif.
                     </p>
                 </div>
                 <div data-aos="fade-up" data-aos-duration="1500">
-                    <a href="{{ route('login') }}" class="btn btn-outline-light btn-lg">Get Started</a>
+                    <a href="{{ route('login') }}" class="btn btn-outline-light btn-lg">Masuk</a>
                 </div>
             </div>
         </div>
     </section>
-
-
     <section class="pt-5">
         <div class="container">
             <h1 class="mb-1">Jumlah Alumni</h1>

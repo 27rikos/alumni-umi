@@ -86,6 +86,9 @@
                     <li class="nav-item {{ request()->routeIs('old-news') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('old-news') }}">Berita</a>
                     </li>
+                    <li hidden class="nav-item {{ request()->routeIs('lowongan') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('lowongan') }}">Lowongan</a>
+                    </li>
                     <!-- Add spacing before Sign In and Sign Up buttons -->
                     <li class="nav-item mr-4"></li>
                     <li class="nav-item mb-1 ">

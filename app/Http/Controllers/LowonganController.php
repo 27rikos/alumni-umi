@@ -14,7 +14,8 @@ class LowonganController extends Controller
      */
     public function index()
     {
-        //
+        $data = Lowongan::all();
+        return view('admin.Lowongan.Index', compact('data'));
     }
 
     /**
@@ -24,7 +25,7 @@ class LowonganController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.Lowongan.create');
     }
 
     /**
@@ -35,7 +36,17 @@ class LowonganController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nama' => 'required',
+            'perusahaan' => 'required',
+            'posisi' => 'required',
+            'kualifikasi' => 'required',
+            'gaji' => 'required',
+            'kontak' => 'required',
+            'email' => 'required|email',
+        ]);
+        Lowongan::create($request->all());
+        return redirect()->route('jobfair.index')->with('toast_success', 'Lowongan Kerja Berhasil Dibagikan');
     }
 
     /**
@@ -55,9 +66,10 @@ class LowonganController extends Controller
      * @param  \App\Models\Lowongan  $lowongan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lowongan $lowongan)
+    public function edit($id)
     {
-        //
+        $data = Lowongan::findOrFail($id);
+        return view('admin.Lowongan.edit', compact('data'));
     }
 
     /**
@@ -67,9 +79,11 @@ class LowonganController extends Controller
      * @param  \App\Models\Lowongan  $lowongan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Lowongan $lowongan)
+    public function update(Request $request, $id)
     {
-        //
+        $data = Lowongan::findOrFail($id);
+        $data->update($request->all());
+        return redirect()->route('jobfair.index')->with('toast_success', 'Lowongan Kerja Berhasil Diubah');
     }
 
     /**
@@ -78,8 +92,9 @@ class LowonganController extends Controller
      * @param  \App\Models\Lowongan  $lowongan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lowongan $lowongan)
+    public function destroy($id)
     {
-        //
+        Lowongan::findOrFail($id)->delete();
+        return redirect()->route('jobfair.index')->with('toast_success', 'Lowongan Kerja Berhasil Dihapus');
     }
 }

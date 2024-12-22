@@ -287,16 +287,16 @@
                                         </a>
                                     </div>
                                 </li>
-                                {{-- <li class="nav-item {{ request()->routeIs('settings.index') ? 'active' : '' }} ">
-                                    <a class="nav-link" href="{{ route('settings.index') }}">
+                                <li class="nav-item {{ request()->routeIs('jobfair.index')||request()->routeIs('jobfair.edit')||request()->routeIs('jobfair.create') ? 'active' : '' }} ">
+                                    <a class="nav-link" href="{{ route('jobfair.index') }}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                            <i class="fa-solid fa-gear"></i>
+                                            <i class="fa-solid fa-briefcase"></i>
                                         </span>
                                         <span class="nav-link-title">
-                                            Settings
+                                            Lowongan
                                         </span>
                                     </a>
-                                </li> --}}
+                                </li>
                             </ul>
                         </div>
                     </div>

@@ -18,6 +18,7 @@ use App\Http\Controllers\KelolaUserController;
 use App\Http\Controllers\KerjasamaStatus;
 use App\Http\Controllers\LamarkerjaController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PDFController;
@@ -76,6 +77,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::resource('mahasiswa', MahasiswaController::class);
     Route::post('import-mahasiswa', [ExcelMahasiswaController::class, 'import'])->name('import_data_mahasiswa');
     Route::post('export-mahasiswa', [ExcelMahasiswaController::class, 'export'])->name('export-mahasiswa');
+    Route::resource('jobfair', LowonganController::class);
 });
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
