@@ -44,14 +44,14 @@ class BeritaController extends Controller
             'konten' => 'required',
             'file' => 'required|mimes:jpg,jpeg,png|max:2048',
         ], messages: [
-            'file.mimes' => 'Foto harus format jpg,jpeg,png '
+            'file.mimes' => 'Foto harus format jpg,jpeg,png ',
         ]);
         $data = Berita::create([
             'judul' => $request->judul,
             'penulis' => $request->penulis,
             'tanggal' => $request->tanggal,
             'konten' => $request->konten,
-            'file' => $request->file
+            'file' => $request->file,
         ]);
         if ($request->hasFile('file')) {
             $request->file('file')->move('images/berita/', $request->file('file')->getClientOriginalName());
@@ -97,7 +97,7 @@ class BeritaController extends Controller
         $data = Berita::findOrFail($id);
         // Simpan data yang akan diupdate ke dalam array
         $updateData = $request->only([
-            'judul', 'penulis', 'tanggal', 'konten', 'file'
+            'judul', 'penulis', 'tanggal', 'konten', 'file',
         ]);
 
         // Cek apakah file baru diupload

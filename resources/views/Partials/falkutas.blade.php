@@ -106,7 +106,7 @@
                             <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                                 aria-label="Open user menu">
                                 <span class="avatar avatar-sm"
-                                    style="background-image: url({{ asset('./static/avatars/000m.png') }})"></span>
+                                    style="background-image: url({{ Avatar::create(Auth::user()->name)->toBase64() }})"></span>
                                 <div class="d-none d-xl-block ps-2">
                                     <div>{{ Auth::user()->name }}</div>
                                     <div class="mt-1 small text-secondary">
@@ -154,7 +154,7 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li class="nav-item ">
+                                <li class="nav-item " hidden>
                                     <a class="nav-link" href="{{ route('kerjasama-fakultas.index') }}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                                             <i class="fa-solid fa-handshake"></i>
@@ -164,8 +164,9 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="#">
+                                <li
+                                    class="nav-item {{ request()->routeIs('kemahasiswaan-fakultas.index') || request()->routeIs('kemahasiswaan-fakultas.create') || request()->routeIs('kemahasiswaan-fakultas.edit') ? 'active' : '' }} ">
+                                    <a class="nav-link" href="{{ route('kemahasiswaan-fakultas.index') }}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                                             <i class="fa-solid fa-user-group"></i>
                                         </span>

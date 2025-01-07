@@ -7,6 +7,7 @@ use App\Http\Controllers\CooperationController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\ExcelDownload;
 use App\Http\Controllers\ExcelMahasiswaController;
+use App\Http\Controllers\FakultasKemahasiswaanController;
 use App\Http\Controllers\FakultasKerjasamaController;
 use App\Http\Controllers\FalkutasActionController;
 use App\Http\Controllers\FalkutasController;
@@ -110,5 +111,6 @@ Route::middleware(['auth', 'user-access:fakultas'])->group(function () {
     Route::post('filter-export', [ExcelDownload::class, 'filter'])->name('filter');
     Route::post('zip-download-fakultas', [ZipController::class, 'fakultas_images'])->name('zip-download-fakultas');
     Route::resource('kerjasama-fakultas', FakultasKerjasamaController::class);
+    Route::resource('kemahasiswaan-fakultas', FakultasKemahasiswaanController::class);
 
 });
