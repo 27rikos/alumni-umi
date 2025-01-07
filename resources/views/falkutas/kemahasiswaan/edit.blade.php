@@ -1,4 +1,4 @@
-@extends('Partials.AdminDashboard')
+@extends('Partials.falkutas')
 @section('title', 'Edit Mahasiswa')
 @section('content')
     <div class="container-xl min-vh-100">
@@ -16,7 +16,8 @@
                             <!-- Breadcrumb positioned to the right -->
                             <nav aria-label="breadcrumb" class="ms-auto">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{ route('mahasiswa.index') }}">Home</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('kemahasiswaan-fakultas.index') }}">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Kelola Mahasiswa</li>
                                     <li class="breadcrumb-item active" aria-current="page">Edit Mahasiswa</li>
                                 </ol>
@@ -30,11 +31,12 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('mahasiswa.index') }}" class="btn btn-primary ms-auto"><i
+                    <a href="{{ route('kemahasiswaan-fakultas.index') }}" class="btn btn-primary ms-auto"><i
                             class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('mahasiswa.update', $data->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('kemahasiswaan-fakultas.update', $data->id) }}" method="POST"
+                        enctype="multipart/form-data">
                         @method('put')
                         @csrf
                         <div class="row">
@@ -151,29 +153,6 @@
                                     <label for="tanggal_masuk" class="form-label">Tanggal Masuk</label>
                                     <input type="date" name="tanggal_masuk" class="form-control"
                                         value="{{ $data->tanggal_masuk }}">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="studi" class="form-label">Program Studi</label>
-                                    <select name="prodi" id="studi" class="form-select">
-                                        <option value="">Pilih Program Studi</option>
-                                        @foreach ($prodi as $item)
-                                            <option value="{{ $item->id }}"
-                                                {{ $item->id == $data->prodi ? 'selected' : '' }}>{{ $item->prodi }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="fakultas" class="form-label">Fakultas</label>
-                                    <select name="fakultas" id="fakultas" class="form-select">
-                                        <option value="">Pilih Fakultas</option>
-                                        @foreach (['Fakultas Ilmu Komputer', 'Fakultas Kedokteran', 'Fakultas Sastra', 'Fakultas Ekonomi', 'Fakultas Pertanian'] as $option)
-                                            <option value="{{ $option }}"
-                                                {{ $data->fakultas == $option ? 'selected' : '' }}>
-                                                {{ $option }}
-                                            </option>
-                                        @endforeach
-                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="tahun_masuk" class="form-label">Tahun Masuk</label>

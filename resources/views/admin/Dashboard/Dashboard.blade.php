@@ -131,6 +131,16 @@
         <div class="col-12 mt-3">
             <div class="card">
                 <div class="card-body">
+                    <label for="year-filter" class="form-label">Pilih Tahun Masuk:</label>
+                    <select id="year-filter" class="form-select mb-3">
+                        <option value="">Pilih Tahun Masuk</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mt-3">
+            <div class="card">
+                <div class="card-body">
                     <div id="simple-pie-chart"></div>
                 </div>
             </div>
@@ -153,6 +163,23 @@
 
 @endsection
 @push('graph')
+    <script>
+        // Menyisipkan data tahun dari PHP ke JavaScript
+        const years = @json($years);
+
+        // Menghilangkan duplikat dengan menggunakan Set, kemudian mengurutkan
+        const uniqueYears = [...new Set(years)].sort();
+
+        // Menambahkan opsi ke dalam dropdown
+        const selectElement = document.getElementById("year-filter");
+
+        uniqueYears.forEach(year => {
+            const option = document.createElement("option");
+            option.value = year;
+            option.textContent = year;
+            selectElement.appendChild(option);
+        });
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             window.ApexCharts && (new ApexCharts(document.getElementById('chart-tasks-overview'), {
@@ -231,22 +258,28 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Data dari Laravel
-            const labels = {!! json_encode($labels) !!};
-            const series = {!! json_encode($values) !!};
+            // Data dari Laravel untuk kota
+            const cityLabels = {!! json_encode($labels) !!};
+            const cityValues = {!! json_encode($values) !!};
+            const cityYears = {!! json_encode($years) !!};
 
-            // Inisialisasi Simple Pie Chart dengan teks dan border putih
-            new ApexCharts(document.querySelector("#simple-pie-chart"), {
+            // Data untuk chart provinsi dari Laravel
+            const provinceNames = {!! json_encode($province_names) !!};
+            const provinceValues = {!! json_encode($province_values) !!};
+            const provinceYears = {!! json_encode($province_years) !!};
+
+            // Inisialisasi Pie Chart Kota
+            const cityPieChart = new ApexCharts(document.querySelector("#simple-pie-chart"), {
                 chart: {
                     type: "pie",
                     height: 600
                 },
-                series: series,
-                labels: labels,
+                series: cityValues,
+                labels: cityLabels,
                 colors: ["#1E90FF", "#32CD32", "#FFD700", "#FF6347", "#8A2BE2"],
                 dataLabels: {
                     style: {
-                        colors: ['#FFFFFF'], // Mengubah warna teks menjadi putih
+                        colors: ['#FFFFFF'],
                     },
                     dropShadow: {
                         enabled: false
@@ -257,16 +290,16 @@
                         donut: {
                             size: '70%',
                         },
-                        borderColor: "#FFFFFF", // Mengubah border chart menjadi putih
-                        borderWidth: 2 // Lebar border
+                        borderColor: "#FFFFFF",
+                        borderWidth: 2
                     }
                 },
                 stroke: {
                     width: 2,
-                    colors: ["#FFFFFF"], // Border putih untuk keseluruhan pie
+                    colors: ["#FFFFFF"],
                 },
                 title: {
-                    text: 'Jumlah Mahasiswa Per Kabupaten/Kota', // Judul chart pie
+                    text: 'Jumlah Mahasiswa Per Kota',
                     align: 'center',
                     style: {
                         fontSize: '18px',
@@ -274,36 +307,22 @@
                         color: '#333'
                     }
                 }
-            }).render();
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Data untuk chart provinsi dari Laravel
-            const provinceNames = {!! json_encode($province_names) !!};
-            const provinceValues = {!! json_encode($province_values) !!};
+            });
+
+            cityPieChart.render();
 
             // Inisialisasi Pie Chart Provinsi
-            new ApexCharts(document.querySelector("#provinsi-pie-chart"), {
+            const provincePieChart = new ApexCharts(document.querySelector("#provinsi-pie-chart"), {
                 chart: {
                     type: "pie",
                     height: 600
-                },
-                title: {
-                    text: 'Jumlah Mahasiswa per Provinsi', // Judul chart
-                    align: 'center', // Menempatkan judul di tengah
-                    style: {
-                        fontSize: '16px',
-                        fontWeight: 'bold',
-                        color: '#000000' // Mengatur warna judul menjadi hitam
-                    }
                 },
                 series: provinceValues,
                 labels: provinceNames,
                 colors: ["#1E90FF", "#32CD32", "#FFD700", "#FF6347", "#8A2BE2"],
                 dataLabels: {
                     style: {
-                        colors: ['#FFFFFF'], // Mengubah warna teks menjadi putih
+                        colors: ['#FFFFFF'],
                     },
                     dropShadow: {
                         enabled: false
@@ -314,16 +333,68 @@
                         donut: {
                             size: '70%',
                         },
-                        borderColor: "#FFFFFF", // Mengubah border chart menjadi putih
-                        borderWidth: 2 // Lebar border
+                        borderColor: "#FFFFFF",
+                        borderWidth: 2
                     }
                 },
                 stroke: {
                     width: 2,
-                    colors: ["#FFFFFF"], // Border putih untuk keseluruhan pie
+                    colors: ["#FFFFFF"],
+                },
+                title: {
+                    text: 'Jumlah Mahasiswa Per Provinsi',
+                    align: 'center',
+                    style: {
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                        color: '#000000'
+                    }
                 }
+            });
 
-            }).render();
+            provincePieChart.render();
+
+            // Event listener untuk filter Tahun Masuk
+            document.getElementById("year-filter").addEventListener("change", function() {
+                const selectedYear = this.value;
+
+                // Filter data untuk Kota berdasarkan tahun
+                if (selectedYear) {
+                    const filteredCityLabels = cityLabels.filter((label, index) => cityYears[index] ===
+                        selectedYear);
+                    const filteredCityValues = cityValues.filter((value, index) => cityYears[index] ===
+                        selectedYear);
+
+                    // Update chart Kota dengan data yang sudah difilter
+                    cityPieChart.updateOptions({
+                        series: filteredCityValues,
+                        labels: filteredCityLabels,
+                    });
+
+                    // Filter data untuk Provinsi berdasarkan tahun
+                    const filteredProvinceNames = provinceNames.filter((name, index) => provinceYears[
+                        index] === selectedYear);
+                    const filteredProvinceValues = provinceValues.filter((value, index) => provinceYears[
+                        index] === selectedYear);
+
+                    // Update chart Provinsi dengan data yang sudah difilter
+                    provincePieChart.updateOptions({
+                        series: filteredProvinceValues,
+                        labels: filteredProvinceNames,
+                    });
+                } else {
+                    // Jika tidak ada tahun yang dipilih, tampilkan semua data
+                    cityPieChart.updateOptions({
+                        series: cityValues,
+                        labels: cityLabels,
+                    });
+
+                    provincePieChart.updateOptions({
+                        series: provinceValues,
+                        labels: provinceNames,
+                    });
+                }
+            });
         });
     </script>
 

@@ -43,22 +43,24 @@ class HomeController extends Controller
         $user = User::count();
 
         // Ambil data mahasiswa berdasarkan kota dan hitung jumlahnya
-        $data_mahasiswa = Mahasiswa::select('kota', DB::raw('count(*) as total'))
-            ->groupBy('kota')
+        $data_mahasiswa = Mahasiswa::select('kota', 'tahun_masuk', DB::raw('count(*) as total'))
+            ->groupBy('kota', 'tahun_masuk')
             ->get();
 
         // Format data_mahasiswa untuk ApexCharts
-        $labels = $data_mahasiswa->pluck('kota');
-        $values = $data_mahasiswa->pluck('total');
+        $labels = $data_mahasiswa->pluck('kota'); // Kota-kota
+        $years = $data_mahasiswa->pluck('tahun_masuk'); // Tahun masuk
+        $values = $data_mahasiswa->pluck('total'); // Jumlah mahasiswa per kota dan tahun masuk
 
         // Mengambil data jumlah mahasiswa berdasarkan provinsi
-        $provinces = Mahasiswa::select('provinsi', DB::raw('count(*) as jumlah'))
-            ->groupBy('provinsi')
+        $provinces = Mahasiswa::select('provinsi', 'tahun_masuk', DB::raw('count(*) as jumlah'))
+            ->groupBy('provinsi', 'tahun_masuk')
             ->get();
 
         // Menyiapkan data untuk chart
         $province_names = $provinces->pluck('provinsi')->toArray(); // Nama-nama provinsi
-        $province_values = $provinces->pluck('jumlah')->toArray(); // Jumlah mahasiswa per provinsi
+        $province_years = $provinces->pluck('tahun_masuk')->toArray(); // Tahun masuk
+        $province_values = $provinces->pluck('jumlah')->toArray(); // Jumlah mahasiswa per provinsi dan tahun masuk
 
         // Mengambil jumlah mahasiswa per tahun_masuk
         $mahasiwa_pertahun_masuk = Mahasiswa::selectRaw('tahun_masuk, COUNT(*) as jumlah')
@@ -70,7 +72,11 @@ class HomeController extends Controller
         $yearstahunmasuk = $mahasiwa_pertahun_masuk->pluck('tahun_masuk');
         $countstahunmasuk = $mahasiwa_pertahun_masuk->pluck('jumlah');
 
-        return view('admin.Dashboard.Dashboard', compact(['labels', 'values', 'mahasiswa', 'alumni', 'pending', 'user', 'categories', 'data', 'province_names', 'province_values', 'yearstahunmasuk', 'countstahunmasuk']));
+        return view('admin.Dashboard.Dashboard', compact([
+            'labels', 'years', 'values', 'mahasiswa', 'alumni', 'pending', 'user',
+            'categories', 'data', 'province_names', 'province_years', 'province_values',
+            'yearstahunmasuk', 'countstahunmasuk',
+        ]));
     }
 
     public function user()
@@ -97,4 +103,5 @@ class HomeController extends Controller
         $approved = Alumni::where('status', 1)->where('fakultas', auth()->user()->fakultas)->count();
         return view('falkutas.dashboard.index', compact('alumni', 'pending', 'approved', 'categories', 'values'));
     }
+
 }
