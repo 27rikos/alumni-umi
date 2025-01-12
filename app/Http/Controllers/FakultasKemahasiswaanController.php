@@ -9,14 +9,25 @@ use Illuminate\Http\Request;
 
 class FakultasKemahasiswaanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $prodi_id = Prodi::where('prodi', auth()->user()->prodi)->value('id');
 
         if (!$prodi_id) {
             abort(404, 'Program Studi Tidak Ditemukan');
         }
-        $data = Mahasiswa::where('fakultas', auth()->user()->fakultas)->where('prodi', $prodi_id)->get();
+        $parameter = $request->input('search');
+        $data = Mahasiswa::with('prodi_mahasiswa')->where('fakultas', auth()->user()->fakultas)->where('prodi', $prodi_id)
+            ->when($parameter, function ($query) use ($parameter) {
+                $query->where(function ($q) use ($parameter) {
+                    $q->where('npm', 'like', '%' . $parameter . '%')
+                        ->orWhere('nama', 'like', '%' . $parameter . '%')
+                        ->orWhere('kategori', 'like', '%' . $parameter . '%')
+                        ->orWhere('tahun_masuk', 'like', '%' . $parameter . '%');
+                });
+            })
+            ->paginate(25);
+        // $data = Mahasiswa::where('fakultas', auth()->user()->fakultas)->where('prodi', $prodi_id)->get();
         return view('falkutas.kemahasiswaan.index', compact('data'));
     }
 

@@ -101,7 +101,28 @@ class HomeController extends Controller
         $alumni = Alumni::select(['id'])->where('fakultas', auth()->user()->fakultas)->count();
         $pending = Alumni::where('status', 0)->where('fakultas', auth()->user()->fakultas)->count();
         $approved = Alumni::where('status', 1)->where('fakultas', auth()->user()->fakultas)->count();
-        return view('falkutas.dashboard.index', compact('alumni', 'pending', 'approved', 'categories', 'values'));
+
+        // Ambil data mahasiswa berdasarkan kota dan hitung jumlahnya
+        $data_mahasiswa = Mahasiswa::select('kota', 'tahun_masuk', DB::raw('count(*) as total'))
+            ->groupBy('kota', 'tahun_masuk')
+            ->where('fakultas', $userFaculty)
+            ->get();
+
+        // Format data_mahasiswa untuk ApexCharts
+        $city_labels = $data_mahasiswa->pluck('kota'); // Kota-kota
+        $city_values = $data_mahasiswa->pluck('total'); // Jumlah mahasiswa per kota dan tahun masuk
+
+        // Mengambil data jumlah mahasiswa berdasarkan provinsi
+        $provinces = Mahasiswa::select('provinsi', 'tahun_masuk', DB::raw('count(*) as jumlah'))
+            ->groupBy('provinsi', 'tahun_masuk')
+            ->where('fakultas', $userFaculty)
+            ->get();
+
+        // Menyiapkan data untuk chart
+        $province_names = $provinces->pluck('provinsi')->toArray(); // Nama-nama provinsi
+        $province_values = $provinces->pluck('jumlah')->toArray(); // Jumlah mahasiswa per provinsi dan tahun masuk
+
+        return view('falkutas.dashboard.index', compact('city_labels', 'city_values', 'province_names', 'province_values', 'alumni', 'pending', 'approved', 'categories', 'values'));
     }
 
 }
