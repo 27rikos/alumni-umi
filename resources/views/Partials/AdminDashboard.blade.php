@@ -160,18 +160,17 @@
                                         </span>
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item {{ request()->routeIs('kelolauser.index', 'kelolauser.create', 'kelolauser.edit') ? 'active' : '' }}"
+                                        <a class="dropdown-item {{ request()->routeIs('kelolauser.*') ? 'active' : '' }}"
                                             href="{{ route('kelolauser.index') }}">
                                             Admin
                                         </a>
-                                        <a class="dropdown-item {{ request()->routeIs('enduser.index', 'enduser.create', 'enduser.edit') ? 'active' : '' }}"
+                                        <a class="dropdown-item {{ request()->routeIs('enduser.*') ? 'active' : '' }}"
                                             href="{{ route('enduser.index') }}">
                                             User
                                         </a>
                                     </div>
                                 </li>
-                                <li
-                                    class="nav-item {{ request()->routeIs('alumni.index', 'alumni.create', 'alumni.edit') ? 'active' : '' }}">
+                                <li class="nav-item {{ request()->routeIs('alumni.*') ? 'active' : '' }}">
                                     <a class="nav-link" href="{{ route('alumni.index') }}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                                             <i class="fa-solid fa-graduation-cap"></i>
@@ -182,7 +181,7 @@
                                     </a>
                                 </li>
                                 <li
-                                    class="nav-item dropdown {{ request()->routeIs('prodi.index', 'prodi.create', 'prodi.edit') || request()->routeIs('peminatan.index', 'peminatan.create', 'peminatan.edit') || request()->routeIs('dosen.index', 'dosen.create', 'dosen.edit') ? 'active' : '' }}">
+                                    class="nav-item dropdown {{ request()->routeIs('prodi.*') || request()->routeIs('peminatan.*') || request()->routeIs('dosen.*') ? 'active' : '' }}">
                                     <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown"
                                         data-bs-auto-close="outside" role="button" aria-expanded="false">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -193,22 +192,22 @@
                                         </span>
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item {{ request()->routeIs('dosen.index', 'dosen.create', 'dosen.edit') ? 'active' : '' }}"
+                                        <a class="dropdown-item {{ request()->routeIs('dosen.*') ? 'active' : '' }}"
                                             href="{{ route('dosen.index') }}">
                                             Dosen
                                         </a>
-                                        <a class="dropdown-item {{ request()->routeIs('prodi.index', 'prodi.create', 'prodi.edit') ? 'active' : '' }}"
+                                        <a class="dropdown-item {{ request()->routeIs('prodi.*') ? 'active' : '' }}"
                                             href="{{ route('prodi.index') }}">
                                             Program Studi
                                         </a>
-                                        <a class="dropdown-item {{ request()->routeIs('peminatan.index', 'peminatan.create', 'peminatan.edit') ? 'active' : '' }}"
+                                        <a class="dropdown-item {{ request()->routeIs('peminatan.*') ? 'active' : '' }}"
                                             href="{{ route('peminatan.index') }}">
                                             Peminatan
                                         </a>
                                     </div>
                                 </li>
                                 <li
-                                    class="nav-item dropdown {{ request()->routeIs('berita.index', 'berita.create', 'berita.edit') || request()->routeIs('gallery.index', 'gallery.create', 'gallery.edit') || request()->routeIs('Video.index', 'Video.create', 'Video.edit') ? 'active' : '' }}">
+                                    class="nav-item dropdown {{ request()->routeIs('berita.*') || request()->routeIs('gallery.*') || request()->routeIs('Video.*') ? 'active' : '' }}">
                                     <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown"
                                         data-bs-auto-close="outside" role="button" aria-expanded="false">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -219,21 +218,21 @@
                                         </span>
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item {{ request()->routeIs('berita.index', 'berita.create', 'berita.edit') ? 'active' : '' }}"
+                                        <a class="dropdown-item {{ request()->routeIs('berita.*') ? 'active' : '' }}"
                                             href="{{ route('berita.index') }}">
                                             Berita
                                         </a>
-                                        <a class="dropdown-item {{ request()->routeIs('gallery.index', 'gallery.create', 'gallery.edit') ? 'active' : '' }}"
+                                        <a class="dropdown-item {{ request()->routeIs('gallery.*') ? 'active' : '' }}"
                                             href="{{ route('gallery.index') }}">
                                             Foto
                                         </a>
-                                        <a class="dropdown-item {{ request()->routeIs('Video.index', 'Video.create', 'Video.edit') ? 'active' : '' }}"
+                                        <a class="dropdown-item {{ request()->routeIs('Video.*') ? 'active' : '' }}"
                                             href="{{ route('Video.index') }}">
                                             Video
                                         </a>
                                     </div>
                                 </li>
-                                {{-- <li class="nav-item ">
+                                <li class="nav-item ">
                                     <a class="nav-link" href="#">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                                             <i class="fa-solid fa-magnifying-glass"></i>
@@ -242,9 +241,9 @@
                                             Alumni Tracer
                                         </span>
                                     </a>
-                                </li> --}}
+                                </li>
                                 <li
-                                    class="nav-item dropdown {{ request()->routeIs('cooperation.index', 'cooperation.create', 'cooperation.edit') || request()->routeIs('cooperation-type.index', 'cooperation-type.create', 'cooperation-type.edit') ? 'active' : '' }}">
+                                    class="nav-item dropdown {{ request()->routeIs('cooperation.*') || request()->routeIs('cooperation-type.*') ? 'active' : '' }}">
                                     <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown"
                                         data-bs-auto-close="outside" role="button" aria-expanded="false">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -255,18 +254,18 @@
                                         </span>
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item {{ request()->routeIs('cooperation-type.index', 'cooperation-type.create', 'cooperation-type.edit') ? 'active' : '' }}"
+                                        <a class="dropdown-item {{ request()->routeIs('cooperation-type.*') ? 'active' : '' }}"
                                             href="{{ route('cooperation-type.index') }}">
                                             Jenis Kerjasama
                                         </a>
-                                        <a class="dropdown-item {{ request()->routeIs('cooperation.index') ? 'active' : '' }}"
-                                            href="{{ route('cooperation.index', 'cooperation.create', 'cooperation.edit') }}">
+                                        <a class="dropdown-item {{ request()->routeIs('cooperation.*') ? 'active' : '' }}"
+                                            href="{{ route('cooperation.index') }}">
                                             Kerjasama
                                         </a>
                                     </div>
                                 </li>
                                 <li
-                                    class="nav-item dropdown {{ request()->routeIs('kategori_mahasiswa.index', 'kategori_mahasiswa.create', 'kategori_mahasiswa.edit') || request()->routeIs('mahasiswa.index', 'mahasiswa.create', 'mahasiswa.edit') ? 'active' : '' }}">
+                                    class="nav-item dropdown {{ request()->routeIs('kategori_mahasiswa.*') || request()->routeIs('mahasiswa.*') ? 'active' : '' }}">
                                     <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown"
                                         data-bs-auto-close="outside" role="button" aria-expanded="false">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -277,18 +276,17 @@
                                         </span>
                                     </a>
                                     <div
-                                        class="dropdown-menu {{ request()->routeIs('kategori_mahasiswa.index', 'kategori_mahasiswa.create', 'kategori_mahasiswa.edit') ? 'active' : '' }}">
+                                        class="dropdown-menu {{ request()->routeIs('kategori_mahasiswa.*') ? 'active' : '' }}">
                                         <a class="dropdown-item " href="{{ route('kategori_mahasiswa.index') }}">
                                             Kategori Mahasiswa
                                         </a>
-                                        <a class="dropdown-item {{ request()->routeIs('mahasiswa.index', 'mahasiswa.create', 'mahasiswa.edit') ? 'active' : '' }} }} "
+                                        <a class="dropdown-item {{ request()->routeIs('mahasiswa.*') ? 'active' : '' }} }} "
                                             href="{{ route('mahasiswa.index') }}">
                                             Mahasiswa
                                         </a>
                                     </div>
                                 </li>
-                                <li
-                                    class="nav-item {{ request()->routeIs('jobfair.index') || request()->routeIs('jobfair.edit') || request()->routeIs('jobfair.create') ? 'active' : '' }} ">
+                                <li class="nav-item {{ request()->routeIs('jobfair.*') ? 'active' : '' }} ">
                                     <a class="nav-link" href="{{ route('jobfair.index') }}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                                             <i class="fa-solid fa-briefcase"></i>

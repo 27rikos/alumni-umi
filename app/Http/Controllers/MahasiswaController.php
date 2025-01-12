@@ -9,9 +9,19 @@ use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = Mahasiswa::with('prodi_mahasiswa')->get();
+        $parameter = $request->input('search');
+        $data = Mahasiswa::with('prodi_mahasiswa')
+            ->when($parameter, function ($query) use ($parameter) {
+                $query->where(function ($q) use ($parameter) {
+                    $q->where('npm', 'like', '%' . $parameter . '%')
+                        ->orWhere('nama', 'like', '%' . $parameter . '%')
+                        ->orWhere('kategori', 'like', '%' . $parameter . '%')
+                        ->orWhere('tahun_masuk', 'like', '%' . $parameter . '%');
+                });
+            })
+            ->paginate(25);
         return view('admin.mahasiswa.index', compact('data'));
     }
 
