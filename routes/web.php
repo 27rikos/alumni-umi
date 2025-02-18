@@ -14,6 +14,7 @@ use App\Http\Controllers\FalkutasController;
 use App\Http\Controllers\FaQController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\JenisKerjaSamaController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KategoriMahasiswaController;
 use App\Http\Controllers\KelolaUserController;
 use App\Http\Controllers\KerjasamaStatus;
@@ -28,6 +29,7 @@ use App\Http\Controllers\PencarianController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\RegisAlumniController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TracerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\viewberitaController;
@@ -79,6 +81,8 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::post('import-mahasiswa', [ExcelMahasiswaController::class, 'import'])->name('import_data_mahasiswa');
     Route::post('export-mahasiswa', [ExcelMahasiswaController::class, 'export'])->name('export-mahasiswa');
     Route::resource('jobfair', LowonganController::class);
+    Route::resource('tracer-alumni', TracerController::class);
+    Route::resource('kategori-berita',KategoriController::class);
 });
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -112,5 +116,4 @@ Route::middleware(['auth', 'user-access:fakultas'])->group(function () {
     Route::post('zip-download-fakultas', [ZipController::class, 'fakultas_images'])->name('zip-download-fakultas');
     Route::resource('kerjasama-fakultas', FakultasKerjasamaController::class);
     Route::resource('kemahasiswaan-fakultas', FakultasKemahasiswaanController::class);
-
 });

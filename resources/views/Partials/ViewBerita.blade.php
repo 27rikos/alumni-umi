@@ -1,29 +1,33 @@
 @extends('Partials.Frontpage')
 @section('title', 'Berita')
 @section('content')
-    <section>
-        <div class="container pt-5">
-            <div class="row mt-5">
-                <div class="col-md-8">
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-8">
                     <article class="mb-5">
-                        <img src="{{ asset('images/berita/' . $data->file) }}" id="main-img" alt=""
-                            class="mb-3 img-fluid" loading="lazy" />
-                        <h3>{{ $data->judul }}</h3>
-                        <div class="d-flex gap-2">
-                            <p>
-                                <i class="fa-regular fa-user mr-2"></i> <span>{{ $data->penulis }}</span>
-                            </p>
-                            @php
-                                $dateString = $data->tanggal;
-                                $tanggal = strftime('%d %B %Y', strtotime($dateString));
-                            @endphp
+                        <img src="{{ asset('images/berita/' . $data->file) }}" alt="{{ $data->judul }}"
+                            class="img-fluid rounded mb-3 w-100" loading="lazy">
 
-                            <p>
-                                <i class="fa-solid fa-calendar-days mx-2"></i><span>{{ $tanggal }}</span>
-                            </p>
+                        <h2 class="fw-bold mb-3">{{ $data->judul }}</h2>
+
+                        <div class="d-flex gap-3 text-secondary mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fa-regular fa-user me-2"></i>
+                                <span>{{ $data->penulis }}</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-calendar-days me-2"></i>
+                                <span>{{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('d F Y') }}</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-tag me-2"></i>
+                                <span>{{ $data->kategori->nama }}</span>
+                            </div>
                         </div>
+
                         <!-- AddToAny BEGIN -->
-                        <div class="a2a_kit a2a_kit_size_32 a2a_default_style mb-3">
+                        <div class="a2a_kit a2a_kit_size_32 a2a_default_style mb-4">
                             <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
                             <a class="a2a_button_facebook"></a>
                             <a class="a2a_button_whatsapp"></a>
@@ -33,30 +37,41 @@
                         </div>
                         <script async src="https://static.addtoany.com/menu/page.js"></script>
                         <!-- AddToAny END -->
-                        <article style="text-align: justify" class="mb-3"> {!! $data->konten !!}</article>
 
+                        <div class="content-body">
+                            {!! $data->konten !!}
+                        </div>
                     </article>
                 </div>
-                <div class="col-md-4">
-                    <h3>Berita lainnya</h3>
-                    <hr />
-                    @forelse ($all as $item)
-                        <div class="row">
-                            <div class="col">
-                                <div class="">
-                                    <div class="img-hover-zoom">
-                                        <img src="{{ asset('images/berita/' . $item->file) }}" id="sc-img"
-                                            class="rounded img-fluid" alt="" />
-                                    </div>
-                                    <a href="/read/{{ $item->id }}">
-                                        <h6 class="mt-2">{{ $item->judul }}</h6>
-                                    </a>
-                                    <p>{{ $item->created_at->diffForHumans() }}</p>
+
+                <div class="col-lg-4">
+                    <div style="top: 2rem;">
+                        <h3 class="fw-bold mb-3">Berita lainnya</h3>
+                        <hr class="mb-4">
+
+                        @forelse ($all as $item)
+                            <div class="card border-0 mb-4">
+                                <div class="overflow-hidden rounded">
+                                    <img src="{{ asset('images/berita/' . $item->file) }}" class="card-img-top img-fluid"
+                                        alt="{{ $item->judul }}">
+                                </div>
+                                <div class="card-body px-0">
+                                    <span class="badge bg-primary mb-2">{{ $item->kategori->nama }}</span>
+                                    <h5 class="card-title">
+                                        <a href="/read/{{ $item->id }}"
+                                            class="text-decoration-none text-dark stretched-link">
+                                            {{ $item->judul }}
+                                        </a>
+                                    </h5>
+                                    <p class="card-text text-secondary">
+                                        {{ $item->created_at->diffForHumans() }}
+                                    </p>
                                 </div>
                             </div>
-                        </div>
-                    @empty
-                    @endforelse
+                        @empty
+                            <p class="text-muted">Tidak ada berita lainnya</p>
+                        @endforelse
+                    </div>
                 </div>
             </div>
         </div>

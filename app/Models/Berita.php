@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,5 +16,11 @@ class Berita extends Model
         'tanggal',
         'konten',
         'file',
+        'kategori_id',
     ];
+
+    public function kategori()
+    {
+        return $this->belongsTo(Category::class, 'kategori_id');
+    }
 }

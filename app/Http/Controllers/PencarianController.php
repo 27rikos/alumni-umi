@@ -1,34 +1,24 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Alumni;
+use App\Models\Prodi;
 use Illuminate\Http\Request;
 
 class PencarianController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $datas = Alumni::with('minat', 'prodis')->where('status', 1)->Paginate(10);
-        return view('FrontPage.Pencarian', compact(['datas']));
-    }
-
-    public function cari(Request $request)
-    {
-        $cari = $request->input('cari');
-
-        // Cek apakah $cari bernilai null atau kosong
-        if (is_null($cari) || trim($cari) === '') {
-            return back()->with('error', 'Kata kunci pencarian tidak boleh kosong.');
-        }
-
-        $datas = Alumni::where('stambuk', 'like', "%" . $cari . "%")
-            ->orWhere('npm', 'like', "%" . $cari . "%")
-            ->orWhere('nama', 'like', "%" . $cari . "%")
-            ->where('status', 1)
-            ->paginate();
-
-        return view('FrontPage.Pencarian', compact('datas'));
+        $search = $request->input('search');
+        $prodis = $request->input('prodi');
+        $prodi  = Prodi::all();
+        $datas  = Alumni::with('minat', 'prodis')->where('status', 1)->when($search, function ($query) use ($search) {
+            return $query->where('nama', 'like', '%' . $search . '%')->orWhere('npm', 'like', '%' . $search . '%');
+        })
+            ->when($prodis, function ($query) use ($prodis) {
+                return $query->where('prodi', $prodis);
+            })->paginate(10);
+        return view('FrontPage.Pencarian', compact('prodi', 'datas'));
     }
 
 }

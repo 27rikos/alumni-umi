@@ -43,6 +43,16 @@
                                 value="{{ $find->judul }}">
                         </div>
                         <div class="mb-3">
+                            <label for="kategori_id" class="form-label">kategori</label>
+                            <select name="kategori_id" id="kategori_id" class="form-select">
+                                <option value="">Pilih</option>
+                                @foreach ($kategori as $item)
+                                    <option value="{{ $item->id }}"{{ $find->kategori_id == $item->id ? 'selected' : '' }}>
+                                        {{ $item->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label for="penulis" class="form-label">Penulis</label>
                             <input type="text" class="form-control" id="penulis" name="penulis" required
                                 value="{{ $find->penulis }}">

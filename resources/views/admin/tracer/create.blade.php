@@ -10,15 +10,15 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <!-- Page Title -->
                             <h2 class="page-title mt-3">
-                                Berita
+                                Data Pertanyaan Tracer Alumni
                             </h2>
 
                             <!-- Breadcrumb positioned to the right -->
                             <nav aria-label="breadcrumb" class="ms-auto">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('berita.index') }}">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Kelola Berita</li>
-                                    <li class="breadcrumb-item active" aria-current="page">Tambah Berita</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Tracer Alumni</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Tambah Pertanyaan</li>
                                 </ol>
                             </nav>
                         </div>
@@ -30,24 +30,15 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('berita.index') }}" class="btn btn-primary ms-auto"><i
+                    <a href="{{ route('tracer-alumni.index') }}" class="btn btn-primary ms-auto"><i
                             class="fa-solid fa-arrow-left me-2"></i>Kembali</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('berita.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('tracer-alumni.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="judul" class="form-label">Judul Berita</label>
                             <input type="text" class="form-control" id="judul" name="judul" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="kategori_id" class="form-label">kategori</label>
-                            <select name="kategori_id" id="kategori_id" class="form-select">
-                                <option value="">Pilih</option>
-                                @foreach ($kategori as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                @endforeach
-                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="penulis" class="form-label">Penulis</label>
@@ -61,12 +52,6 @@
                             <label for="x" class="form-label">Konten</label>
                             <textarea id="tinymce-mytextarea" name="konten"></textarea>
                         </div>
-                        <div class="mb-3">
-                            <label for="file" class="form-label">Foto</label>
-                            <input type="file" class="form-control" id="image-input" accept="image/*" name="file">
-                        </div>
-                        <img id="image-preview" src="" class="img-fluid rounded" alt="Image Preview"
-                            style="display:none; width: 200px; height: auto;">
                         <div class="mt-3">
                             <button class="btn btn-primary" type="submit">Simpan</button>
                         </div>
@@ -76,38 +61,6 @@
             </div>
         </div>
     </div>
-    {{-- preview foto --}}
-    <script>
-        document.getElementById('image-input').addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const imgElement = document.createElement("img");
-                    imgElement.src = event.target.result;
-                    imgElement.onload = function(e) {
-                        const canvas = document.createElement("canvas");
-                        const MAX_WIDTH = 800;
-
-                        const scaleSize = MAX_WIDTH / e.target.width;
-                        canvas.width = MAX_WIDTH;
-                        canvas.height = e.target.height * scaleSize;
-
-                        const ctx = canvas.getContext("2d");
-                        ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height);
-
-                        const srcEncoded = ctx.canvas.toDataURL(e.target, "image/jpeg");
-
-                        // Tampilkan gambar
-                        document.getElementById('image-preview').src = srcEncoded;
-                        document.getElementById('image-preview').style.display = 'block';
-                    }
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
-    {{-- end  --}}
     @push('MCE')
         <script>
             // @formatter:off
