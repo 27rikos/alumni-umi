@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('style.css') }}">
+    <link rel="stylesheet" href="{{ asset('main.css') }}">
 </head>
 
 <body>
@@ -62,16 +62,16 @@
             <div class="row">
                 <div class="col-md-4">
                     <h5>Kontak</h5>
-                    <p>Email: info@siakad.ac.id<br>
-                        Telp: (021) 1234567<br>
-                        Alamat: Jl. Pendidikan No. 123</p>
+                    <p>
+                        Alamat: Jl Hang Tuah no 8, Madras Hulu Medan Polonia, Medan, 20151 Phone. +62 61 415-7882 Fax.
+                        +62 61 456-7533</p>
                 </div>
                 <div class="col-md-4">
                     <h5>Link Cepat</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">Portal Akademik</a></li>
-                        <li><a href="#" class="text-white">E-Learning</a></li>
-                        <li><a href="#" class="text-white">Perpustakaan</a></li>
+                        <li><a href="{{ route('pencarian') }}" class="text-white">Alumni</a></li>
+                        <li><a href="{{ route('old-news') }}" class="text-white">Berita</a></li>
+                        <li><a href="{{ route('foto') }}" class="text-white">Foto</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
@@ -85,7 +85,7 @@
             </div>
             <hr class="mt-4 bg-light">
             <div class="text-center">
-                <p class="mb-0">&copy; 2025 SIAKAD. All rights reserved.</p>
+                <p class="mb-0">&copy; 2025 SIKAK. All rights reserved.</p>
             </div>
         </div>
     </footer>
