@@ -1,5 +1,5 @@
 @extends('Partials.AdminDashboard')
-@section('title', 'Kelola Admin')
+@section('title', 'Kelola Kerjasama')
 @section('content')
     <div class="container-xl min-vh-100">
         <div class="page-header d-print-none mb-5">

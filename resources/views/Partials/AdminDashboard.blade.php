@@ -207,7 +207,7 @@
                                     </div>
                                 </li>
                                 <li
-                                    class="nav-item dropdown {{ request()->routeIs('berita.*') || request()->routeIs('gallery.*') || request()->routeIs('Video.*') ? 'active' : '' }}">
+                                    class="nav-item dropdown {{ request()->routeIs('berita.*') || request()->routeIs('gallery.*') || request()->routeIs('Video.*') || request()->routeIs('kategori-berita.*') ? 'active' : '' }}">
                                     <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown"
                                         data-bs-auto-close="outside" role="button" aria-expanded="false">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -230,17 +230,32 @@
                                             href="{{ route('Video.index') }}">
                                             Video
                                         </a>
+                                        <a class="dropdown-item {{ request()->routeIs('kategori-berita.*') ? 'active' : '' }}"
+                                            href="{{ route('kategori-berita.index') }}">
+                                            Kategori
+                                        </a>
                                     </div>
                                 </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="#">
+                                <li
+                                    class="nav-item dropdown {{ request()->routeIs('tracer-alumni.*') ? 'active' : '' }}">
+                                    <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown"
+                                        data-bs-auto-close="outside" role="button" aria-expanded="false">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                                             <i class="fa-solid fa-magnifying-glass"></i>
                                         </span>
                                         <span class="nav-link-title">
-                                            Alumni Tracer
+                                            Tracer Alumni
                                         </span>
                                     </a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item {{ request()->routeIs('tracer-alumni.*') ? 'active' : '' }}"
+                                            href="{{ route('tracer-alumni.index') }}">
+                                            Alumni
+                                        </a>
+                                        <a class="dropdown-item" href="">
+                                            Tracer Kedokteran
+                                        </a>
+                                    </div>
                                 </li>
                                 <li
                                     class="nav-item dropdown {{ request()->routeIs('cooperation.*') || request()->routeIs('cooperation-type.*') ? 'active' : '' }}">

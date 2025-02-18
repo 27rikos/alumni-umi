@@ -40,8 +40,7 @@
                                 <th>Judul</th>
                                 <th>Penulis</th>
                                 <th>Tanggal</th>
-                                <th>Konten</th>
-                                <th>Foto</th>
+                                <th>kategori</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -51,14 +50,14 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->judul }}</td>
                                     <td>{{ $item->penulis }}</td>
-                                    <td>{{ $item->tanggal }}</td>
-                                    <td style="text-align: justify">{!! $item->konten !!}</td>
-                                    <td>
-                                        <img src="{{ asset('images/berita/' . $item->file) }}" alt="Foto Berita"
-                                            class="img-fluid" style="width: 100%; height:100%">
-                                    </td>
-                                    <td class="d-flex">
-                                        <a href="{{ route('berita.edit', $item->id) }}" class="btn btn-primary me-2"
+                                    <td>{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}</td>
+                                    <td>{{ $item->kategori->nama }}</td>
+                                    <td class="d-flex gap-1">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#detail{{ $item->id }}">
+                                            <i class="fa-regular fa-eye"></i>
+                                        </button>
+                                        <a href="{{ route('berita.edit', $item->id) }}" class="btn btn-primary"
                                             role="button">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
@@ -80,4 +79,31 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    @foreach ($berita as $item)
+        <div class="modal fade" id="detail{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-3" id="exampleModalLabel">Detail</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-muted">Ditulis oleh <strong>{{ $item->penulis }}</strong> |
+                            {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}
+                        </p>
+                        <img src="{{ asset('images/berita/' . $item->file) }}" alt="Foto Berita" class="img-fluid mb-3"
+                            style="width: 100%; height: auto;">
+                        <div style="text-align: justify;">
+                            {!! $item->konten !!}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection

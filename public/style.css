@@ -1,22 +1,86 @@
-article {
-    text-align: justify;
+  /* Custom styles */
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
-#main-img {
-    width: 100%;
-    height: 100%;
+.navbar-custom {
+    background-color: #1a237e;
 }
-#sc-img {
-    width: 100%;
-    height: 100%;
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+    color: white;
 }
-.img-hover-zoom {
-    overflow: hidden; /* [1.2] Hide the overflowing of child elements */
+.navbar-custom .nav-link:hover {
+    color: #e3f2fd;
 }
-.img-hover-zoom img {
-    transition: transform 0.5s ease;
+.hero {
+    background: linear-gradient(135deg, #1a237e 0%, #303f9f 100%);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+.btn-custom {
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background-color: #FF6B6B;
+    color: white;
+    border: none;
+}
+.btn-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background-color: #FF5252;
+    color: white;
 }
 
-/* [3] Finally, transforming the image when container gets hovered */
-.img-hover-zoom:hover img {
-    transform: scale(1.1);
+.btn-primary-custom {
+    background-color: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+.btn-primary-custom:hover {
+    background-color: #FF5252;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.min-vh-75 {
+    min-height: 75vh;
+}
+.news-card {
+    transition: transform 0.3s;
+    position: relative;
+}
+.news-card:hover {
+    transform: translateY(-5px);
+}
+.news-category {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background-color: rgba(255, 107, 107, 0.9);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1;
+}
+.card-img-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+.card-img-top {
+    transition: transform 0.3s;
+}
+.news-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+.footer {
+    background-color: #1a237e;
+    color: white;
 }

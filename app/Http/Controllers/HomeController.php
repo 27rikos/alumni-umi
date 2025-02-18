@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Alumni;
@@ -35,32 +34,34 @@ class HomeController extends Controller
             ->groupBy('stambuk')
             ->get();
         $mahasiswa = Mahasiswa::count();
-        // Prepare data for the chart
+                                                     // Prepare data for the chart
         $categories = $alumniData->pluck('stambuk'); // List of stambuk
-        $data = $alumniData->pluck('total'); // Count of alumni in each stambu
-        $alumni = Alumni::select(['id'])->count();
-        $pending = Alumni::where('status', 0)->count();
-        $user = User::count();
+        $data       = $alumniData->pluck('total');   // Count of alumni in each stambu
+        $alumni     = Alumni::select(['id'])->count();
+        $pending    = Alumni::where('status', 0)->count();
+        $user       = User::count();
 
-        // Ambil data mahasiswa berdasarkan kota dan hitung jumlahnya
-        $data_mahasiswa = Mahasiswa::select('kota', 'tahun_masuk', DB::raw('count(*) as total'))
-            ->groupBy('kota', 'tahun_masuk')
+        // Ambil data mahasiswa berdasarkan kota, fakultas, dan hitung jumlahnya
+        $data_mahasiswa = Mahasiswa::select('kota', 'fakultas', 'tahun_masuk', DB::raw('count(*) as total'))
+            ->groupBy('kota', 'fakultas', 'tahun_masuk')
             ->get();
 
-        // Format data_mahasiswa untuk ApexCharts
-        $labels = $data_mahasiswa->pluck('kota'); // Kota-kota
-        $years = $data_mahasiswa->pluck('tahun_masuk'); // Tahun masuk
-        $values = $data_mahasiswa->pluck('total'); // Jumlah mahasiswa per kota dan tahun masuk
+// Format data_mahasiswa untuk ApexCharts
+        $labels    = $data_mahasiswa->pluck('kota');        // Kota-kota
+        $faculties = $data_mahasiswa->pluck('fakultas');    // Fakultas
+        $years     = $data_mahasiswa->pluck('tahun_masuk'); // Tahun masuk
+        $values    = $data_mahasiswa->pluck('total');       // Jumlah mahasiswa per kota, fakultas, dan tahun masuk
 
-        // Mengambil data jumlah mahasiswa berdasarkan provinsi
-        $provinces = Mahasiswa::select('provinsi', 'tahun_masuk', DB::raw('count(*) as jumlah'))
-            ->groupBy('provinsi', 'tahun_masuk')
+// Mengambil data jumlah mahasiswa berdasarkan provinsi dan fakultas
+        $provinces = Mahasiswa::select('provinsi', 'fakultas', 'tahun_masuk', DB::raw('count(*) as jumlah'))
+            ->groupBy('provinsi', 'fakultas', 'tahun_masuk')
             ->get();
 
-        // Menyiapkan data untuk chart
-        $province_names = $provinces->pluck('provinsi')->toArray(); // Nama-nama provinsi
-        $province_years = $provinces->pluck('tahun_masuk')->toArray(); // Tahun masuk
-        $province_values = $provinces->pluck('jumlah')->toArray(); // Jumlah mahasiswa per provinsi dan tahun masuk
+// Menyiapkan data untuk chart
+        $province_names     = $provinces->pluck('provinsi')->toArray();    // Nama-nama provinsi
+        $province_faculties = $provinces->pluck('fakultas')->toArray();    // Fakultas
+        $province_years     = $provinces->pluck('tahun_masuk')->toArray(); // Tahun masuk
+        $province_values    = $provinces->pluck('jumlah')->toArray();      // Jumlah mahasiswa per provinsi, fakultas, dan tahun masuk
 
         // Mengambil jumlah mahasiswa per tahun_masuk
         $mahasiwa_pertahun_masuk = Mahasiswa::selectRaw('tahun_masuk, COUNT(*) as jumlah')
@@ -69,13 +70,13 @@ class HomeController extends Controller
             ->get();
 
         // Menyediakan mahasiwa_pertahun_masuk ke view
-        $yearstahunmasuk = $mahasiwa_pertahun_masuk->pluck('tahun_masuk');
+        $yearstahunmasuk  = $mahasiwa_pertahun_masuk->pluck('tahun_masuk');
         $countstahunmasuk = $mahasiwa_pertahun_masuk->pluck('jumlah');
 
         return view('admin.Dashboard.Dashboard', compact([
             'labels', 'years', 'values', 'mahasiswa', 'alumni', 'pending', 'user',
             'categories', 'data', 'province_names', 'province_years', 'province_values',
-            'yearstahunmasuk', 'countstahunmasuk',
+            'yearstahunmasuk', 'countstahunmasuk', 'faculties', 'province_faculties',
         ]));
     }
 
@@ -96,10 +97,10 @@ class HomeController extends Controller
             ->pluck('total', 'stambuk');
 
         $categories = $data->keys();
-        $values = $data->values();
+        $values     = $data->values();
 
-        $alumni = Alumni::select(['id'])->where('fakultas', auth()->user()->fakultas)->count();
-        $pending = Alumni::where('status', 0)->where('fakultas', auth()->user()->fakultas)->count();
+        $alumni   = Alumni::select(['id'])->where('fakultas', auth()->user()->fakultas)->count();
+        $pending  = Alumni::where('status', 0)->where('fakultas', auth()->user()->fakultas)->count();
         $approved = Alumni::where('status', 1)->where('fakultas', auth()->user()->fakultas)->count();
 
         // Ambil data mahasiswa berdasarkan kota dan hitung jumlahnya
@@ -108,8 +109,8 @@ class HomeController extends Controller
             ->where('fakultas', $userFaculty)
             ->get();
 
-        // Format data_mahasiswa untuk ApexCharts
-        $city_labels = $data_mahasiswa->pluck('kota'); // Kota-kota
+                                                        // Format data_mahasiswa untuk ApexCharts
+        $city_labels = $data_mahasiswa->pluck('kota');  // Kota-kota
         $city_values = $data_mahasiswa->pluck('total'); // Jumlah mahasiswa per kota dan tahun masuk
 
         // Mengambil data jumlah mahasiswa berdasarkan provinsi
@@ -118,9 +119,9 @@ class HomeController extends Controller
             ->where('fakultas', $userFaculty)
             ->get();
 
-        // Menyiapkan data untuk chart
-        $province_names = $provinces->pluck('provinsi')->toArray(); // Nama-nama provinsi
-        $province_values = $provinces->pluck('jumlah')->toArray(); // Jumlah mahasiswa per provinsi dan tahun masuk
+                                                                     // Menyiapkan data untuk chart
+        $province_names  = $provinces->pluck('provinsi')->toArray(); // Nama-nama provinsi
+        $province_values = $provinces->pluck('jumlah')->toArray();   // Jumlah mahasiswa per provinsi dan tahun masuk
 
         return view('falkutas.dashboard.index', compact('city_labels', 'city_values', 'province_names', 'province_values', 'alumni', 'pending', 'approved', 'categories', 'values'));
     }
